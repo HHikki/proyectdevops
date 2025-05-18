@@ -18,6 +18,7 @@ function App() {
         </p>
       </div>
 
+      <p className='font-bold'>Esto es una prueba</p>
       <Button onClick={()=>console.log("Hola")} >touch me</Button>
       
     </>
