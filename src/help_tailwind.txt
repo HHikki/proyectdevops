@@ -1,0 +1,364 @@
+/*
+    help.css - Lista de clases utilitarias de Tailwind CSS
+
+    Layout:
+        - Clases para controlar la disposición de los elementos (flex, grid, block, inline, container, ocultar, márgenes y padding automáticos y personalizados, espacios entre elementos, ancho y alto completos o máximos).
+
+    Flexbox & Grid:
+        - Utilidades para manipular la dirección, alineación y distribución de elementos en contenedores flex y grid, así como el número de columnas, filas y espacios entre ellos.
+
+    Tipografía:
+        - Clases para definir tamaño de texto, peso de fuente, estilo (itálica, mayúsculas, minúsculas, capitalización), espaciado entre letras, interlineado, alineación y color del texto.
+
+    Fondos:
+        - Utilidades para establecer colores de fondo sólidos y degradados, así como colores de inicio y fin para los degradados.
+
+    Bordes:
+        - Clases para agregar bordes, definir su grosor, color, redondear esquinas y aplicar bordes a lados específicos.
+
+    Efectos:
+        - Utilidades para sombras, opacidad, transiciones, animaciones de duración y tipo de easing, así como estilos en hover y focus (enfocado).
+
+    Tamaños:
+        - Clases para controlar el ancho y alto de los elementos, incluyendo proporciones, valores fijos, máximos y mínimos.
+
+    Posicionamiento:
+        - Utilidades para posicionar elementos de manera relativa, absoluta o fija, y para definir su ubicación y nivel de superposición (z-index).
+
+    Misceláneos:
+        - Clases para el cursor, selección de texto, manejo de desbordamiento, divisores entre elementos y estilos de listas.
+
+    Prefijos responsivos:
+        - sm:, md:, lg:, xl:, 2xl: permiten aplicar estilos según el tamaño de pantalla (responsive design).
+
+    Ejemplos de uso responsivo:
+        - Clases combinadas con prefijos para cambiar estilos en diferentes tamaños de pantalla.
+*/
+/* Basic Tailwind CSS utility classes to learn and apply */
+
+/* Layout */
+.flex
+.grid
+.block
+.inline-block
+.inline
+.hidden
+.container
+.mx-auto
+.my-auto
+.px-4
+.py-2
+.m-4
+.mt-2
+.mb-2
+.ml-2
+.mr-2
+.space-x-4
+.space-y-4
+.w-full
+.h-full
+.min-w-0
+.max-w-xs
+.max-w-md
+.max-w-lg
+.max-w-xl
+.max-w-2xl
+.max-w-4xl
+.max-w-7xl
+
+/* Flexbox & Grid */
+.flex-row
+.flex-col
+.items-center
+.items-start
+.items-end
+.justify-center
+.justify-between
+.justify-around
+.gap-4
+.grid-cols-1
+.grid-cols-2
+.grid-cols-3
+.grid-cols-4
+.col-span-2
+.row-span-2
+
+/* Typography */
+.text-xs
+.text-sm
+.text-base
+.text-lg
+.text-xl
+.text-2xl
+.text-4xl
+.font-thin
+.font-light
+.font-normal
+.font-medium
+.font-semibold
+.font-bold
+.italic
+.uppercase
+.lowercase
+.capitalize
+.tracking-wide
+.leading-tight
+.text-left
+.text-center
+.text-right
+.text-gray-500
+.text-blue-600
+.text-red-500
+
+/* Backgrounds */
+.bg-white
+.bg-gray-100
+.bg-gray-200
+.bg-blue-500
+.bg-green-500
+.bg-red-500
+.bg-yellow-300
+.bg-gradient-to-r
+.from-blue-400
+.to-green-400
+
+/* Borders */
+.border
+.border-2
+.border-4
+.border-gray-300
+.border-blue-500
+.rounded
+.rounded-md
+.rounded-lg
+.rounded-full
+.border-t
+.border-b
+.border-l
+.border-r
+
+/* Effects */
+.shadow
+.shadow-md
+.shadow-lg
+.opacity-50
+.opacity-75
+.transition
+.duration-300
+.ease-in
+.ease-out
+.hover:bg-blue-600
+.hover:text-white
+.focus:outline-none
+.focus:ring-2
+.focus:ring-blue-500
+
+/* Sizing */
+/* .w-1/2
+.w-1/3
+.w-1/4 */
+.h-8
+.h-16
+.max-h-96
+.min-h-screen
+
+/* Position */
+.relative
+.absolute
+.fixed
+.top-0
+.left-0
+.right-0
+.bottom-0
+.z-10
+.z-50
+
+/* Misc */
+.cursor-pointer
+.select-none
+.overflow-hidden
+.overflow-x-auto
+.overflow-y-scroll
+.divide-x
+.divide-y
+.divide-gray-200
+.list-none
+.list-disc
+.list-decimal
+
+/* Responsive prefixes */
+/* .sm:
+.md:
+.lg:
+.xl:
+.2xl: */
+
+/* Example: */
+.sm:text-sm
+.md:text-base
+.lg:text-lg
+.xl:text-xl
+/* Basic Tailwind CSS utility classes to learn and apply */
+
+/* Layout */
+.flex
+.grid
+.block
+.inline-block
+.inline
+.hidden
+.container
+.mx-auto
+.my-auto
+.px-4
+.py-2
+.m-4
+.mt-2
+.mb-2
+.ml-2
+.mr-2
+.space-x-4
+.space-y-4
+.w-full
+.h-full
+.min-w-0
+.max-w-xs
+.max-w-md
+.max-w-lg
+.max-w-xl
+.max-w-2xl
+.max-w-4xl
+.max-w-7xl
+
+/* Flexbox & Grid */
+.flex-row
+.flex-col
+.items-center
+.items-start
+.items-end
+.justify-center
+.justify-between
+.justify-around
+.gap-4
+.grid-cols-1
+.grid-cols-2
+.grid-cols-3
+.grid-cols-4
+.col-span-2
+.row-span-2
+
+/* Typography */
+.text-xs
+.text-sm
+.text-base
+.text-lg
+.text-xl
+.text-2xl
+.text-4xl
+.font-thin
+.font-light
+.font-normal
+.font-medium
+.font-semibold
+.font-bold
+.italic
+.uppercase
+.lowercase
+.capitalize
+.tracking-wide
+.leading-tight
+.text-left
+.text-center
+.text-right
+.text-gray-500
+.text-blue-600
+.text-red-500
+
+/* Backgrounds */
+.bg-white
+.bg-gray-100
+.bg-gray-200
+.bg-blue-500
+.bg-green-500
+.bg-red-500
+.bg-yellow-300
+.bg-gradient-to-r
+.from-blue-400
+.to-green-400
+
+/* Borders */
+.border
+.border-2
+.border-4
+.border-gray-300
+.border-blue-500
+.rounded
+.rounded-md
+.rounded-lg
+.rounded-full
+.border-t
+.border-b
+.border-l
+.border-r
+
+/* Effects */
+.shadow
+.shadow-md
+.shadow-lg
+.opacity-50
+.opacity-75
+.transition
+.duration-300
+.ease-in
+.ease-out
+.hover:bg-blue-600
+.hover:text-white
+.focus:outline-none
+.focus:ring-2
+.focus:ring-blue-500
+
+/* Sizing */
+/* .w-1/2
+.w-1/3
+.w-1/4 */
+.h-8
+.h-16
+.max-h-96
+.min-h-screen
+
+/* Position */
+.relative
+.absolute
+.fixed
+.top-0
+.left-0
+.right-0
+.bottom-0
+.z-10
+.z-50
+
+/* Misc */
+.cursor-pointer
+.select-none
+.overflow-hidden
+.overflow-x-auto
+.overflow-y-scroll
+.divide-x
+.divide-y
+.divide-gray-200
+.list-none
+.list-disc
+.list-decimal
+
+/* Responsive prefixes
+.sm:
+.md:
+.lg:
+.xl:
+.2xl: */
+
+/* Example: */
+.sm:text-sm
+.md:text-base
+.lg:text-lg
+.xl:text-xl
