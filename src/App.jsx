@@ -14,7 +14,7 @@ function App() {
       <h1 className="text-green-700 font-bold" >PRISMA</h1>
       <div className="card">
         <p>
-          Hola Soy Edinson Este es el inicio de la pagina prisma por chicos de <code>undc</code>
+          Hola No se Este es el inicio de la pagina prisma por chicos de <code>undc</code>
         </p>
       </div>
 
