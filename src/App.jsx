@@ -8,7 +8,6 @@ function App() {
 
   return (
     <>
-      <h1>Bienvenido a mi aplicación</h1>
       <Navbar />
       <Button_A />
       <div className="flex items-center justify-center h-[400px]">

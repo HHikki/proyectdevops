@@ -3,6 +3,6 @@ import { render, screen } from "@testing-library/react";
 import Button_A from "../components/Button_A";
 
 test("Renderiza sin errores", () => {
-  render(<Button_AButton_A/>);
+  render(<Button_A/>);
   //expect(screen.getByRole("heading")).toBeInTheDocument();
 });
