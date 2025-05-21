@@ -44,12 +44,12 @@ const Navbar = () => {
           <a href="#newsletter">Acceder</a>
         </button>
         {/*btn*/}
-        <buttom
+        <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden p-2"
         >
           {isMenuOpen ? <HiX className="size-6" /> : <HiMenu />}
-        </buttom>
+        </button>
       </div>
 
       {/*mobile menu items*/}
