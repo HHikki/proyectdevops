@@ -5,15 +5,9 @@ import Button_A from "./components/Button_A";
 import Button_l from "./components/Button_l";
 
 function App() {
-
   return (
     <>
       <Navbar />
-      <Button_A />
-      <div className="flex items-center justify-center h-[400px]">
-        <Button_l>Hola mundo soy un boton</Button_l>
-      </div>
-      
     </>
   );
 }
