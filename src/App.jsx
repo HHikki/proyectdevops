@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import Navbar from "./componets/Navbar";
-import Button_A from "./componets/Button_A";
-import Button_l from "./componets/button_l";
+import Navbar from "./components/Navbar";
+import Button_A from "./components/Button_A";
+import Button_l from "./components/Button_l";
 
 function App() {
   const [count, setCount] = useState(0);
