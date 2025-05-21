@@ -6,13 +6,10 @@ module.exports = {
     '\\.(css|scss)$': 'identity-obj-proxy'
   },
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest'
+    "^.+\\.jsx?$": "babel-jest"
   },
   testMatch: [
     '**/__tests__/**/*.test.[jt]s?(x)',
     '**/?(*.)+(spec|test).[jt]s?(x)'
   ],
-  presets: [
-    ["@babel/preset-react", { runtime: "automatic" }]
-  ]
 };  

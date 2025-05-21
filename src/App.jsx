@@ -5,7 +5,6 @@ import Button_A from "./components/Button_A";
 import Button_l from "./components/Button_l";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <>
