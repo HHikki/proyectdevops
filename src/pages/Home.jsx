@@ -1,12 +1,13 @@
 import React from "react";
 import Hero from "../components/Hero";
+import EducationalPillars from "../components/Base";
 
 const Home = () => {
   return (
-    <div>
+    <main>
       <Hero />
-    </div>
+      <EducationalPillars/>
+    </main>
   );
 };
-
 export default Home;
