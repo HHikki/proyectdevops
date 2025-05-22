@@ -3,19 +3,17 @@ import React from "react";
 const Hero = () => {
   return (
     <div
-      className="fixed top-0 left-0 w-screen md:h-[calc(100vh-4rem)] h-[calc(100vh-3rem)] bg-cover bg-center bg-no-repeat flex items-center justify-center text-white z-0"
+      className="relative w-full h-[60vh] md:h-[70vh] bg-cover bg-center bg-no-repeat flex items-center justify-center text-white"
       style={{ backgroundImage: 'url("/src/assets/prisma_logo.jpg")' }}
     >
       {/* Overlay negro de izquierda a derecha */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-0" />
 
-      {/* Contenedor de texto alineado a la izquierda */}
-      <div className="relative z-10 h-full flex items-center">
-        <div className="pl-6 md:pl-16 max-w-2xl">
-          <h1 className="text-4xl font-bold text-left">
-            Bienvenidos al Colegio Prisma
-          </h1>
-        </div>
+      {/* Contenedor de texto centrado */}
+      <div className="relative z-10 px-6 md:px-16 max-w-2xl text-center">
+        <h1 className="text-4xl md:text-5xl font-bold drop-shadow-lg">
+          Bienvenidos al Colegio Prisma
+        </h1>
       </div>
     </div>
   );
