@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("#inicio");
   const navLinks = [
-    { href: "#inicio", label: "Inicio" },
-    { href: "#nosotros", label: "Nosotros" },
-    { href: "#blog", label: "Blog" },
-    { href: "#comunicado", label: "Comunicado" },
-    { href: "#calendario", label: "Calendario" },
+    { href: "/", label: "Inicio" },
+    { href: "/Nosotros", label: "Nosotros" },
+    { href: "/Blog", label: "Blog" },
+    { href: "/Comunicado", label: "Comunicado" },
+    { href: "/Calendario", label: "Calendario" },
   ];
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 shadow-sm">
@@ -44,12 +45,12 @@ const Navbar = () => {
           <a href="#newsletter">Acceder</a>
         </button>
         {/*btn*/}
-        <buttom
+        <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden p-2"
         >
           {isMenuOpen ? <HiX className="size-6" /> : <HiMenu />}
-        </buttom>
+        </button>
       </div>
 
       {/*mobile menu items*/}
@@ -57,8 +58,9 @@ const Navbar = () => {
         <div className="md:hidden bg-white border-t border-gray-100 py-4">
           <div className="container mx-auto px-4 space-y-1">
             {navLinks.map((link, index) => (
-              <a
-                key={index}
+              <Link
+                key={index.href}
+                to={link.href}
                 onClick={() => {
                   setActiveLink(link.href);
                   setIsMenuOpen(false);
@@ -71,7 +73,7 @@ const Navbar = () => {
                 href={link.href}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <button className="w-full bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-100">
               <a href="#newsletter">Acceder</a>
