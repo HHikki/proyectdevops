@@ -41,7 +41,7 @@ export default function EducationalPillars() {
         ))}
       </div>
 
-      <h3 className="text-xl font-bold">¡Fuerza Prisma!</h3>
+      <h3 className="text-x10 font-bold">¡Fuerza Prisma!</h3>
     </section>
   );
 }
