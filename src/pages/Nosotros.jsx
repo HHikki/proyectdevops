@@ -1,6 +1,7 @@
 import React from "react";
 import Button_A from "../components/Button_A";
 import img_map from "../assets/foto_map.png";
+import { Footer } from "../components/Footer";
 
 const Nosotros = () => {
   const valoresV = [
@@ -38,18 +39,22 @@ const Nosotros = () => {
             </h1>
           </div>
 
-          <div className="flex">
+          <div className="flex flex-col md:flex-row gap-6 px-4">
             {valoresV.map((v, index) => (
-              <div key={index} className="p-8">
-                <p className="text-white text-3xl font-bold ">
+              <div key={index} className="p-4 md:p-8 max-w-sm md:max-w-md">
+                <p className="text-white text-lg md:text-2xl font-bold text-center md:text-left">
                   {v.nombre}
                 </p>
-                <p className="text-white">{v.descripcion}</p>
+                <p className="text-white text-sm md:text-base leading-tight md:leading-normal">
+                  {v.descripcion}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
