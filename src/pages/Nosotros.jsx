@@ -70,6 +70,16 @@ const Nosotros = () => {
             {<Seccion_direct />}
           </div>
         </div>
+        {/* Carrusel */}
+        <div>
+          <div>
+            <h3>Conocenos</h3>
+            <h1></h1>
+          </div>
+          <div>
+
+          </div>
+        </div>
       </div>
 
       <Footer />
