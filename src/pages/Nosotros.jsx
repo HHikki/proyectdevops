@@ -2,6 +2,7 @@ import React from "react";
 import Button_A from "../components/Button_A";
 import img_map from "../assets/foto_map.png";
 import { Footer } from "../components/Footer";
+import { Seccion_direct } from "../components/Seccion_direct";
 
 const Nosotros = () => {
   const valoresV = [
@@ -34,7 +35,7 @@ const Nosotros = () => {
 
         <div className="h-150 bg-blue-800 flex p-32 flex-col">
           <div className=" w-5xl">
-            <h1 className="text-blue-50 font-bold text-6xl">
+            <h1 className="text-blue-50 font-bold text-3xl">
               NUESTRA HISTORIA, IDENTIDAD Y VISION
             </h1>
           </div>
@@ -45,11 +46,28 @@ const Nosotros = () => {
                 <p className="text-white text-lg md:text-2xl font-bold text-center md:text-left">
                   {v.nombre}
                 </p>
-                <p className="text-white text-sm md:text-base leading-tight md:leading-normal">
+                <p className="text-white text-sm md:text-2xl leading-tight md:leading-normal">
                   {v.descripcion}
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* directivos */}
+        <div className="bg-blue-400 flex flex-col gap-6 items-center p-8">
+          <div>
+            <h2 className="text-white text-4xl font-bold">Directivos</h2>
+            <p className="text-white text-lg md:text-xl mt-2">
+              Esta es la plantilla del perosnal encargado de guiar a nuestros
+              queridos alumnos.
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-6">
+            {<Seccion_direct />}
+            {<Seccion_direct />}
+            {<Seccion_direct />}
+            {<Seccion_direct />}
           </div>
         </div>
       </div>
