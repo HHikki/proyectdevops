@@ -4,7 +4,7 @@ import img_map from "../assets/foto_map.png";
 import { Footer } from "../components/Footer";
 import { Seccion_direct } from "../components/Seccion_direct";
 import { Car } from "lucide-react";
-import { Carrusel } from "../components/carrusel";
+import { Carrusel } from "../components/Carrusel";
 
 const Nosotros = () => {
   const valoresV = [
