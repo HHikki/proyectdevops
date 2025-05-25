@@ -3,8 +3,8 @@ module.exports = {
   setupFiles: ["<rootDir>/src/setupTests.js"],
   setupFilesAfterEnv: ["@testing-library/jest-dom"],
   moduleNameMapper: {
-    "\\.(svg|png|jpg|gif)$": "<rootDir>/__mocks__/fileMock.js",
-    "\\.(css|scss)$": "identity-obj-proxy",
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.(svg|png|jpg|jpeg|gif)$": "<rootDir>/__mocks__/fileMock.js",
   },
   transformIgnorePatterns: [
     "node_modules/(?!swiper)", // <--- permite que Jest transforme swiper
