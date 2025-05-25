@@ -10,7 +10,7 @@ const Navbar = () => {
     { href: "/Nosotros", label: "Nosotros" },
     { href: "/Blog", label: "Blog" },
     { href: "/Comunicado", label: "Comunicado" },
-    { href: "/Calendario", label: "Calendario" },
+    { href: "/Comunidad", label: "Comunidad" },
   ];
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 shadow-sm">
