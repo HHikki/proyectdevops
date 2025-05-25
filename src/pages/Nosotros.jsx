@@ -3,6 +3,8 @@ import Button_A from "../components/Button_A";
 import img_map from "../assets/foto_map.png";
 import { Footer } from "../components/Footer";
 import { Seccion_direct } from "../components/Seccion_direct";
+import { Car } from "lucide-react";
+import { Carrusel } from "../components/Carrusel";
 
 const Nosotros = () => {
   const valoresV = [
@@ -70,8 +72,34 @@ const Nosotros = () => {
             {<Seccion_direct />}
           </div>
         </div>
+        {/* Carrusel */}
+        <div className="bg-white flex flex-col gap-6 items-center p-8">
+          <div className="text-left text-blue-800">
+            <h3 className="font-bold">Conocenos</h3>
+            <h1 className="text-gray-700 font-bold text-5xl">UNETE AL EQUIPO GANADOR</h1>
+            <p className="font-light">Esta son algunos momentos en nuestra institución</p>
+          </div>
+          <Carrusel />
+        </div>
       </div>
-
+      <div className=" bg-blue-800 flex flex-col gap-6 items-center p-8 h-150">
+        <div className="text-center text-white ">
+          <h1 className="text-4xl font-bold">
+            "El colegio tiene como patrona a la Virgen de Guadalupe"
+          </h1>
+          <p>HIMNO</p>
+        </div>
+        <div className="w-full max-w-3xl mx-auto">
+          <div className="aspect-w-16 aspect-h-9">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/KZJvRU4JJak"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
       <Footer />
     </>
   );
