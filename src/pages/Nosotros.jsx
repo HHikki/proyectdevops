@@ -61,7 +61,7 @@ const Nosotros = () => {
           <div>
             <h2 className="text-white text-4xl font-bold">Directivos</h2>
             <p className="text-white text-lg md:text-xl mt-2">
-              Esta es la plantilla del perosnal encargado de guiar a nuestros
+              Esta es la plantilla del personal encargado de guiar a nuestros
               queridos alumnos.
             </p>
           </div>

@@ -1,10 +1,18 @@
 import React from "react";
-import Button_l from "../components/Button_l";
+import Fondo from "../components/ContBlog";
+import SeccionPadres from "../components/Seccion_Padres";
+import SeccionIngresantes from "../components/Seccion_Ingresantes";
+import InicioEscolar from "../components/Inicioescolar";
+import WelcomeVideo from "../components/sedes";
 
 const Blog = () => {
   return (
     <div>
-      <Button_l />
+      <Fondo />
+      <SeccionPadres />
+      <SeccionIngresantes />
+      <InicioEscolar />
+      <WelcomeVideo />
     </div>
   );
 };

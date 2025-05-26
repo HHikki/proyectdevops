@@ -6,8 +6,6 @@ import Nosotros from "./pages/Nosotros";
 import Blog from "./pages/Blog";
 import Comunicado from "./pages/Comunicado";
 import Calendario from "./pages/Calendario";
-//import express from "express";
-//import second from './routes/user.controller.js';
 import { Projector } from "lucide-react";
 
 
@@ -25,12 +23,5 @@ function App() {
     </>
   );
 }
-
-//const app = express();
-
-//app.listen(PORT);
-//console.log(`Server is running on port ${PORT}`);
-
-
 
 export default App;
