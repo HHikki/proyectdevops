@@ -1,11 +1,10 @@
 import React from "react";
-import calendar from "../assets/calendar.jpg";
 
-const Crush = () => {
+const Crush = (e) => {
   return (
     <div className="relative h-screen overflow-hidden">
       <img
-        src={calendar}
+        src={e.pict}
         alt="Fondo calendario"
         className="absolute inset-0 w-full h-full object-cover"
       />

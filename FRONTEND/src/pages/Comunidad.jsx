@@ -10,11 +10,12 @@ import galeria3 from "../assets/galeria3.jpg";
 import galeria4 from "../assets/galeria4.jpg";
 import galeria5 from "../assets/galeria5.jpg";
 import galeria6 from "../assets/galeria6.jpg";
+import pict from "../assets/calendar.jpg";
 
 const Comunidad = () => {
   return (
     <div className="bg-white">
-      <Crush />
+      <Crush pict={pict}/>
 
       <section className="bg-blue-950 text-white py-20 px-4 sm:px-8 lg:px-24">
         <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 items-start">

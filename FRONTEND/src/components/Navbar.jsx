@@ -9,7 +9,7 @@ const Navbar = () => {
     { href: "/", label: "Inicio" },
     { href: "/Nosotros", label: "Nosotros" },
     { href: "/Blog", label: "Blog" },
-    { href: "/Comunicado", label: "Comunicado" },
+    { href: "/Comunicado", label: "Eventos y Comunicados" },
     { href: "/Comunidad", label: "Comunidad" },
   ];
   return (
