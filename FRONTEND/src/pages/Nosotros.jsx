@@ -285,70 +285,80 @@ const Nosotros = () => {
       <div>
         {/* HERO SECTION MEJORADO */}
         <div
+          className="relative w-full bg-cover bg-center min-h-screen h-150 p-24 flex items-center"
           style={{ backgroundImage: `url(${img_map})` }}
-          className="w-full bg-cover bg-center min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-900/80 to-indigo-800/70"></div>
-          
-          {/* Efectos de partículas flotantes */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(20)].map((_, i) => (
+          {/* 🎨 Degradado azul suave */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              background:
+                "linear-gradient(to right, #0d47a1, rgba(0,0,0,0.4), transparent)",
+            }}
+          />
+
+          {/* Contenido */}
+          <h1 className="text-white text-6xl font-bold relative z-10">
+            Ven conócenos
+          </h1>
+
+          {/* 📍 Botón de mapa flotante */}
+          <a
+            href="https://www.google.com/maps/place/Asociaci%C3%B3n+Educativa+Prisma+de+Chincha/@-13.3980394,-76.1247566,17z/data=!3m1!4b1!4m6!3m5!1s0x911016506c0cd3e7:0x516f937d46732c24!8m2!3d-13.3980394!4d-76.1221817!16s%2Fg%2F11hb3g_fmb?entry=ttu&g_ep=EgoyMDI1MDUyNi4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" // Cambia este enlace por el de tu ubicación
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-6 right-6 z-10 bg-[#780000] hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition duration-300"
+          >
+            {/* Icono de mapa (de Heroicons) */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 20.25l-4.5-2.25V4.5l4.5 2.25m0 13.5l6-3V6.75m-6 13.5V6.75m6 10.5l4.5 2.25V9l-4.5-2.25"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <div className="relative bg-[#f0e4d0] py-17 px-6 md:px-32">
+          <h1 className="text-[#003049] font-bold text-3xl md:text-4xl text-center mb-12">
+            NUESTRA HISTORIA, IDENTIDAD Y VISIÓN
+          </h1>
+
+          {/* Línea vertical central */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-[500px]  w-1 bg-[#003049] z-0"></div>
+
+          <div className="flex flex-col gap-2 relative z-10">
+            {valoresV.map((v, index) => (
               <div
-                key={i}
-                className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${3 + Math.random() * 2}s`
-                }}
-              ></div>
-            ))}
-          </div>
-
-          <div className="relative z-10 text-center px-6 max-w-4xl">
-            <h1 
-              className="text-white text-6xl md:text-7xl font-bold mb-6 leading-tight"
-              data-aos="zoom-in" 
-              data-aos-delay="200"
-            >
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Ven
-              </span>{" "}
-              <span className="relative">
-                Conócenos
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
-              </span>
-            </h1>
-            
-            <p 
-              className="text-gray-200 text-xl md:text-2xl mb-8 leading-relaxed"
-              data-aos="fade-up" 
-              data-aos-delay="400"
-            >
-              Descubre nuestra historia, conoce a nuestro equipo y únete a una comunidad educativa comprometida con la excelencia
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Asociaci%C3%B3n+Educativa+Prisma+de+Chincha,+El+Eden,+Provincia+de+Chincha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 border border-blue-400/30"
-                data-aos="fade-up" 
-                data-aos-delay="600"
+                key={index}
+                className={`relative flex flex-col md:flex-row items-center ${
+                  index % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
               >
-                <FaMapMarkerAlt className="text-red-400 text-xl group-hover:animate-bounce" />
-                <span>Ver en Google Maps</span>
-              </a>
-              
-              <div 
-                className="flex items-center gap-2 text-white/80 text-sm"
-                data-aos="fade-up" 
-                data-aos-delay="800"
-              >
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Ubicación verificada</span>
+                {/* Punto central */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="w-5 h-5 bg-white rounded-full border-4 border-blue-800 transition duration-300 hover:bg-[#003049]"></div>
+                </div>
+
+                {/* Tarjeta */}
+                <div className="w-full md:w-1/2 px-6 py-4 md:px-6">
+                  <div className="bg-[#003049] border border-blue-300 rounded-xl p-6 shadow-lg backdrop-blur-md">
+                    <p className="text-white text-xl font-bold mb-2">
+                      {v.nombre}
+                    </p>
+                    <p className="text-white text-sm md:text-base">
+                      {v.descripcion}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -436,67 +446,16 @@ const Nosotros = () => {
             </div>
           </div>
         </div>
-
-        {/* SECCIÓN DE DIRECTIVOS PREMIUM */}
-        <div className="relative w-full bg-cover bg-center" style={{ backgroundImage: `url(${img_map})` }} data-aos="fade-up">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/85"></div>
-          
-          <div className="relative z-10 py-24 min-h-screen flex flex-col justify-center">
-            <div className="max-w-7xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-5xl md:text-6xl font-bold text-white mb-6" data-aos="zoom-in">
-                  Nuestro{" "}
-                  <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                    Equipo Directivo
-                  </span>
-                </h2>
-                <div className="h-2 w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full" data-aos="zoom-in" data-aos-delay="200"></div>
-                <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="300">
-                  Conoce a los profesionales dedicados que lideran nuestra institución con pasión, experiencia y compromiso hacia la excelencia educativa
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {directivos.map((item, i) => (
-                  <div
-                    key={i}
-                    className="group relative bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:transform hover:scale-105 hover:shadow-3xl border border-white/20"
-                    data-aos="flip-up"
-                    data-aos-delay={i * 150}
-                  >
-                    <div className="relative h-80 overflow-hidden">
-                      <img
-                        src={DIR1}
-                        alt={item.nombre}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      
-                      {/* Overlay con información adicional */}
-                      <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="text-white">
-                          <p className="text-sm mb-2">{item.descripcion}</p>
-                          <div className="flex gap-2">
-                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                            <span className="text-xs text-gray-300">Disponible</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6 text-center">
-                      <h3 className="text-white text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-                        {item.nombre}
-                      </h3>
-                      <p className="text-gray-300 text-sm uppercase tracking-wider font-medium">
-                        {item.cargo}
-                      </p>
-                      <div className="mt-4 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Carrusel */}
+        <div className="bg-white flex flex-col gap-6 items-center p-8">
+          <div className="text-left text-blue-800">
+            <h3 className="font-bold">Conocenos</h3>
+            <h1 className="text-gray-700 font-bold text-5xl">
+              UNETE AL EQUIPO GANADOR
+            </h1>
+            <p className="font-light">
+              Esta son algunos momentos en nuestra institución
+            </p>
           </div>
         </div>
 

@@ -49,24 +49,24 @@ export default function Level() {
         <img
           src={bannerImages[current]}
           alt={`Banner ${current + 1}`}
-          className="w-[520px] h-[600px] object-cover rounded-xl shadow transition-opacity duration-700"
+          className="w-[500px] h-[550px] object-cover rounded-xl shadow transition-opacity duration-700"
         />
       </div>
 
       {/* ───── Columna derecha con rectángulos ───── */}
       <div className="w-full md:w-3/5 bg-white flex flex-col items-start justify-start gap-8 p-10">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#003049] mb-1">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#003049] mb">
           NUESTROS NIVELES EDUCATIVOS
         </h2>
 
         {levels.map((level, index) => (
           <div
             key={level.name}
-            className={`w-full max-w-2xl bg-[#f0e4d0]  text-[#003049] px-6 py-6 shadow rounded-md flex flex-col transition-all
+            className={`w-full max-w-2xl bg-[#003049]  text-white px-6 py-6 shadow rounded-md flex flex-col transition-all
       ${index === 1 ? "ml-16" : index === 2 ? "ml-32" : "ml-0"}
 `}
           >
-            <h3 className="text-xl font-bold mb-4">{level.name}</h3>
+            <h3 className="text-xl font-bold mb-2">{level.name}</h3>
 
             <div className="flex flex-row items-center justify-between gap-4">
               <p className="text-base flex-1">{level.description}</p>
