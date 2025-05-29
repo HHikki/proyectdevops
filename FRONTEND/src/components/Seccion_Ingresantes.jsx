@@ -29,16 +29,15 @@ const ingresantes = [
 
 const NuevosIngresantes = () => {
   return (
-    <section className="bg-gradient-to-br from-[#5b6aa4] to-[#1C2D5A] text-white py-14 px-4 min-h-screen">
+    <section className="bg-[#6698BC] text-white py-14 px-4 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-purple-200 text-base font-semibold tracking-widest uppercase mb-2 text-center">
-          Conócenos
-        </h2>
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-5 text-center drop-shadow-lg">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
           NUEVOS INGRESANTES 2025
         </h1>
-        <p className="mb-10 max-w-3xl mx-auto text-center text-lg md:text-xl text-purple-100">
-          Damos la más cordial bienvenida a nuestros cachimbos, quienes inician una nueva etapa llena de aprendizajes, retos y grandes experiencias. ¡Esta es su casa, y juntos construiremos un gran camino!
+        <p className="text-3xl md:text-4xltext-lg md:text-xl text-white mb-4">
+          Damos la más cordial bienvenida a nuestros cachimbos, quienes inician
+          una nueva etapa llena de aprendizajes, retos y grandes experiencias.
+          ¡Esta es su casa, y juntos construiremos un gran camino!
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -58,17 +57,30 @@ const NuevosIngresantes = () => {
               <div className="flex-1 flex flex-col justify-between p-4 text-center">
                 <div>
                   <h3 className="font-bold text-lg mb-1">{item.nombre}</h3>
-                  <p className="text-gray-500 text-xs tracking-widest mb-1">INGRESANTE</p>
-                  <p className="text-purple-700 font-medium mb-2">{item.carrera}</p>
+                  <p className="text-gray-500 text-xs tracking-widest mb-1">
+                    INGRESANTE
+                  </p>
+                  <p className="text-purple-700 font-medium mb-2">
+                    {item.carrera}
+                  </p>
                 </div>
                 <div className="flex justify-center gap-4 mt-2 text-purple-600 text-lg">
-                  <a href="#" className="hover:text-blue-700 transition-colors duration-200">
+                  <a
+                    href="#"
+                    className="hover:text-blue-700 transition-colors duration-200"
+                  >
                     <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="#" className="hover:text-pink-600 transition-colors duration-200">
+                  <a
+                    href="#"
+                    className="hover:text-pink-600 transition-colors duration-200"
+                  >
                     <i className="fab fa-instagram"></i>
                   </a>
-                  <a href="#" className="hover:text-blue-400 transition-colors duration-200">
+                  <a
+                    href="#"
+                    className="hover:text-blue-400 transition-colors duration-200"
+                  >
                     <i className="fab fa-twitter"></i>
                   </a>
                 </div>

@@ -36,12 +36,12 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gray-100 py-20">
+    <section className="min-h-screen bg-white py-20">
       <div className="max-w-[1440px] mx-auto px-6 text-center">
         <h2 className="text-5xl font-bold text-[#003049] mb-4">
           Exalumnos prismáticos
         </h2>
-        <p className="text-xl text-gray-600 mb-16">Testimonios</p>
+        <p className="text-xl text-gray-600 mb-10">Testimonios</p>
 
         <Swiper
           effect={"coverflow"}
@@ -68,7 +68,7 @@ const Testimonials = () => {
                   className={`transition-all duration-500 ease-in-out
                   ${isActive ? "opacity-100 scale-105" : "opacity-40"}
                   bg-[#003049] text-white rounded-3xl shadow-2xl px-10 py-14
-                  max-w-[420px] h-[520px] flex flex-col items-center justify-center text-center mx-auto`}
+                  max-w-[300px] h-[400px] flex flex-col items-center justify-center text-center mx-auto`}
                 >
                   <img
                     src={image}
