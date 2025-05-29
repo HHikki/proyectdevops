@@ -28,10 +28,9 @@ export const Footer = () => {
         <div className="flex flex-col items-center">
           <h3 className="text-lg font-bold mb-4">Síguenos</h3>
           <div className="flex space-x-5 text-2xl">
-            <a href="#"><FaFacebook /></a>
+            <a href="https://web.facebook.com/Prisma.Chincha"><FaFacebook /></a>
             <a href="#"><FaInstagram /></a>
             <a href="#"><FaTiktok /></a>
-            <a href="#"><FaWhatsapp /></a>
           </div>
         </div>
 

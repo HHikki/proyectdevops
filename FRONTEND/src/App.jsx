@@ -5,8 +5,8 @@ import Nosotros from "./pages/Nosotros";
 import Blog from "./pages/Blog";
 import Comunicado from "./pages/Comunicado";
 import Comunidad from "./pages/Comunidad";
-import { Projector } from "lucide-react";
-
+import Login from "./dashboard/pages/Login";
+import PanelA from "./dashboard/pages/PanelA";
 
 function App() {
   return (
@@ -18,6 +18,8 @@ function App() {
         <Route path="/Blog" element={<Blog />} />
         <Route path="/Comunicado" element={<Comunicado />} />
         <Route path="/Comunidad" element={<Comunidad />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/PanelA" element={<PanelA />} />
       </Routes>
     </>
   );

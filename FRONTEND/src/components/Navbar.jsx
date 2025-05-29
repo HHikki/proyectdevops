@@ -75,14 +75,12 @@ const Navbar = () => {
         >
           SIGEDU
         </a>
-        <a
-          href="https://www.prisma.sigedu.pe/login.php?usuario"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/Login"
           className="hidden md:flex items-center text-[#003049] hover:text-[#00263d] ml-4"
         >
           <User size={24} strokeWidth={2} />
-        </a>
+        </Link>
 
         {/* ─── Toggle móvil ─── */}
         <button
@@ -96,30 +94,34 @@ const Navbar = () => {
 
       {/* ─── Menú móvil ─── */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 py-4">
-          <div className="container mx-auto px-4 space-y-1">
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                to={href}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block text-sm font-medium py-2 ${
-                  currentPath === href
-                    ? "text-blue-600 font-bold"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-            <button className="w-full bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-100">
-              <a href="#newsletter">Acceder</a>
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="md:hidden bg-white border-t border-gray-100 py-4">
+    <div className="container mx-auto px-4 space-y-1">
+      {navLinks.map(({ href, label }) => (
+        <Link
+          key={href}
+          to={href}
+          onClick={() => setIsMenuOpen(false)}
+          className={`block text-sm font-medium py-2 ${
+            currentPath === href
+              ? "text-blue-600 font-bold"
+              : "text-gray-600 hover:text-gray-900"
+          }`}
+        >
+          {label}
+        </Link>
+      ))}
+      <Link
+        to="/Login"
+        className="w-full block bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-100 text-center"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Acceder
+      </Link>
+    </div>
+  </div>
+)}
     </nav>
   );
-};
+}
 
 export default Navbar;
