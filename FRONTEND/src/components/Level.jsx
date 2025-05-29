@@ -1,37 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+/* ➊ Niveles que se mostrarán como rectángulos horizontales */
 const levels = [
   {
     name: "INICIAL",
-    img: "/src/assets/img1.jpg", 
+    description:
+      "Educación inicial para los más pequeños, basada en el juego y el descubrimiento. Promovemos el desarrollo emocional, social y cognitivo en un ambiente seguro y afectuoso. ",
   },
   {
     name: "PRIMARIA",
-    img: "/src/assets/img2.jpg", 
+    description:
+      "Formación integral con enfoque en valores, ciencias y desarrollo emocional. En esta etapa fortalecemos las habilidades de lectura, escritura, lógica matemática y comprensión del entorno. ",
   },
   {
     name: "SECUNDARIA",
-    img: "/src/assets/img3.jpg", 
+    description:
+      "Preparación académica sólida para afrontar los retos del futuro con éxito. Se consolidan las competencias académicas, científicas y tecnológicas, promoviendo el pensamiento crítico y la responsabilidad social.",
   },
 ];
 
+/* ➋ Imágenes que rotan en la franja celeste */
+const bannerImages = [
+  "/src/assets/banner1.jpg",
+  "/src/assets/banner2.jpg",
+  "/src/assets/banner3.jpg",
+];
+
 export default function Level() {
-    return (
-    <section className="bg-blue-800 py-12 px-4">
-    <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-10 tracking-wide">
-        NUESTROS NIVELES EDUCATIVOS
+  /* ➌ Índice de la imagen actual del slideshow */
+  const [current, setCurrent] = useState(0);
+
+  /* ➍ Cambia de imagen cada 3 s */
+  useEffect(() => {
+    const id = setInterval(
+      () => setCurrent((prev) => (prev + 1) % bannerImages.length),
+      3000
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <section className="flex flex-col md:flex-row w-full">
+      {/* ───── Franja celeste con slideshow ───── */}
+      <div
+        className="w-full md:w-2/5 flex items-center justify-center py-8"
+        style={{ backgroundColor: "#6698BC" }}
+      >
+        <img
+          src={bannerImages[current]}
+          alt={`Banner ${current + 1}`}
+          className="w-[520px] h-[600px] object-cover rounded-xl shadow transition-opacity duration-700"
+        />
+      </div>
+
+      {/* ───── Columna derecha con rectángulos ───── */}
+      <div className="w-full md:w-3/5 bg-white flex flex-col items-start justify-start gap-8 p-10">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#003049] mb-1">
+          NUESTROS NIVELES EDUCATIVOS
         </h2>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-        {levels.map((level) => (
-          <div key={level.name} className="flex flex-col items-center">
-            <img
-              src={level.img}
-              alt={level.name}
-              className="w-120 h-104 object-cover rounded-xl shadow mb-6"
-            />
-            <span className="bg-blue-600 text-white text-base md:text-lg font-bold rounded-lg px-8 py-3 text-center shadow hover:bg-blue-700 transition">
-              {level.name}
-            </span>
+
+        {levels.map((level, index) => (
+          <div
+            key={level.name}
+            className={`w-full max-w-2xl bg-[#f0e4d0]  text-[#003049] px-6 py-6 shadow rounded-md flex flex-col transition-all
+      ${index === 1 ? "ml-16" : index === 2 ? "ml-32" : "ml-0"}
+`}
+          >
+            <h3 className="text-xl font-bold mb-4">{level.name}</h3>
+
+            <div className="flex flex-row items-center justify-between gap-4">
+              <p className="text-base flex-1">{level.description}</p>
+              <button className="bg-[#780000] text-white font-semibold px-4 py-2 rounded hover:bg-[#012836] transition">
+                ÚNETE
+              </button>
+            </div>
           </div>
         ))}
       </div>
