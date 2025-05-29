@@ -1,13 +1,11 @@
 import React from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 
-// Import Swiper styles
 import "swiper/css";
+import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-// import required modules
-import { Pagination } from "swiper/modules";
 import Image1 from "../assets/testimonial1.png";
 import Image2 from "../assets/testimonial2.png";
 import Image3 from "../assets/testimonial3.png";
@@ -19,72 +17,68 @@ const Testimonials = () => {
       image: Image1,
       title: "John Doe",
       description:
-        "A really good job, all aspects of the project were followed step by step and with good results.",
+        "Una experiencia maravillosa. Todo el proceso educativo fue impecable y enriquecedor.",
     },
     {
       id: 2,
       image: Image2,
       title: "Harry Clinton",
       description:
-        "Professional, reliable, and dedicated. Delivered everything as promised with great quality.",
+        "Profesional, confiable y dedicado. Cumplieron con todo lo prometido y con gran calidad.",
     },
     {
       id: 3,
       image: Image3,
       title: "Sara C",
       description:
-        "Excellent work! Communication was clear and timelines were met with no issues.",
-    },
-    {
-      id: 4,
-      image: Image1,
-      title: "Sara C",
-      description:
-        "Excellent work! Communication was clear and timelines were met with no issues.",
+        "Excelente trabajo. La comunicación fue clara y los tiempos se respetaron perfectamente.",
     },
   ];
 
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+    <section className="min-h-screen bg-gray-100 py-20">
+      <div className="max-w-[1440px] mx-auto px-6 text-center">
+        <h2 className="text-5xl font-bold text-[#003049] mb-4">
           Exalumnos prismáticos
         </h2>
-        <p className="text-lg text-gray-500 mb-10">Testimonios</p>
+        <p className="text-xl text-gray-600 mb-16">Testimonios</p>
 
         <Swiper
-          loop={true}
+          effect={"coverflow"}
           grabCursor={true}
-          pagination={{ clickable: true }}
-          breakpoints={{
-            0: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 50,
-            },
+          centeredSlides={true}
+          loop={true}
+          slidesPerView={3}
+          spaceBetween={30}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 200,
+            modifier: 2.5,
+            slideShadows: false,
           }}
-          modules={[Pagination]}
+          pagination={{ clickable: true }}
+          modules={[EffectCoverflow, Pagination]}
+          className="w-full"
         >
           {Data.map(({ id, image, title, description }) => (
             <SwiperSlide key={id}>
-              <div className="bg-white rounded-2xl shadow-md p-6 mx-4 h-full flex flex-col items-center justify-center transition duration-300 hover:shadow-xl">
-                <img
-                  src={image}
-                  alt={title}
-                  className="w-20 h-20 rounded-full object-cover mb-4"
-                />
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  {title}
-                </h3>
-                <p className="text-sm text-gray-600">{description}</p>
-              </div>
+              {({ isActive }) => (
+                <div
+                  className={`transition-all duration-500 ease-in-out
+                  ${isActive ? "opacity-100 scale-105" : "opacity-40"}
+                  bg-[#003049] text-white rounded-3xl shadow-2xl px-10 py-14
+                  max-w-[420px] h-[520px] flex flex-col items-center justify-center text-center mx-auto`}
+                >
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-36 h-36 rounded-full object-cover mb-6 border-4 border-white"
+                  />
+                  <h3 className="text-2xl font-bold mb-3">{title}</h3>
+                  <p className="text-base italic px-4">{description}</p>
+                </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
