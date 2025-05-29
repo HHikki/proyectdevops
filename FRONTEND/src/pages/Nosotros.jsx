@@ -359,9 +359,9 @@ const Nosotros = () => {
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+    </div>
+  ))}
+</div>
 
           {/* Indicador de scroll */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
