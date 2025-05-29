@@ -8,7 +8,6 @@ export const getPosts = async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
       include: {
-        user: true,
         postType: true,
       },
     });
@@ -23,21 +22,64 @@ export const getPosts = async (req, res) => {
  */
 export const getPostById = async (req, res) => {
   const { id } = req.params;
+  const { userId } = req.user; // Se obtiene el userId del usuario autenticado
+
   try {
-    const post = await prisma.post.findUnique({
-      where: { id: Number(id) },
+    // Buscar el post por ID y verificar que pertenezca al usuario autenticado
+    const post = await prisma.post.findFirst({
+      where: {
+        id: Number(id),
+        userId: Number(userId), // Asegurarse de que el post pertenece al usuario autenticado
+      },
       include: {
-        user: true,
         postType: true,
-        PostImage: true,
+        images: true,
       },
     });
-    if (!post) return res.status(404).json({ error: "Post no encontrado" });
+
+    if (!post) {
+      return res
+        .status(404)
+        .json({
+          error:
+            "Post no encontrado o no tienes permiso para acceder a este recurso",
+        });
+    }
+
     res.json(post);
   } catch (error) {
+    console.error("Error al obtener el post:", error);
     res.status(500).json({ error: "Error al obtener el post" });
   }
 };
+
+/**
+ * Obtener todos los posts de un usuario
+ */
+
+export const getMyPosts = async (req, res) => {
+  const { userId } = req.user; // Se asume que el middleware de autenticación agrega el userId al objeto req
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: { userId: Number(userId) },
+      include: {
+        postType: true,
+        images: true, // Incluye las imágenes asociadas a cada post
+      },
+    });
+
+    if (posts.length === 0) {
+      return res.status(404).json({ message: "No se encontraron posts para este usuario" });
+    }
+
+    res.json(posts);
+  } catch (error) {
+    console.error("Error al obtener los posts del usuario:", error);
+    res.status(500).json({ error: "Error al obtener los posts del usuario" });
+  }
+};
+
 
 /**
  * Crear un nuevo post

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getPosts,getPostById, createPost, updatePost, deletePost } from "../controllers/post.controller.js";
+import { getPosts,getPostById, createPost, updatePost, deletePost, getMyPosts} from "../controllers/post.controller.js";
 
 import { loginUser } from "../controllers/auth.controller.js";
 import { authMiddleware, requireAdmin } from "../middlewares/auth.js";
@@ -11,10 +11,14 @@ router.use(authMiddleware); // ✅ Middleware de autenticación
 
 router.post("/login", loginUser);
 
-router.get("/post",requireAdmin, getPosts); // ✅ GET all users
-router.get("/post/:id", getPostById); // ✅ GET user by ID
+router.get("/post",requireAdmin, getPosts); // ✅ GET all users admin
 
-router.post("/post", createPost); // ✅ POST create user
+router.get("/post/:user",getMyPosts)
+
+// // get por userId (modificar)
+router.get("/post/e/:id", getPostById); // ✅ GET user by ID
+
+router.post("/post", createPost); // ✅ POST create user    
 
 router.put("/post/:id", updatePost); // ✅ PUT update user
 router.delete("/post/:id", deletePost); // ✅ DELETE delete user
