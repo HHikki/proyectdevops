@@ -45,8 +45,12 @@ export default function EducationalPillars() {
   return (
     <>
       {/* ───── Sección de pilares con banda beige a la izquierda ───── */}
+
       <section className="relative w-full py-10 text-center">
-        {/* Banda vertical beige */}
+        {/* Fondo gris detrás de todo */}
+        <div className="absolute inset-0 bg-white -z-20" />
+
+        {/* Banda vertical beige encima del gris */}
         <div className="absolute inset-y-0 left-0 w-24 md:w-80 bg-[#f0e4d0] -z-10" />
 
         {/* Contenido principal */}
@@ -80,7 +84,8 @@ export default function EducationalPillars() {
             </div>
           ))}
         </div>
-        {/* ───── Franja animada tipo marquee ───── */}
+
+        {/* Franja animada tipo marquee */}
         <div className="w-full bg-[#0F172A] overflow-hidden">
           <div className="animate-marquee whitespace-nowrap text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-red-500 to-blue-600 py-4">
             ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! · ESTUDIO ·

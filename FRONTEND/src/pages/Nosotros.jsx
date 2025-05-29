@@ -29,28 +29,80 @@ const Nosotros = () => {
     <>
       <div>
         <div
+          className="relative w-full bg-cover bg-center min-h-screen h-150 p-24 flex items-center"
           style={{ backgroundImage: `url(${img_map})` }}
-          className="w-full bg-cover bg-center h-150 p-24 flex  items-center"
         >
-          <h1 className="text-blue-900 text-6xl font-bold">Ven conocenos</h1>
+          {/* 🎨 Degradado azul suave */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              background:
+                "linear-gradient(to right, #0d47a1, rgba(0,0,0,0.4), transparent)",
+            }}
+          />
+
+          {/* Contenido */}
+          <h1 className="text-white text-6xl font-bold relative z-10">
+            Ven conócenos
+          </h1>
+
+          {/* 📍 Botón de mapa flotante */}
+          <a
+            href="https://www.google.com/maps/place/Asociaci%C3%B3n+Educativa+Prisma+de+Chincha/@-13.3980394,-76.1247566,17z/data=!3m1!4b1!4m6!3m5!1s0x911016506c0cd3e7:0x516f937d46732c24!8m2!3d-13.3980394!4d-76.1221817!16s%2Fg%2F11hb3g_fmb?entry=ttu&g_ep=EgoyMDI1MDUyNi4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" // Cambia este enlace por el de tu ubicación
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-6 right-6 z-10 bg-[#780000] hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition duration-300"
+          >
+            {/* Icono de mapa (de Heroicons) */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 20.25l-4.5-2.25V4.5l4.5 2.25m0 13.5l6-3V6.75m-6 13.5V6.75m6 10.5l4.5 2.25V9l-4.5-2.25"
+              />
+            </svg>
+          </a>
         </div>
 
-        <div className="h-150 bg-blue-800 flex p-32 flex-col">
-          <div className=" w-5xl">
-            <h1 className="text-blue-50 font-bold text-3xl">
-              NUESTRA HISTORIA, IDENTIDAD Y VISION
-            </h1>
-          </div>
+        <div className="relative bg-[#f0e4d0] py-17 px-6 md:px-32">
+          <h1 className="text-[#003049] font-bold text-3xl md:text-4xl text-center mb-12">
+            NUESTRA HISTORIA, IDENTIDAD Y VISIÓN
+          </h1>
 
-          <div className="flex flex-col md:flex-row gap-6 px-4">
+          {/* Línea vertical central */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-[500px]  w-1 bg-[#003049] z-0"></div>
+
+          <div className="flex flex-col gap-2 relative z-10">
             {valoresV.map((v, index) => (
-              <div key={index} className="p-4 md:p-8 max-w-sm md:max-w-md">
-                <p className="text-white text-lg md:text-2xl font-bold text-center md:text-left">
-                  {v.nombre}
-                </p>
-                <p className="text-white text-sm md:text-2xl leading-tight md:leading-normal">
-                  {v.descripcion}
-                </p>
+              <div
+                key={index}
+                className={`relative flex flex-col md:flex-row items-center ${
+                  index % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                {/* Punto central */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="w-5 h-5 bg-white rounded-full border-4 border-blue-800 transition duration-300 hover:bg-[#003049]"></div>
+                </div>
+
+                {/* Tarjeta */}
+                <div className="w-full md:w-1/2 px-6 py-4 md:px-6">
+                  <div className="bg-[#003049] border border-blue-300 rounded-xl p-6 shadow-lg backdrop-blur-md">
+                    <p className="text-white text-xl font-bold mb-2">
+                      {v.nombre}
+                    </p>
+                    <p className="text-white text-sm md:text-base">
+                      {v.descripcion}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -76,8 +128,12 @@ const Nosotros = () => {
         <div className="bg-white flex flex-col gap-6 items-center p-8">
           <div className="text-left text-blue-800">
             <h3 className="font-bold">Conocenos</h3>
-            <h1 className="text-gray-700 font-bold text-5xl">UNETE AL EQUIPO GANADOR</h1>
-            <p className="font-light">Esta son algunos momentos en nuestra institución</p>
+            <h1 className="text-gray-700 font-bold text-5xl">
+              UNETE AL EQUIPO GANADOR
+            </h1>
+            <p className="font-light">
+              Esta son algunos momentos en nuestra institución
+            </p>
           </div>
           <Carrusel />
         </div>
