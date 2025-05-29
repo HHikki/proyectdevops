@@ -458,7 +458,68 @@ const Nosotros = () => {
             </p>
           </div>
         </div>
+        {/* SECCIÓN DE DIRECTIVOS PREMIUM */}
+        <div className="relative w-full bg-cover bg-center" style={{ backgroundImage: `url(${img_map})` }} data-aos="fade-up">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/85"></div>
+          
+          <div className="relative z-10 py-24 min-h-screen flex flex-col justify-center">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl md:text-6xl font-bold text-white mb-6" data-aos="zoom-in">
+                  Nuestro{" "}
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                    Equipo Directivo
+                  </span>
+                </h2>
+                <div className="h-2 w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full" data-aos="zoom-in" data-aos-delay="200"></div>
+                <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="300">
+                  Conoce a los profesionales dedicados que lideran nuestra institución con pasión, experiencia y compromiso hacia la excelencia educativa
+                </p>
+              </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {directivos.map((item, i) => (
+                  <div
+                    key={i}
+                    className="group relative bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:transform hover:scale-105 hover:shadow-3xl border border-white/20"
+                    data-aos="flip-up"
+                    data-aos-delay={i * 150}
+                  >
+                    <div className="relative h-80 overflow-hidden">
+                      <img
+                        src={DIR1}
+                        alt={item.nombre}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      {/* Overlay con información adicional */}
+                      <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="text-white">
+                          <p className="text-sm mb-2">{item.descripcion}</p>
+                          <div className="flex gap-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span className="text-xs text-gray-300">Disponible</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6 text-center">
+                      <h3 className="text-white text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                        {item.nombre}
+                      </h3>
+                      <p className="text-gray-300 text-sm uppercase tracking-wider font-medium">
+                        {item.cargo}
+                      </p>
+                      <div className="mt-4 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
         {/* SECCIÓN DE GALERÍA MEJORADA */}
         <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-20" data-aos="fade-up">
           <div className="max-w-7xl mx-auto px-6">
