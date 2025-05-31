@@ -326,21 +326,25 @@ const Nosotros = () => {
       nombre: "Evellyng Limaylla",
       cargo: "DIRECTORA GENERAL",
       descripcion: "Líder visionaria con 20 años de experiencia",
+      imagen: Image1,
     },
     {
       nombre: "Julian Jameson",
       cargo: "SUBDIRECTOR ACADÉMICO",
       descripcion: "Especialista en innovación educativa",
+      imagen: Image2,
     },
     {
       nombre: "Juan Lhi",
       cargo: "COORDINADOR ESTUDIANTIL",
       descripcion: "Comprometido con el bienestar estudiantil",
+      imagen: Image3,
     },
     {
       nombre: "Roxana Median",
       cargo: "PSICÓLOGA EDUCATIVA",
       descripcion: "Experta en desarrollo integral",
+      imagen: Image4,
     },
   ];
 
@@ -505,13 +509,13 @@ const Nosotros = () => {
           style={{ backgroundImage: `url(${img_map})` }}
           data-aos="fade-up"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/85"></div>
+          <div className="absolute inset-0 bg-[#f0e4d0]"></div>
 
           <div className="relative z-10 py-24 min-h-screen flex flex-col justify-center">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <h2
-                  className="text-5xl md:text-6xl font-bold text-white mb-6"
+                  className="text-5xl md:text-6xl font-bold text-[#003049] mb-6"
                   data-aos="zoom-in"
                 >
                   Nuestro{" "}
@@ -525,7 +529,7 @@ const Nosotros = () => {
                   data-aos-delay="200"
                 ></div>
                 <p
-                  className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed"
+                  className="text-[#003049] text-xl max-w-3xl mx-auto leading-relaxed"
                   data-aos="fade-up"
                   data-aos-delay="300"
                 >
@@ -644,7 +648,7 @@ const Nosotros = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-10 pointer-events-none"></div>
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/4ZXV4uexlTU"
+                src="https://www.youtube.com/embed/KZJvRU4JJak"
                 title="Himno Institucional"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
