@@ -228,7 +228,7 @@ const EstadisticasAnimadas = () => {
 
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16"
+      className="grid grid-cols-2 md:grid-cols-4 gap-8 py-6"
       ref={(el) => {
         if (el) {
           const observer = new IntersectionObserver(
@@ -392,7 +392,7 @@ const Nosotros = () => {
         </div>
 
         {/* ESTADÍSTICAS SECTION */}
-        <div className="bg-[#f0e4d0] py-8" data-aos="fade-up">
+        <div className="bg-[#f0e4d0] py-6" data-aos="fade-up">
           <div className="max-w-6xl mx-auto px-2">
             <h2 className="text-center text-4xl font-bold text-[#003049] mb-2">
               Nuestra Comunidad en Números
