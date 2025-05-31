@@ -61,7 +61,7 @@ const WelcomeVideo = () => (
         Newsletter
       </span>
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#ffd84c] via-white to-[#a59cff] bg-clip-text text-transparent mb-4 drop-shadow-xl animate-zoom-in">
-        CONOCE NUESTRA SEDE
+        Nuestro Reconocimiento
       </h1>
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#f7c35f] via-[#fff] to-[#d87fff] bg-clip-text text-transparent mb-3 tracking-wide animate-zoom-in-delay">
         ¡BIENVENIDO!
