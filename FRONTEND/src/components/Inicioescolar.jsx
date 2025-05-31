@@ -45,7 +45,7 @@ const InicioEscolar = () => (
           Comenzamos un nuevo año con <span className="text-[#FFD600] font-extrabold">entusiasmo</span> y ganas de aprender.
           <FaRegSmile className="inline-block text-2xl text-[#FFD600] drop-shadow animate-bounce" />
         </p>
-        <span className="block text-lg md:text-xl mt-3 text-[#FFD600] font-bold tracking-wide flex items-center justify-center gap-1">
+        <span className=" text-lg md:text-xl mt-3 text-[#FFD600] font-bold tracking-wide flex items-center justify-center gap-1">
           ¡Bienvenidos a este nuevo ciclo! <FiStar className="text-xl animate-pulse" />
         </span>
       </div>
