@@ -14,6 +14,7 @@
     "@tailwindcss/vite": "^4.1.7",
     "aos": "^2.3.4",
     "framer-motion": "^12.15.0",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-day-picker": "^9.7.0",

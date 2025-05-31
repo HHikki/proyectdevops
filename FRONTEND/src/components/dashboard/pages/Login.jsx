@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 import { BookOpen, Users, Calendar } from "lucide-react";
 import {
   Button,
@@ -17,13 +18,8 @@ import logo from "../assets/logo.jpg";
 
 const API_BASE_URL = "http://localhost:4001";
 
-
-const loginAction = async (formData) => {
-  const email = formData.get("email");
-  const password = formData.get("password");
-
+const loginAction = async (email, password) => {
   try {
-    // Realiza la solicitud al endpoint /login
     const response = await fetch(`${API_BASE_URL}/prisma/login`, {
       method: "POST",
       headers: {
@@ -45,10 +41,18 @@ const loginAction = async (formData) => {
 };
 
 export default function Login() {
+  const { login, isAuthenticated } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Redirigir si ya está autenticado
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/Panel');
+    }
+  }, [isAuthenticated, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -56,12 +60,14 @@ export default function Login() {
     setError("");
 
     const formData = new FormData(e.target);
-    const result = await loginAction(formData);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const result = await loginAction(email, password);
 
     if (result?.success) {
-      // Guarda el token en localStorage o en un contexto global
-      localStorage.setItem("token", result.token);
-      navigate("/PanelA"); // Redirige al panel de control
+      login(result.token);
+      navigate("/Panel");
     } else if (result?.error) {
       setError(result.error);
     }
@@ -94,8 +100,18 @@ export default function Login() {
         <div className="w-full max-w-md mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>INICIAR SESIÓN</CardTitle>
-              <p className="text-gray-600 mt-2">Accede a tu panel de control</p>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle>INICIAR SESIÓN</CardTitle>
+                  <p className="text-gray-600 mt-2">Accede a tu panel de control</p>
+                </div>
+                <Link
+                  to="/"
+                  className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                >
+                  Volver al Inicio
+                </Link>
+              </div>
             </CardHeader>
             <CardContent>
               {error && <Alert>{error}</Alert>}
@@ -157,17 +173,6 @@ export default function Login() {
                   Regístrate aquí
                 </a>
               </div>
-
-              <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <h4 className="text-sm font-semibold text-blue-800 mb-2">
-                  Credencial para testear
-                </h4>
-                <div className="text-xs text-blue-700 space-y-1">
-                  <div>
-                    <strong>Admin:</strong> admin@prisma.edu.pe / admin123
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
 
@@ -193,4 +198,3 @@ export default function Login() {
     </div>
   );
 }
-

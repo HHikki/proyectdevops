@@ -34,9 +34,6 @@ if (!JWT_SECRET) {
 // // Rutas de la API
 // app.use("/prima",userRoutes); // ✅ Aquí ya puedes usar `app`
 
-app.use("/", (req, res) => {  
-  res.send("API is running");
-})
 
 app.use("/prisma", usarRoutes); //
 app.use("/prisma", postRoutes);

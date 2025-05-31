@@ -1,16 +1,24 @@
 // src/components/Navbar.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { User } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   /* ───────────────── 1. Estado para el menú móvil ───────────────── */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   /* ───────────────── 2. Ruta / hash actual (React Router) ────────── */
   const location = useLocation();
   const currentPath = location.pathname + location.hash; // p.ej. "/Nosotros" o "/#about"
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   /* ───────────────── 3. Datos de navegación ─────────────────────── */
   const navLinks = [
@@ -64,6 +72,30 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/Panel"
+                className="text-sm font-medium text-gray-700 hover:text-blue-600"
+              >
+                Panel
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-red-600 hover:text-red-700"
+              >
+                Cerrar Sesión
+              </button>
+            </>
+          ) :   (
+            <Link
+              to="/Login"
+              className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-blue-600"
+            >
+              <User className="h-4 w-4" />
+              Iniciar Sesión
+            </Link>
+          )}
         </div>
 
         {/* ─── Botones externos (desktop) ─── */}
@@ -94,34 +126,54 @@ const Navbar = () => {
 
       {/* ─── Menú móvil ─── */}
       {isMenuOpen && (
-  <div className="md:hidden bg-white border-t border-gray-100 py-4">
-    <div className="container mx-auto px-4 space-y-1">
-      {navLinks.map(({ href, label }) => (
-        <Link
-          key={href}
-          to={href}
-          onClick={() => setIsMenuOpen(false)}
-          className={`block text-sm font-medium py-2 ${
-            currentPath === href
-              ? "text-blue-600 font-bold"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          {label}
-        </Link>
-      ))}
-      <Link
-        to="/Login"
-        className="w-full block bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-100 text-center"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Acceder
-      </Link>
-    </div>
-  </div>
-)}
+        <div className="md:hidden bg-white border-t border-gray-100 py-4">
+          <div className="container mx-auto px-4 space-y-4">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                to={href}
+                className={`block text-sm font-medium ${
+                  currentPath === href ? "text-blue-600" : "text-gray-700"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/Panel"
+                  className="block text-sm font-medium text-gray-700"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Panel
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="block w-full text-left text-sm font-medium text-red-600"
+                >
+                  Cerrar Sesión
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/Login"
+                className="flex items-center gap-1 text-sm font-medium text-gray-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <User className="h-4 w-4" />
+                Iniciar Sesión
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
-}
+};
 
 export default Navbar;
