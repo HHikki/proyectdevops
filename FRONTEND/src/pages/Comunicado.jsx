@@ -1,6 +1,6 @@
 import React from "react";
 import Crush from "../components/Crush";
-import pict from "../assets/fondo_eventos.png";
+import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
@@ -109,9 +109,9 @@ const Comunicado = () => {
       </section>
       {/* Calendario */}
       <div>
-        <Calendar/>
+        <Calendar />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

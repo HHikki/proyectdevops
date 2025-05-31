@@ -48,7 +48,7 @@ export default function EducationalPillars() {
 
       <section className="relative w-full py-10 text-center">
         {/* Fondo gris detrás de todo */}
-        <div className="absolute inset-0 bg-white -z-20" />
+        <div className="absolute inset-0 bg-gray-50 -z-20" />
 
         {/* Banda vertical beige encima del gris */}
         <div className="absolute inset-y-0 left-0 w-24 md:w-80 bg-[#f0e4d0] -z-10" />

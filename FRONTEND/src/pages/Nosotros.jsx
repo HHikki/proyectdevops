@@ -2,9 +2,27 @@ import React, { useEffect, useState, useRef } from "react";
 import Button_A from "../components/Button_A";
 import img_map from "../assets/foto_map.png";
 import { Footer } from "../components/Footer";
-import { FaMapMarkerAlt, FaFacebookF, FaInstagram, FaTwitter, FaGraduationCap, FaAward, FaBookReader, 
-  FaHistory, FaRegLightbulb, FaStar, FaBuilding, FaTrophy, FaChevronLeft, FaChevronRight,FaPlay,
-  FaPause,FaEye,FaHeart,FaUsers,FaRocket
+import {
+  FaMapMarkerAlt,
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaGraduationCap,
+  FaAward,
+  FaBookReader,
+  FaHistory,
+  FaRegLightbulb,
+  FaStar,
+  FaBuilding,
+  FaTrophy,
+  FaChevronLeft,
+  FaChevronRight,
+  FaPlay,
+  FaPause,
+  FaEye,
+  FaHeart,
+  FaUsers,
+  FaRocket,
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -14,6 +32,10 @@ import galeria2 from "../assets/galeria2.jpg";
 import galeria3 from "../assets/galeria3.jpg";
 import galeria4 from "../assets/galeria4.jpg";
 import galeria5 from "../assets/galeria5.jpg";
+import Image1 from "../assets/directivo1.png";
+import Image2 from "../assets/directivo2.png";
+import Image3 from "../assets/directivo3.png";
+import Image4 from "../assets/directivo4.png";
 
 const imagenesGaleria = [galeria1, galeria2, galeria3, galeria4, galeria5];
 
@@ -253,10 +275,10 @@ const EstadisticasAnimadas = () => {
           >
             <stat.icon className="mx-auto" />
           </div>
-          <div className="text-4xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+          <div className="text-4xl font-bold text-[#003049] mb-2 group-hover:text-yellow-300 transition-colors duration-300">
             {stat.count}+
           </div>
-          <div className="text-gray-300 font-medium">{stat.label}</div>
+          <div className="text-[#003049] font-medium">{stat.label}</div>
         </div>
       ))}
     </div>
@@ -369,17 +391,13 @@ const Nosotros = () => {
           </a>
         </div>
 
-
         {/* ESTADÍSTICAS SECTION */}
-        <div
-          className="bg-gradient-to-r from-gray-900 to-black py-16"
-          data-aos="fade-up"
-        >
-          <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-center text-4xl font-bold text-white mb-4">
+        <div className="bg-[#f0e4d0] py-8" data-aos="fade-up">
+          <div className="max-w-6xl mx-auto px-2">
+            <h2 className="text-center text-4xl font-bold text-[#003049] mb-2">
               Nuestra Comunidad en Números
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-12 rounded-full"></div>
+            <div className="w-40 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-1 rounded-full"></div>
             <EstadisticasAnimadas />
           </div>
         </div>
@@ -397,7 +415,7 @@ const Nosotros = () => {
               >
                 NUESTRA HISTORIA,
                 <br />
-                <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                <span className=" bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
                   IDENTIDAD Y VISIÓN
                 </span>
               </h1>
@@ -439,7 +457,7 @@ const Nosotros = () => {
                       bg-gradient-to-br ${valor.color}
                       rounded-2xl p-8 shadow-2xl 
                       transform transition-all duration-500 hover:scale-105 hover:shadow-3xl
-                      border border-white/10 backdrop-blur-sm
+                      border border-white/10 
                       relative overflow-hidden
                     `}
                     >
@@ -468,6 +486,9 @@ const Nosotros = () => {
                       <span className="text-white font-bold text-lg">
                         {index + 1}
                       </span>
+                      <span className="text-white font-bold text-lg">
+                        {index + 1}
+                      </span>
                     </div>
                   </div>
 
@@ -477,18 +498,7 @@ const Nosotros = () => {
             </div>
           </div>
         </div>
-        {/* Carrusel */}
-        <div className="bg-white flex flex-col gap-6 items-center p-8">
-          <div className="text-left text-blue-800">
-            <h3 className="font-bold">Conocenos</h3>
-            <h1 className="text-gray-700 font-bold text-5xl">
-              UNETE AL EQUIPO GANADOR
-            </h1>
-            <p className="font-light">
-              Esta son algunos momentos en nuestra institución
-            </p>
-          </div>
-        </div>
+
         {/* SECCIÓN DE DIRECTIVOS PREMIUM */}
         <div
           className="relative w-full bg-cover bg-center"
@@ -505,7 +515,7 @@ const Nosotros = () => {
                   data-aos="zoom-in"
                 >
                   Nuestro{" "}
-                  <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
                     Equipo Directivo
                   </span>
                 </h2>
@@ -525,28 +535,31 @@ const Nosotros = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {directivos.map((item, i) => (
                   <div
                     key={i}
-                    className="group relative bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:transform hover:scale-105 hover:shadow-3xl border border-white/20"
+                    className="group relative bg-[#003049] backdrop-blur-md rounded-xl overflow-hidden shadow-xl transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl border border-white/20"
                     data-aos="flip-up"
                     data-aos-delay={i * 150}
                   >
-                    <div className="relative h-80 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden">
                       <img
-                        src={DIR1}
+                        src={item.imagen}
                         alt={item.nombre}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                       {/* Overlay con información adicional */}
-                      <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         <div className="text-white">
-                          <p className="text-sm mb-2">{item.descripcion}</p>
-                          <div className="flex gap-2">
+                          <p className="text-xs mb-1">{item.descripcion}</p>
+                          <div className="flex gap-1 items-center">
                             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span className="text-xs text-gray-300">
+                              Disponible
+                            </span>
                             <span className="text-xs text-gray-300">
                               Disponible
                             </span>
@@ -559,10 +572,10 @@ const Nosotros = () => {
                       <h3 className="text-white text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
                         {item.nombre}
                       </h3>
-                      <p className="text-gray-300 text-sm uppercase tracking-wider font-medium">
+                      <p className="text-gray-300 text-xs uppercase tracking-wide font-medium">
                         {item.cargo}
                       </p>
-                      <div className="mt-4 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                      <div className="mt-3 w-full h-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                     </div>
                   </div>
                 ))}
@@ -583,13 +596,18 @@ const Nosotros = () => {
               <h1 className="text-gray-800 font-bold text-5xl md:text-6xl mb-6 leading-tight">
                 ÚNETE AL EQUIPO
                 <br />
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span
+                  className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent
+"
+                >
                   GANADOR
                 </span>
               </h1>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                 Estos son algunos de los momentos más especiales que hemos
-                vivido en nuestra institución educativa
+                vivido en nuestra institución educativa Estos son algunos de los
+                momentos más especiales que hemos vivido en nuestra institución
+                educativa
               </p>
             </div>
             <CarruselCintaMultiple />
@@ -607,8 +625,8 @@ const Nosotros = () => {
                 className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-8 shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-8"
                 data-aos="zoom-in"
               >
-                <h2 className="text-white text-3xl lg:text-4xl font-bold flex items-center gap-4">
-                  <FaPlay className="text-2xl" />
+                <h2 className="text-white text-2xl lg:text-3xl font-bold flex items-center gap-2">
+                  <FaPlay className="text-1xl" />
                   Himno Institucional
                 </h2>
               </div>
@@ -626,7 +644,7 @@ const Nosotros = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-10 pointer-events-none"></div>
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/KZJvRU4JJak"
+                src="https://www.youtube.com/embed/4ZXV4uexlTU"
                 title="Himno Institucional"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
