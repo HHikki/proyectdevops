@@ -88,34 +88,38 @@ const SeccionPadres = () => {
     },
   ];
 
-  const handleSubscribe = () => {
-    alert('¡Gracias por suscribirte! Pronto recibirás información sobre nuestros próximos eventos.');
-  };
-
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 py-20 px-4 md:px-12 min-h-screen flex items-center font-sans overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
+    <section
+      className="relative py-20 px-4 md:px-12 min-h-screen flex items-center font-sans overflow-hidden"
+      style={{ background: '#003049' }} // Fondo GUINDA CLARO
+    >
+      {/* ... animated background elements pueden quedarse o eliminarse ... */}
 
       <div className="max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-start gap-16 relative z-10">
-        {/* Left Column: Enhanced title, description, and cards */}
+        {/* Left Column */}
         <div className="flex-1 flex flex-col items-center lg:items-start">
-          {/* Enhanced title with gradient text */}
-          <h2 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-900 via-blue-700 to-indigo-800 bg-clip-text text-transparent leading-tight text-center lg:text-left mb-6 tracking-tight">
-            Bienvenido a 
-            <span className="block mt-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          {/* Título modificado */}
+          <h2
+            className="text-5xl md:text-6xl font-black leading-tight text-center lg:text-left mb-6 tracking-tight"
+            style={{ color: "#FFFFFF" }} // Color Blanco
+          >
+            Bienvenidos a
+            <span
+              className="block mt-2"
+              style={{ color: "#FFFFFF" }} // Color Blanco
+            >
               Escuela de Padres
             </span>
           </h2>
-          
-          {/* Enhanced description */}
-          <p className="text-xl md:text-2xl text-gray-700 max-w-2xl text-center lg:text-left mb-12 leading-relaxed font-medium">
+
+          {/* Descripción */}
+          <p className="text-xl md:text-2xl text-white max-w-2xl text-center lg:text-left mb-12 leading-relaxed font-medium">
             Creamos un espacio donde las familias y la escuela se unen para impulsar la formación y el desarrollo integral de sus hijos.
             <br />
-            <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-bold text-2xl block mt-3">
+            <span
+              className="font-bold text-2xl block mt-3"
+              style={{ color: "#FFFFFF" }} // Color GUINDA
+            >
               ¡Juntos construimos el futuro!
             </span>
           </p>
@@ -150,20 +154,15 @@ const SeccionPadres = () => {
           </div>
           
           {/* Enhanced image gallery */}
-          <div className="flex flex-row gap-6 w-full justify-center items-center mb-10 relative z-10">
-            <ImageCard src={padres1} alt="Actividad Escuela de Padres 1" />
-            <ImageCard src={padres2} alt="Actividad Escuela de Padres 2" />
-          </div>
-          
-          {/* Enhanced subscribe button */}
-          <button
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 focus:outline-none focus:ring-4 focus:ring-blue-400/50 text-lg tracking-wide border border-blue-400/30 hover:border-blue-300/50 transform hover:-translate-y-1 hover:scale-105 relative z-10 group"
-            onClick={handleSubscribe}
-            aria-label="Suscribirse a Escuela de Padres"
-          >
-            <span className="relative z-10">Suscríbete Ahora</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          </button>
+<div className="flex flex-row gap-6 w-full justify-center items-center mb-10 relative z-10">
+  <ImageCard src={padres1} alt="Actividad Escuela de Padres 1" />
+  <ImageCard src={padres2} alt="Actividad Escuela de Padres 2" />
+</div>
+<div className="flex flex-row gap-6 w-full justify-center items-center mb-10 relative z-10">
+  <ImageCard src={padres1} alt="Actividad Escuela de Padres 3" />
+  <ImageCard src={padres2} alt="Actividad Escuela de Padres 4" />
+</div>
+
         </div>
       </div>
     </section>
