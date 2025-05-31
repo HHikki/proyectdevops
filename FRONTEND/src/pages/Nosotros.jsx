@@ -2,27 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import Button_A from "../components/Button_A";
 import img_map from "../assets/foto_map.png";
 import { Footer } from "../components/Footer";
-import { 
-  FaMapMarkerAlt, 
-  FaFacebookF, 
-  FaInstagram, 
-  FaTwitter, 
-  FaGraduationCap, 
-  FaAward, 
-  FaBookReader, 
-  FaHistory, 
-  FaRegLightbulb, 
-  FaStar, 
-  FaBuilding, 
-  FaTrophy, 
-  FaChevronLeft, 
-  FaChevronRight,
-  FaPlay,
-  FaPause,
-  FaEye,
-  FaHeart,
-  FaUsers,
-  FaRocket
+import { FaMapMarkerAlt, FaFacebookF, FaInstagram, FaTwitter, FaGraduationCap, FaAward, FaBookReader, 
+  FaHistory, FaRegLightbulb, FaStar, FaBuilding, FaTrophy, FaChevronLeft, FaChevronRight,FaPlay,
+  FaPause,FaEye,FaHeart,FaUsers,FaRocket
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -327,49 +309,6 @@ const Nosotros = () => {
           </a>
         </div>
 
-        <div className="relative bg-[#f0e4d0] py-17 px-6 md:px-32">
-          <h1 className="text-[#003049] font-bold text-3xl md:text-4xl text-center mb-12">
-            NUESTRA HISTORIA, IDENTIDAD Y VISIÓN
-          </h1>
-
-          {/* Línea vertical central */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-[500px]  w-1 bg-[#003049] z-0"></div>
-
-          <div className="flex flex-col gap-2 relative z-10">
-            {valoresV.map((v, index) => (
-              <div
-                key={index}
-                className={`relative flex flex-col md:flex-row items-center ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Punto central */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
-                  <div className="w-5 h-5 bg-white rounded-full border-4 border-blue-800 transition duration-300 hover:bg-[#003049]"></div>
-                </div>
-
-                {/* Tarjeta */}
-                <div className="w-full md:w-1/2 px-6 py-4 md:px-6">
-                  <div className="bg-[#003049] border border-blue-300 rounded-xl p-6 shadow-lg backdrop-blur-md">
-                    <p className="text-white text-xl font-bold mb-2">
-                      {v.nombre}
-                    </p>
-                    <p className="text-white text-sm md:text-base">
-                      {v.descripcion}
-                    </p>
-                  </div>
-                </div>
-    </div>
-  ))}
-</div>
-
-          {/* Indicador de scroll */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-            </div>
-          </div>
-        </div>
 
         {/* ESTADÍSTICAS SECTION */}
         <div className="bg-gradient-to-r from-gray-900 to-black py-16" data-aos="fade-up">

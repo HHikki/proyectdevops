@@ -1,96 +1,113 @@
-import React from "react";
-import img1 from "../assets/Blog/ingresantes3.jpg";
-import img2 from "../assets/Blog/ingresantes2.jpg";
-import img3 from "../assets/Blog/ingresantes4.jpg";
-import img4 from "../assets/Blog/ingresantes1.jpg";
+import React from 'react';
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import img1 from '../assets/Blog/ingresantes3.jpg';
+import img2 from '../assets/Blog/ingresantes2.jpg';
+import img3 from '../assets/Blog/ingresantes4.jpg';
+import img4 from '../assets/Blog/ingresantes1.jpg';
+
+const beige = '#f6e7cf'; // beige suave
+
+const redes = [
+  { icon: <FaFacebookF />, color: 'bg-[#4267B2] hover:bg-[#365899]' },      // Facebook
+  { icon: <FaInstagram />, color: 'bg-[#E1306C] hover:bg-[#C13584]' },      // Instagram
+  { icon: <FaTwitter />, color: 'bg-[#1DA1F2] hover:bg-[#0e8ddb]' }         // Twitter/X
+];
+
+const colores = [
+  { border: 'border-[#D7263D]', name: 'text-[#D7263D]' },
+  { border: 'border-[#A6122E]', name: 'text-[#A6122E]' },
+  { border: 'border-[#5D8CA9]', name: 'text-[#5D8CA9]' },
+  { border: 'border-[#3B4D61]', name: 'text-[#3B4D61]' },
+];
 
 const ingresantes = [
   {
-    nombre: "KERVIN HERRERA",
-    carrera: "Ingeniería de Telecomunicaciones",
+    nombre: 'KERVIN HERRERA',
+    carrera: 'Ingeniería de Telecomunicaciones',
     imagen: img1,
   },
   {
-    nombre: "RODNEY ASCORNAO",
-    carrera: "Ingeniería Mecatrónica",
+    nombre: 'RODNEY ASCORNAO',
+    carrera: 'Ingeniería Mecatrónica',
     imagen: img2,
   },
   {
-    nombre: "CESAR CHOQUEZ",
-    carrera: "Ingeniería de Alimentos",
+    nombre: 'CESAR CHOQUEZ',
+    carrera: 'Ingeniería de Alimentos',
     imagen: img3,
   },
   {
-    nombre: "FABIAN CAMACHO",
-    carrera: "Ingeniería Eléctrica",
+    nombre: 'FABIAN CAMACHO',
+    carrera: 'Ingeniería Eléctrica',
     imagen: img4,
   },
 ];
 
-const NuevosIngresantes = () => {
-  return (
-    <section className="bg-[#6698BC] text-white py-14 px-4 min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-          NUEVOS INGRESANTES 2025
-        </h1>
-        <p className="text-3xl md:text-4xltext-lg md:text-xl text-white mb-4">
-          Damos la más cordial bienvenida a nuestros cachimbos, quienes inician
-          una nueva etapa llena de aprendizajes, retos y grandes experiencias.
-          ¡Esta es su casa, y juntos construiremos un gran camino!
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-          {ingresantes.map((item, i) => (
-            <div
-              key={i}
-              className="bg-white/90 text-black rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group flex flex-col h-full"
-            >
-              <div className="overflow-hidden">
-                <img
-                  src={item.imagen}
-                  alt={item.nombre}
-                  className="w-full h-52 md:h-56 object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
-              <div className="flex-1 flex flex-col justify-between p-4 text-center">
-                <div>
-                  <h3 className="font-bold text-lg mb-1">{item.nombre}</h3>
-                  <p className="text-gray-500 text-xs tracking-widest mb-1">
-                    INGRESANTE
-                  </p>
-                  <p className="text-purple-700 font-medium mb-2">
-                    {item.carrera}
-                  </p>
-                </div>
-                <div className="flex justify-center gap-4 mt-2 text-purple-600 text-lg">
-                  <a
-                    href="#"
-                    className="hover:text-blue-700 transition-colors duration-200"
-                  >
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a
-                    href="#"
-                    className="hover:text-pink-600 transition-colors duration-200"
-                  >
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                  <a
-                    href="#"
-                    className="hover:text-blue-400 transition-colors duration-200"
-                  >
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+const StudentCard = ({ student, color }) => (
+  <div
+    className={`rounded-2xl shadow-md ${color.border} border-2`}
+    style={{
+      background: beige,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    }}
+  >
+    <img
+      src={student.imagen}
+      alt={student.nombre}
+      className="w-full h-60 object-cover"
+      loading="lazy"
+    />
+    <div className="flex-1 flex flex-col justify-between px-6 py-5 text-center">
+      <h3 className={`font-bold text-lg mb-2 uppercase tracking-wide ${color.name}`}>
+        {student.nombre}
+      </h3>
+      <span className="inline-block mb-2 px-3 py-1 rounded-full bg-[#f2e3d1] border border-gray-200 text-xs font-medium text-gray-600">
+        INGRESANTE 2025
+      </span>
+      <p className="font-semibold text-base text-gray-700 mb-4">{student.carrera}</p>
+      <div className="flex justify-center gap-3 mt-auto">
+        {redes.map((r, idx) => (
+          <a
+            key={idx}
+            href="#"
+            className={`rounded-full w-10 h-10 flex items-center justify-center text-xl text-white shadow transition ${r.color}`}
+            aria-label={["Facebook", "Instagram", "Twitter"][idx]}
+          >
+            {r.icon}
+          </a>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </div>
+);
+
+const NuevosIngresantes = () => (
+  <section style={{ background: beige }} className="py-20 px-4 min-h-screen">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-14">
+        <h1 className="text-4xl md:text-6xl font-black mb-4 text-[#3B4D61] tracking-wide uppercase">
+          Nuevos Ingresantes 2025
+        </h1>
+        <div className="w-20 h-1 bg-[#5D8CA9] mx-auto mb-4 rounded-full"></div>
+        <p className="text-lg md:text-2xl text-[#3B4D61] max-w-2xl mx-auto">
+          Damos la más cordial bienvenida a nuestros ingresantes, quienes inician una nueva etapa llena de aprendizajes, retos y grandes experiencias.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {ingresantes.map((student, idx) => (
+          <StudentCard key={idx} student={student} color={colores[idx % colores.length]} />
+        ))}
+      </div>
+      <div className="text-center mt-16">
+        <p className="text-xl font-bold text-[#D7263D]">
+          ¡El futuro los espera!
+        </p>
+      </div>
+    </div>
+  </section>
+);
 
 export default NuevosIngresantes;
