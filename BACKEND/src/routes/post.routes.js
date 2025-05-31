@@ -13,6 +13,8 @@ router.post("/login", loginUser);
 
 router.get("/post",requireAdmin, getPosts); // ✅ GET all users admin
 
+router.get("/post/page", getPosts);
+
 router.get("/post/:user",getMyPosts)
 
 // // get por userId (modificar)
