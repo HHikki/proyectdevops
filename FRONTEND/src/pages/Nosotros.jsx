@@ -47,6 +47,7 @@ const CarruselCintaMultiple = () => {
   const timeoutRef = useRef(null);
 
   const imagenesPorVista = 3;
+
   const maxIndex = imagenesGaleria.length - imagenesPorVista;
 
   useEffect(() => {
@@ -228,7 +229,7 @@ const EstadisticasAnimadas = () => {
 
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8"
+      className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16"
       ref={(el) => {
         if (el) {
           const observer = new IntersectionObserver(
@@ -303,18 +304,23 @@ const Nosotros = () => {
       evento:
         "Nuestra institución nació con el sueño de transformar vidas a través de la educación de calidad, estableciendo los cimientos de lo que hoy es una comunidad educativa sólida y comprometida con la excelencia académica.",
       icono: <FaBuilding className="text-yellow-400 text-3xl" />,
+      color: "from-blue-600 to-purple-600",
     },
+
     {
       año: "Misión",
       evento:
         "Formar estudiantes íntegros, competentes y conscientes de su responsabilidad social, brindándoles herramientas académicas y valores humanos que les permitan contribuir positivamente al desarrollo de nuestra sociedad.",
       icono: <FaGraduationCap className="text-green-400 text-3xl" />,
+      color: "from-green-600 to-teal-600",
     },
+
     {
       año: "Visión",
       evento:
         "Ser reconocidos como una institución educativa líder e innovadora, que inspire el amor por el aprendizaje y forme ciudadanos capaces de enfrentar los desafíos del futuro con creatividad, ética y liderazgo.",
       icono: <FaRocket className="text-purple-400 text-3xl" />,
+      color: "from-purple-600 to-pink-600",
     },
   ];
 
@@ -323,25 +329,21 @@ const Nosotros = () => {
       nombre: "Evellyng Limaylla",
       cargo: "DIRECTORA GENERAL",
       descripcion: "Líder visionaria con 20 años de experiencia",
-      imagen: Image1,
     },
     {
       nombre: "Julian Jameson",
       cargo: "SUBDIRECTOR ACADÉMICO",
       descripcion: "Especialista en innovación educativa",
-      imagen: Image3,
     },
     {
       nombre: "Juan Lhi",
       cargo: "COORDINADOR ESTUDIANTIL",
       descripcion: "Comprometido con el bienestar estudiantil",
-      imagen: Image4,
     },
     {
       nombre: "Roxana Median",
       cargo: "PSICÓLOGA EDUCATIVA",
       descripcion: "Experta en desarrollo integral",
-      imagen: Image2,
     },
   ];
 
@@ -393,9 +395,12 @@ const Nosotros = () => {
         </div>
 
         {/* ESTADÍSTICAS SECTION */}
-        <div className="bg-[#f0e4d0] py-8" data-aos="fade-up">
-          <div className="w-[70%] mx-auto px-4">
-            <h2 className="text-center text-4xl font-bold text-[#003049] mb-2">
+        <div
+          className="bg-gradient-to-r from-gray-900 to-black py-16"
+          data-aos="fade-up"
+        >
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="text-center text-4xl font-bold text-white mb-4">
               Nuestra Comunidad en Números
             </h2>
             <div className="w-40 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-1 rounded-full"></div>
@@ -405,13 +410,13 @@ const Nosotros = () => {
 
         {/* SECCIÓN HISTORIA MEJORADA */}
         <div
-          className="min-h-screen  bg-[#003049] to-indigo-900 py-12"
+          className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-20"
           data-aos="fade-up"
         >
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-10">
+            <div className="text-center mb-16">
               <h1
-                className="text-blue-50 font-bold text-5xl md:text-6xl mb-2 leading-tight"
+                className="text-blue-50 font-bold text-5xl md:text-6xl mb-6 leading-tight"
                 data-aos="fade-down"
               >
                 NUESTRA HISTORIA,
@@ -421,12 +426,12 @@ const Nosotros = () => {
                 </span>
               </h1>
               <div
-                className="h-2 w-60 bg-[#a30000] mx-auto rounded-full mb-2"
+                className="h-2 w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full mb-6"
                 data-aos="zoom-in"
                 data-aos-delay="200"
               ></div>
               <p
-                className="text-white text-lg max-w-3xl mx-auto leading-relaxed"
+                className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed"
                 data-aos="fade-up"
                 data-aos-delay="400"
               >
@@ -455,7 +460,8 @@ const Nosotros = () => {
                   >
                     <div
                       className={`
-                    bg-[#A9C0D9]  rounded-2xl p-8 shadow-2xl 
+                      bg-gradient-to-br ${valor.color}
+                      rounded-2xl p-8 shadow-2xl 
                       transform transition-all duration-500 hover:scale-105 hover:shadow-3xl
                       border border-white/10 
                       relative overflow-hidden
@@ -466,15 +472,15 @@ const Nosotros = () => {
 
                       <div className="relative z-10">
                         <div className="flex items-center gap-4 mb-6 justify-between">
-                          <h3 className="text-3xl font-bold text-[#003049]">
+                          <h3 className="text-3xl font-bold text-yellow-300">
                             {valor.año}
                           </h3>
-                          <div className="p-3 bg-[#003049] rounded-xl backdrop-blur-sm">
+                          <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
                             {valor.icono}
                           </div>
                         </div>
                         <div className="h-px w-full bg-gradient-to-r from-white/20 to-transparent mb-6"></div>
-                        <p className="text-[#003049] leading-relaxed text-lg">
+                        <p className="text-gray-100 leading-relaxed text-lg">
                           {valor.evento}
                         </p>
                       </div>
@@ -483,6 +489,9 @@ const Nosotros = () => {
 
                   <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center z-20">
                     <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl border-4 border-white/20">
+                      <span className="text-white font-bold text-lg">
+                        {index + 1}
+                      </span>
                       <span className="text-white font-bold text-lg">
                         {index + 1}
                       </span>
@@ -502,13 +511,13 @@ const Nosotros = () => {
           style={{ backgroundImage: `url(${img_map})` }}
           data-aos="fade-up"
         >
-          <div className="absolute inset-0 bg-[#f0e4d0]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/85"></div>
 
-          <div className="relative z-10 py-12 min-h-screen flex flex-col justify-center">
+          <div className="relative z-10 py-24 min-h-screen flex flex-col justify-center">
             <div className="max-w-7xl mx-auto px-6">
-              <div className="text-center mb-8">
+              <div className="text-center mb-16">
                 <h2
-                  className="text-5xl md:text-6xl font-bold text-[#003049] mb-6"
+                  className="text-5xl md:text-6xl font-bold text-white mb-6"
                   data-aos="zoom-in"
                 >
                   Nuestro{" "}
@@ -517,12 +526,12 @@ const Nosotros = () => {
                   </span>
                 </h2>
                 <div
-                  className="h-2 w-32 bg-gradient-to-r from-red-500 to-red-700 mx-auto mb-5 rounded-full"
+                  className="h-2 w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full"
                   data-aos="zoom-in"
                   data-aos-delay="200"
                 ></div>
                 <p
-                  className="[#003049] text-xl max-w-3xl mx-auto leading-relaxed"
+                  className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed"
                   data-aos="fade-up"
                   data-aos-delay="300"
                 >
@@ -557,13 +566,16 @@ const Nosotros = () => {
                             <span className="text-xs text-gray-300">
                               Disponible
                             </span>
+                            <span className="text-xs text-gray-300">
+                              Disponible
+                            </span>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-4 text-center">
-                      <h3 className="text-white text-lg font-semibold mb-1 group-hover:text-yellow-400 transition-colors duration-300">
+                    <div className="p-6 text-center">
+                      <h3 className="text-white text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
                         {item.nombre}
                       </h3>
                       <p className="text-gray-300 text-xs uppercase tracking-wide font-medium">
@@ -579,12 +591,15 @@ const Nosotros = () => {
         </div>
         {/* SECCIÓN DE GALERÍA MEJORADA */}
         <div
-          className="bg-gradient-to-br from-gray-50 to-blue-50 py-12"
+          className="bg-gradient-to-br from-gray-50 to-blue-50 py-20"
           data-aos="fade-up"
         >
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h1 className="text-[#003049] font-bold text-5xl md:text-6xl mb-3 leading-tight">
+            <div className="text-center mb-16">
+              <h3 className="text-blue-600 font-semibold text-lg mb-2">
+                Conócenos
+              </h3>
+              <h1 className="text-gray-800 font-bold text-5xl md:text-6xl mb-6 leading-tight">
                 ÚNETE AL EQUIPO
                 <br />
                 <span
@@ -596,7 +611,9 @@ const Nosotros = () => {
               </h1>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                 Estos son algunos de los momentos más especiales que hemos
-                vivido en nuestra institución educativa
+                vivido en nuestra institución educativa Estos son algunos de los
+                momentos más especiales que hemos vivido en nuestra institución
+                educativa
               </p>
             </div>
             <CarruselCintaMultiple />
@@ -604,11 +621,14 @@ const Nosotros = () => {
         </div>
 
         {/* SECCIÓN DE VIDEO PREMIUM */}
-        <div className="bg-[#6698BC] py-12" data-aos="fade-up">
-          <div className="max-w-6xl mx-auto px-2">
-            <div className="text-center mb-5">
+        <div
+          className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-24"
+          data-aos="fade-up"
+        >
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-12">
               <div
-                className="inline-block bg-gradient-to-r from-red-500 to-red-700 rounded-2xl p-8 shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-5"
+                className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-8 shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-8"
                 data-aos="zoom-in"
               >
                 <h2 className="text-white text-2xl lg:text-3xl font-bold flex items-center gap-2">
@@ -616,14 +636,14 @@ const Nosotros = () => {
                   Himno Institucional
                 </h2>
               </div>
-              <p className="text-white text-lg max-w-2xl mx-auto">
+              <p className="text-gray-300 text-lg max-w-2xl mx-auto">
                 Escucha nuestro himno institucional que representa los valores y
                 el espíritu de nuestra comunidad educativa
               </p>
             </div>
 
             <div
-              className="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              className="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl"
               data-aos="zoom-in"
               data-aos-delay="200"
             >
