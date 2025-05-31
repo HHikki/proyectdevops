@@ -54,7 +54,7 @@ export default function Level() {
       </div>
 
       {/* ───── Columna derecha con rectángulos ───── */}
-      <div className="w-full md:w-3/5 bg-white flex flex-col items-start justify-start gap-8 p-10">
+      <div className="w-full md:w-3/5 bg-gray-50 flex flex-col items-start justify-start gap-8 p-10">
         <h2 className="text-3xl md:text-4xl font-bold text-[#003049] mb">
           NUESTROS NIVELES EDUCATIVOS
         </h2>

@@ -6,37 +6,53 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import Image1 from "../assets/testimonial1.png";
-import Image2 from "../assets/testimonial2.png";
-import Image3 from "../assets/testimonial3.png";
+import Image1 from "../assets/testimonio1.png";
+import Image2 from "../assets/testimonio2.png";
+import Image3 from "../assets/testimonio3.png";
+import Image4 from "../assets/testimonio4.png";
+import Image5 from "../assets/testimonio5.png";
 
 const Testimonials = () => {
   const Data = [
     {
       id: 1,
       image: Image1,
-      title: "John Doe",
+      title: "John Perez",
       description:
-        "Una experiencia maravillosa. Todo el proceso educativo fue impecable y enriquecedor.",
+        "Estuve, estoy y estaré muy agradecida con la Familia Prisma,  y los increíbles integrantes de ella ¡Estudio, Disciplina, Superación, Fuerza Prisma! ",
     },
     {
       id: 2,
       image: Image2,
-      title: "Harry Clinton",
+      title: "Aisha Pastor",
       description:
-        "Profesional, confiable y dedicado. Cumplieron con todo lo prometido y con gran calidad.",
+        "Tengo la felicidad de decir que fue en Prisma en donde encontré los sueños que quería; y gracias a esto logré mi ingreso a la Universidad",
     },
     {
       id: 3,
       image: Image3,
-      title: "Sara C",
+      title: "Alisson Torres",
       description:
-        "Excelente trabajo. La comunicación fue clara y los tiempos se respetaron perfectamente.",
+        "Tengo los recuerdos de un colegio lleno de risas niños en las horas de descanso, y de un aula con el profesor dictando las clases más dinámicas.",
+    },
+    {
+      id: 4,
+      image: Image4,
+      title: "Cristiano Cueva",
+      description:
+        "Tuve la increíble oportunidad de haber estado en este bonito hogar, con la mejor familia que hay; tuve la oportunidad de encontrar quien era yo realmente",
+    },
+    {
+      id: 5,
+      image: Image5,
+      title: "Samira Quispe",
+      description:
+        "Aún recuerdo la primera vez que entré al colegio, fue un día realmente especial, fue el comienzo de nuevas aventuras que día a día fueron marcando en mi corazón. ",
     },
   ];
 
   return (
-    <section className="min-h-screen bg-white py-20">
+    <section className="bg-gray-50  pt-12 pb-14">
       <div className="max-w-[1440px] mx-auto px-6 text-center">
         <h2 className="text-5xl font-bold text-[#003049] mb-4">
           Exalumnos prismáticos
@@ -67,7 +83,7 @@ const Testimonials = () => {
                 <div
                   className={`transition-all duration-500 ease-in-out
                   ${isActive ? "opacity-100 scale-105" : "opacity-40"}
-                  bg-[#003049] text-white rounded-3xl shadow-2xl px-10 py-14
+                  bg-[#780000] text-white rounded-3xl shadow-2xl px-10 py-10
                   max-w-[300px] h-[400px] flex flex-col items-center justify-center text-center mx-auto`}
                 >
                   <img

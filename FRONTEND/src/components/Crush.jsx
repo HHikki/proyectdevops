@@ -10,7 +10,7 @@ const Crush = (e) => {
       />
 
       {/* Sombra lateral izquierda degradada */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-200/30 via-yellow-100/10 to-transparent"></div>
 
       {/* Contenido centrado */}
       <div className="absolute inset-0 flex items-center justify-start pl-10 md:pl-32">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Crush from "../components/Crush";
 import alumnosImg from "../assets/calendar2.jpg";
 import docentesImg from "../assets/calendar3.jpg";
@@ -10,99 +10,316 @@ import galeria3 from "../assets/galeria3.jpg";
 import galeria4 from "../assets/galeria4.jpg";
 import galeria5 from "../assets/galeria5.jpg";
 import galeria6 from "../assets/galeria6.jpg";
-import pict from "../assets/calendar.jpg";
+import pict from "../assets/comunidad1.png";
+const galeria = [
+  { src: galeria1, categoria: "actividades" },
+  { src: galeria2, categoria: "eventos" },
+  { src: galeria3, categoria: "actividades" },
+  { src: galeria4, categoria: "eventos" },
+  { src: galeria5, categoria: "talleres" },
+  { src: galeria6, categoria: "talleres" },
+];
+
+const categorias = ["all", "actividades", "eventos", "talleres"];
 
 const Comunidad = () => {
+  const [categoriaActiva, setCategoriaActiva] = useState("all");
+
+  const galeriaFiltrada =
+    categoriaActiva === "all"
+      ? galeria
+      : galeria.filter((item) => item.categoria === categoriaActiva);
   return (
     <div className="bg-white">
-      <Crush pict={pict}/>
+      <Crush pict={pict} />
 
-      <section className="bg-blue-950 text-white py-20 px-4 sm:px-8 lg:px-24">
-        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 items-start">
-          <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">ALUMNOS - PERFIL</h2>
-            <p className="mb-10 text-gray-300 text-base md:text-lg leading-relaxed">
-              Celebramos a los verdaderos protagonistas de nuestra institución: nuestros alumnos.
+      <section className="bg-[#0c1a2c] text-white py-20 px-6 sm:px-10 lg:px-20">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
+          {/* Texto descriptivo */}
+          <div className="flex-1 ">
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-400/30 mb-6">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-blue-200 text-sm font-medium tracking-wide">
+                NUESTROS ESTUDIANTES
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              Alumnos - Perfil
+            </h2>
+            <p className="mb-10 text-gray-300 text-lg md:text-xl leading-relaxed">
+              Celebramos a los verdaderos protagonistas de nuestra institución:
+              nuestros alumnos.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Lista de características */}
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
               {[
                 "Investigan de manera rigurosa y buscan la verdad desde una perspectiva holística.",
                 "Tienen un profundo arraigo y amor por su país, su familia, su colegio y el mundo.",
                 "Son conscientes de su identidad y como cristianos en el mundo.",
                 "Son equilibrados, educados en el buen uso de su libertad.",
-                "the quick fox jumps over the lazy dog",
-                "the quick fox jumps over the lazy dog",
+                "Demuestran pensamiento crítico y compromiso social.",
+                "Cultivan valores humanos y espirituales para su formación integral.",
               ].map((text, index) => (
                 <div
                   key={index}
-                  className="bg-white text-black flex items-center gap-3 px-5 py-5 rounded-md shadow hover:shadow-lg transition"
+                  className="bg-white/5 border border-white/10 text-white flex items-start gap-4 px-5 py-5 rounded-xl shadow-sm hover:shadow-lg transition duration-300"
                 >
-                  <span className="text-violet-600 font-bold text-xl">›</span>
+                  <span className="text-yellow-400 text-2xl font-bold pt-1">
+                    ✓
+                  </span>
                   <p className="text-base leading-snug">{text}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="w-full lg:w-[340px] xl:w-[400px] flex-shrink-0">
-            <img src={alumnosImg} alt="Foto alumnos" className="w-full rounded-lg shadow-lg" />
-            <p className="text-xs text-center mt-3 tracking-widest text-gray-300">I.E.P. GANADOR</p>
+          {/* Imagen y badge institucional */}
+          <div className="w-full xl:w-[400px] flex-shrink-0 space-y-6">
+            {/* Imagen con efecto */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-violet-500 to-blue-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-300"></div>
+              <div className="relative">
+                <img
+                  src={alumnosImg}
+                  alt="Estudiantes de I.E.P. Ganador"
+                  className="w-full h-[500px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-xl"></div>
+              </div>
+            </div>
+
+            {/* Badge institucional */}
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-600/50 shadow-md">
+                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-violet-400 rounded-full"></div>
+                <span className="text-slate-300 text-sm font-semibold tracking-wider uppercase">
+                  I.E.P. GANADOR
+                </span>
+                <div className="w-3 h-3 bg-gradient-to-r from-violet-400 to-blue-400 rounded-full"></div>
+              </div>
+              <p className="text-xs text-slate-400 font-medium">
+                Formando líderes del mañana
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#445da7] text-white py-20 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 tracking-wide">NUESTROS PROFESORES</h2>
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2">
-            <img src={docentesImg} alt="Foto docentes" className="rounded-md shadow-md w-full" />
+      <section className="relative bg-[#f0e4d0] text-[#003049] py-12 px-6 sm:px-8 lg:px-24 overflow-hidden">
+        {/* Elementos decorativos de fondo */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#e4bfa2]/30 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#db9e82]/30 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#c87f6a]/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+
+        <div className="relative max-w-7xl mx-auto">
+          {/* Header de la sección */}
+          <div className="text-center mb-6 space-y-6 text-[#003049]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#003049] ">
+              Nuestros Profesores
+            </h2>
           </div>
-          <div className="w-full md:w-1/2">
-            <div className="w-12 h-1 bg-red-500 mb-4"></div>
-            <h3 className="text-2xl font-bold mb-4">Nuestro Equipo</h3>
-            <p className="text-sm md:text-base leading-relaxed text-gray-100">
-              Contamos con un equipo de profesionales comprometidos con la educación y formación
-              integral de nuestros estudiantes. En esta sección podrás conocer a nuestros profesores,
-              sus especialidades y cómo se involucran día a día en el crecimiento de nuestra comunidad educativa.
-            </p>
+
+          {/* Contenido principal */}
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            {/* Imagen */}
+            <div className="w-full lg:w-1/2 relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#c87f6a] via-[#db9e82] to-[#f2b89e] rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+              <div className="relative">
+                <img
+                  src={docentesImg}
+                  alt="Equipo docente de I.E.P. Ganador"
+                  className="w-full h-[480px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#5a4e3c]/30 via-transparent to-transparent rounded-xl"></div>
+
+                {/* Overlay con estadísticas */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-[#fff8f1]/70 backdrop-blur-lg rounded-lg p-4 border border-[#e0c8a0]/50">
+                    <div className="flex justify-between items-center text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-[#9d584c]">
+                          15+
+                        </div>
+                        <div className="text-xs text-[#5a4e3c]">
+                          Años de experiencia
+                        </div>
+                      </div>
+                      <div className="w-px h-8 bg-[#c4a88e]/50"></div>
+                      <div>
+                        <div className="text-2xl font-bold text-[#9d584c]">
+                          25+
+                        </div>
+                        <div className="text-xs text-[#5a4e3c]">
+                          Docentes expertos
+                        </div>
+                      </div>
+                      <div className="w-px h-8 bg-[#c4a88e]/50"></div>
+                      <div>
+                        <div className="text-2xl font-bold text-[#9d584c]">
+                          100%
+                        </div>
+                        <div className="text-xs text-[#5a4e3c]">Compromiso</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contenido de texto */}
+            <div className="w-full lg:w-1/2 space-y-8">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#d97706] via-[#f59e0b] to-[#fcd34d] rounded-full"></div>
+                  <div className="flex gap-2">
+                    <div className="w-2 h-2 bg-[#d97706] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#f59e0b] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#fcd34d] rounded-full"></div>
+                  </div>
+                </div>
+
+                <h3 className="text-3xl md:text-4xl font-bold text-[#780000]">
+                  Nuestro Equipo Excepcional
+                </h3>
+
+                <p className="text-lg text-[#5a4e3c] leading-relaxed">
+                  Contamos con un equipo de{" "}
+                  <span className="text-[#003049] font-semibold">
+                    profesionales altamente calificados
+                  </span>{" "}
+                  y comprometidos con la educación y formación integral de
+                  nuestros estudiantes.
+                </p>
+              </div>
+
+              {/* Características del equipo */}
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: "🎓",
+                    title: "Formación Especializada",
+                    description:
+                      "Docentes con estudios superiores y especialización en sus áreas",
+                  },
+                  {
+                    icon: "🌟",
+                    title: "Innovación Pedagógica",
+                    description:
+                      "Metodologías modernas adaptadas a las necesidades actuales",
+                  },
+                  {
+                    icon: "🤝",
+                    title: "Trabajo en Equipo",
+                    description:
+                      "Colaboración constante para el fortalecimiento de nuestra comunidad educativa",
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="group flex items-start gap-4 p-4 rounded-lg bg-[#003049] backdrop-blur-sm border border-[#e0c8a0]/30 hover:bg-[#fffaf5] hover:border-[#d8b48e] transition-all duration-300"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[#c87f6a] to-[#e4bfa2] rounded-lg flex items-center justify-center text-lg group-hover:scale-110 transition-transform duration-300">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1 group-hover:text-[#af6e60] transition-colors">
+                        {item.title}
+                      </h4>
+                      <p className="text-sm text-white group-hover:text-[#3e2e1e] transition-colors">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#253367] text-white py-20 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Padres de familia</h2>
-        <p className="text-center text-gray-300 mb-12 max-w-2xl mx-auto">
-          Reconocemos y valoramos el rol fundamental que cumplen los padres en el desarrollo integral de nuestros estudiantes.
+      <section className="bg-[#6698BC] text-[#003049] py-12 px-4 sm:px-8 lg:px-24">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 leading-tight">
+          Testimonios de Padres de Familia
+        </h2>
+        <p className="text-center text-white  mb-16 max-w-2xl mx-auto text-lg">
+          Reconocemos y valoramos el rol fundamental que cumplen los padres en
+          el desarrollo integral de nuestros estudiantes.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {[{
-            img: padre1,
-            texto: "Mi hijo era todo un desastre con sus tareas en su colegio anterior, ahora es todo un campeón, Prisma canalizó su mayor pasión.",
-          }, {
-            img: padre2,
-            texto: "Me gustó el colegio, ahora mi hijo es todo un profesional, se convirtió en panadero nuclear en Francia.",
-          }].map((padre, index) => (
-            <div key={index} className="bg-white text-black rounded-lg shadow p-6 text-center">
-              <img src={padre.img} className="mx-auto rounded-full w-20 h-20 object-cover mb-4" />
-              <p className="text-sm mb-4">{padre.texto}</p>
-              <div className="text-yellow-400 text-xl mb-2">★★★★☆</div>
-              <p className="font-bold">Regina Miles</p>
-              <p className="text-sm text-gray-500">Designer</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          {[
+            {
+              img: padre1,
+              texto:
+                "Mi hijo era todo un desastre con sus tareas en su colegio anterior, ahora es todo un campeón. Prisma canalizó su mayor pasión.",
+              nombre: "Regina Miles",
+              rol: "Madre de familia",
+            },
+            {
+              img: padre2,
+              texto:
+                "Me gustó el colegio, ahora mi hijo es todo un profesional. Se convirtió en panadero nuclear en Francia.",
+              nombre: "Carlos Gómez",
+              rol: "Padre orgulloso",
+            },
+          ].map((padre, index) => (
+            <div
+              key={index}
+              className="bg-white/80 text-[#333] rounded-2xl shadow-xl p-8 flex flex-col items-center space-y-4 hover:shadow-2xl transition-shadow duration-300"
+            >
+              <img
+                src={padre.img}
+                alt={padre.nombre}
+                className="w-24 h-24 rounded-full object-cover border-4 border-[#f0e4d0] shadow-md"
+              />
+              <p className="text-md italic text-center text-[#444]">
+                “{padre.texto}”
+              </p>
+              <div className="text-yellow-500 text-xl">★★★★★</div>
+              <div className="text-center">
+                <p className="font-semibold text-lg">{padre.nombre}</p>
+                <p className="text-sm text-[#666]">{padre.rol}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#445da7] text-white py-20 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-3xl font-bold mb-8">Galería</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {[galeria1, galeria2, galeria3, galeria4, galeria5, galeria6].map((img, i) => (
-            <img
+      <section className="bg-[#f0e4d0] text-white py-12 px-4 sm:px-8 lg:px-24">
+        <h2 className="text-4xl font-bold text-center mb-8">Galería</h2>
+
+        {/* Botones de filtro */}
+        <div className="flex justify-center gap-4 flex-wrap mb-12">
+          {categorias.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setCategoriaActiva(cat)}
+              className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${
+                categoriaActiva === cat
+                  ? "bg-white text-[#445da7]"
+                  : "bg-[#780000] hover:bg-[#6b85da]"
+              }`}
+            >
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Galería */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {galeriaFiltrada.map((item, i) => (
+            <div
               key={i}
-              src={img}
-              alt={`Galería ${i + 1}`}
-              className="w-full h-52 object-cover rounded-md shadow-md"
-            />
+              className="overflow-hidden rounded-xl shadow-lg group relative"
+            >
+              <img
+                src={item.src}
+                alt={`Galería ${i + 1}`}
+                className="w-full h-50 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-300"></div>
+            </div>
           ))}
         </div>
       </section>

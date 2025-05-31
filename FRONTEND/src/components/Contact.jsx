@@ -28,7 +28,7 @@ export default function Contact() {
       </div>
 
       {/* ───── Formulario ───── */}
-      <div className="w-full md:w-3/5 bg-white flex flex-col justify-center px-8 py-16">
+      <div className="w-full md:w-3/5 bg-gray-50 flex flex-col justify-center px-8 py-16">
         <form className="space-y-6 max-w-2xl w-full mx-auto">
           {fields.map((label, idx) => (
             <div key={idx} className="flex flex-col space-y-1">
