@@ -46,7 +46,7 @@ if (typeof window !== "undefined" && !document.getElementById("welc-video-css"))
 }
 
 const WelcomeVideo = () => (
-  <section className="relative min-h-screen py-20 px-4 bg-gradient-to-br from-[#5342a7] via-[#5d65ae] to-[#9e8cfb] flex items-center justify-center overflow-hidden">
+  <section className="relative min-h-screen py-20 px-4 bg-[#f0e4d0] flex items-center justify-center overflow-hidden">
     {/* Fondo animado */}
     <div className="absolute inset-0 pointer-events-none z-0">
       <div className="absolute top-10 left-1/4 w-72 h-72 bg-pink-400/20 rounded-full blur-3xl animate-float-slow"></div>
@@ -56,20 +56,16 @@ const WelcomeVideo = () => (
     </div>
 
     <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
-      <span className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#e2e6fb] via-[#7b70d7] to-[#ffd84c] shadow-lg text-[#493c86] text-xs font-semibold tracking-wider uppercase mb-6 animate-slide-in-top">
-        <MdOutlineEmail className="text-lg animate-pulse" />
-        Newsletter
-      </span>
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#ffd84c] via-white to-[#a59cff] bg-clip-text text-transparent mb-4 drop-shadow-xl animate-zoom-in">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight  bg-[#003049] bg-clip-text text-transparent mb-4 drop-shadow-xl animate-zoom-in">
         Nuestro Reconocimiento
       </h1>
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#f7c35f] via-[#fff] to-[#d87fff] bg-clip-text text-transparent mb-3 tracking-wide animate-zoom-in-delay">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold  bg-[#003049] bg-clip-text text-transparent mb-3 tracking-wide animate-zoom-in-delay">
         ¡BIENVENIDO!
       </h2>
 
       <div className="flex items-center justify-center gap-3 text-purple-200 font-medium mb-10 animate-slide-in-bottom">
-        <FaMapMarkerAlt className="text-lg text-[#ffd84c] animate-bounce-slow" />
-        <span className="text-base md:text-lg leading-relaxed text-center">
+        <FaMapMarkerAlt className="text-lg text-[#003049] animate-bounce-slow" />
+        <span className="text-[#003049] md:text-lg leading-relaxed text-center">
           Mira nuestro video institucional y conoce el espíritu Prisma.
         </span>
       </div>

@@ -10,14 +10,13 @@ const beige = '#f6e7cf'; // beige suave
 const redes = [
   { icon: <FaFacebookF />, color: 'bg-[#4267B2] hover:bg-[#365899]' },      // Facebook
   { icon: <FaInstagram />, color: 'bg-[#E1306C] hover:bg-[#C13584]' },      // Instagram
-  { icon: <FaTwitter />, color: 'bg-[#1DA1F2] hover:bg-[#0e8ddb]' }         // Twitter/X
 ];
 
 const colores = [
-  { border: 'border-[#D7263D]', name: 'text-[#D7263D]' },
-  { border: 'border-[#A6122E]', name: 'text-[#A6122E]' },
-  { border: 'border-[#5D8CA9]', name: 'text-[#5D8CA9]' },
-  { border: 'border-[#3B4D61]', name: 'text-[#3B4D61]' },
+  { border: 'border-[#780000]', name: 'text-[#A6122E]' },
+  { border: 'border-[#780000]', name: 'text-[#A6122E]' },
+  { border: 'border-[#780000]', name: 'text-[#A6122E]' },
+  { border: 'border-[#780000]', name: 'text-[#A6122E]' },
 ];
 
 const ingresantes = [
@@ -74,7 +73,7 @@ const StudentCard = ({ student, color }) => (
             key={idx}
             href="#"
             className={`rounded-full w-10 h-10 flex items-center justify-center text-xl text-white shadow transition ${r.color}`}
-            aria-label={["Facebook", "Instagram", "Twitter"][idx]}
+            aria-label={["Facebook", "Instagram" ][idx]}
           >
             {r.icon}
           </a>
@@ -102,9 +101,6 @@ const NuevosIngresantes = () => (
         ))}
       </div>
       <div className="text-center mt-16">
-        <p className="text-xl font-bold text-[#D7263D]">
-          ¡El futuro los espera!
-        </p>
       </div>
     </div>
   </section>

@@ -6,18 +6,9 @@ import escolar2 from "../assets/Blog/escolar2.jpg";
 import escolar3 from "../assets/Blog/escolar3.jpg";
 
 const fotos = [
-  {
-    src: escolar1,
-    alt: "Alumnos parados por obligación",
-  },
-  {
-    src: escolar2,
-    alt: "Incomodidad total",
-  },
-  {
-    src: escolar3,
-    alt: "Oso",
-  },
+  { src: escolar1 },
+  { src: escolar2 },
+  { src: escolar3 },
 ];
 
 const colors = [
@@ -27,14 +18,11 @@ const colors = [
 ];
 
 const InicioEscolar = () => (
-  <section className="bg-gradient-to-br from-[#2c366b] to-[#4151a3] min-h-screen py-20 px-4 font-poppins">
+  <section className="bg-[#003049] min-h-screen py-20 px-4 font-poppins">
     <div className="max-w-6xl mx-auto">
       {/* Subtítulo */}
-      <h2 className="text-center text-sm md:text-base font-bold tracking-[.35em] uppercase text-[#A7BFE8] mb-2">
-        CONÓCENOS
-      </h2>
       {/* Título grande con gradiente */}
-      <h1 className="text-4xl md:text-6xl font-extrabold text-center mb-3 bg-gradient-to-r from-[#5D8CA9] via-[#3B4D61] to-[#D7263D] bg-clip-text text-transparent drop-shadow-xl tracking-tight">
+      <h1 className="text-4xl md:text-6xl font-extrabold text-center mb-3 bg-gradient-to-r from-[#FFFFFF] via-[#FFFFFF] to-[#FFFFFF] bg-clip-text text-transparent drop-shadow-xl tracking-tight">
         INICIO AÑO ESCOLAR 2025
       </h1>
       {/* Barra animada decorativa */}
@@ -49,36 +37,22 @@ const InicioEscolar = () => (
           ¡Bienvenidos a este nuevo ciclo! <FiStar className="text-xl animate-pulse" />
         </span>
       </div>
-      {/* Cards de imágenes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      {/* Cards SOLO IMAGEN */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {fotos.map((foto, i) => (
           <div
             key={i}
-            className={`bg-white rounded-3xl ${colors[i % colors.length]} border-2 shadow-lg overflow-hidden flex flex-col transform transition-all duration-400 hover:-translate-y-2 hover:shadow-2xl group`}
-            style={{ minHeight: "370px" }}
+            className={`bg-white rounded-3xl ${colors[i % colors.length]} border-2 shadow-lg overflow-hidden flex transform transition-all duration-400 hover:-translate-y-2 hover:shadow-2xl group p-0`}
           >
-            <div className="overflow-hidden">
-              <img
-                src={foto.src}
-                alt={foto.alt}
-                className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105 rounded-t-3xl"
-                loading="lazy"
-              />
-            </div>
-            <div className="p-7 flex-1 flex items-center justify-center bg-white">
-              <p className="text-[#232323] font-bold text-xl md:text-2xl text-center tracking-wide transition-all duration-300 group-hover:text-[#D7263D] group-hover:scale-105">
-                {foto.alt}
-              </p>
-            </div>
+            <img
+              src={foto.src}
+              alt=""
+              className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105 rounded-3xl"
+              loading="lazy"
+              style={{ display: "block" }}
+            />
           </div>
         ))}
-      </div>
-      {/* Mensaje de cierre opcional */}
-      <div className="text-center mt-14">
-        <span className="text-2xl md:text-3xl font-black text-[#D7263D] flex items-center justify-center gap-2 drop-shadow">
-          ¡Que este año escolar esté lleno de logros!
-          <FiStar className="inline-block text-yellow-400 text-2xl animate-pulse" />
-        </span>
       </div>
     </div>
   </section>
