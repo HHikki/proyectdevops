@@ -15,13 +15,16 @@ import {
 } from "../components/UI";
 import logo from "../assets/logo.jpg";
 
+const API_BASE_URL = "http://localhost:4001";
+
+
 const loginAction = async (formData) => {
   const email = formData.get("email");
   const password = formData.get("password");
 
   try {
     // Realiza la solicitud al endpoint /login
-    const response = await fetch("http://localhost:4001/prisma/login", {
+    const response = await fetch(`${API_BASE_URL}/prisma/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
