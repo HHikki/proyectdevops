@@ -1,55 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Crush from "../components/Crush";
-import pict from "../assets/eventos.png"; // imagen de cabecera
-
+import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
 
+const API_BASE_URL = "http://localhost:4001";
+
 export default function Comunicado() {
-  /* ─────────────────────  DATA  ───────────────────── */
-  const eventos = [
-    {
-      id: 1,
-      titulo: "Día de la Madre",
-      fecha: "📅 11 de mayo, 2025",
-      lugar: "📍 Plantel Institucional",
-      descripcion:
-        "Con motivo del Día de la Madre, el colegio celebró una ceremonia especial en honor a todas las mamás de nuestra comunidad educativa. Se realizaron presentaciones artísticas y se entregaron reconocimientos...",
-      imagen: pict,
-      enlace: "#",
-    },
-    {
-      id: 2,
-      titulo: "VIII Concurso de Grafiti 🎨💡🖊️✨",
-      fecha: "📅 20 de abril, 2021",
-      lugar: "",
-      descripcion:
-        "VIII CONCURSO DE GRAFITI promoviendo la creatividad estudiantil en muralismo escolar...",
-      imagen: pict,
-      enlace: "#",
-    },
-    {
-      id: 3,
-      titulo: "Campaña Preventiva frente al Ciberbullying",
-      fecha: "📅 20 de abril, 2021",
-      lugar: "",
-      descripcion:
-        "La campaña preventiva frente al ciberbullying promueve una cultura de paz, a través de las relaciones armoniosas y de respeto...",
-      imagen: pict,
-      enlace: "#",
-    },
-    {
-      id: 4,
-      titulo: "Origen de la palabra TRILCE",
-      fecha: "📅 14 de abril, 2021",
-      lugar: "",
-      descripcion:
-        "Existen muchas versiones acerca del origen de la palabra Trilce, que le da nombre al segundo poemario de César Vallejo...",
-      imagen: pict,
-      enlace: "#",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/prisma/post/page`);
+        console.log(response)
+        if (!response.ok) {
+          throw new Error("Error al cargar los posts");
+        }
+        const data = await response.json();
+        
+        setPosts(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    });
+  };
 
   return (
     <div>
@@ -63,44 +54,55 @@ export default function Comunicado() {
         </h2>
 
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {eventos.map((ev) => (
-            <div
-              key={ev.id}
-              className="bg-[#6698BC] text-black rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group flex flex-col md:flex-row h-full"
-            >
-              {/* Imagen */}
-              <div className="md:w-1/2 w-full h-52 md:h-auto overflow-hidden">
-                <img
-                  src={ev.imagen}
-                  alt={ev.titulo}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Texto */}
-              <div className="md:w-1/2 w-full p-6 flex flex-col justify-between">
-                <div>
-                  <h3 className="font-bold text-lg mb-1 leading-snug">
-                    {ev.titulo}
-                  </h3>
-                  <p className="text-white text-xs mb-2">
-                    {ev.fecha} {ev.lugar}
-                  </p>
-                  <p className="text-sm text-white mb-4 line-clamp-3">
-                    {ev.descripcion}
-                  </p>
+          {loading ? (
+            <div className="col-span-2 text-center py-10">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#003049] mx-auto"></div>
+            </div>
+          ) : error ? (
+            <div className="col-span-2 text-center py-10 text-red-600">
+              {error}
+            </div>
+          ) : (
+            posts.map((post) => (
+              <div
+                key={post.id}
+                className="bg-[#6698BC] text-black rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group flex flex-col md:flex-row h-full"
+              >
+                {/* Imagen */}
+                <div className="md:w-1/2 w-full h-52 md:h-auto overflow-hidden">
+                  <img
+                    src={post.image_url || pict}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
 
-                <a
-                  href={ev.enlace}
-                  className="text-[#780000] hover:text-orange-800 text-sm font-semibold"
-                >
-                  Leer más 🔍
-                </a>
+                {/* Texto */}
+                <div className="md:w-1/2 w-full p-6 flex flex-col justify-between">
+                  <div>
+                    <h3 className="font-bold text-lg mb-1 leading-snug">
+                      {post.title}
+                    </h3>
+                    <p className="text-white text-xs mb-2">
+                      📅 {formatDate(post.createdAt)}
+                      {post.location && ` | 📍 ${post.location}`}
+                    </p>
+                    <p className="text-sm text-white mb-4 line-clamp-3">
+                      {post.content}
+                    </p>
+                  </div>
+
+                  <a
+                    href={`/comunicado/${post.id}`}
+                    className="text-[#780000] hover:text-orange-800 text-sm font-semibold"
+                  >
+                    Leer más 🔍
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 

@@ -159,4 +159,31 @@ export const deletePost = async (req, res) => {
   }
 };
 
+/**
+ * Obtener posts para la página pública
+ */
+export const getPublicPosts = async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        postType: true,
+        user: {
+          select: {
+            username: true,
+            email: true
+          }
+        },
+        images: true
+      },
+      orderBy: {
+        created_at: 'desc' // Usar created_at en lugar de createdAt
+      }
+    });
+    res.json(posts);
+  } catch (error) {
+    console.error("Error al obtener los posts públicos:", error);
+    res.status(500).json({ error: "Error al obtener los posts" });
+  }
+};
+
 

@@ -12,16 +12,19 @@ export default function CalendarWithEvents() {
   useEffect(() => {
     const fakeEvents = [
       {
+        id: "evt-1",
         date: "2025-05-27",
         title: "Evento de Bienvenida",
         description: "Reunión de inicio de mes con el equipo de trabajo.",
       },
       {
+        id: "evt-2",
         date: "2025-06-02",
         title: "Lanzamiento de Producto",
         description: "Presentación oficial del nuevo producto.",
       },
       {
+        id: "evt-3",
         date: "2025-06-15",
         title: "Revisión Mensual",
         description: "Análisis de métricas y avances.",
@@ -30,16 +33,19 @@ export default function CalendarWithEvents() {
 
     const commemorativeEvents = [
       {
+        id: "comm-1",
         date: "2025-05-15",
         title: "Día del Maestro",
         description: "Celebración del Día del Maestro.",
       },
       {
+        id: "comm-2",
         date: "2025-05-12",
         title: "Día de la Madre",
         description: "Día de la Madre (segundo domingo de mayo).",
       },
       {
+        id: "comm-3",
         date: "2025-06-15",
         title: "Día del Padre",
         description: "Día del Padre (tercer domingo de junio).",
@@ -105,7 +111,7 @@ export default function CalendarWithEvents() {
             </h2>
             <ul className="list-disc list-inside text-gray-700 space-y-1">
               {upcomingEvents.map((event) => (
-                <li key={event.date}>
+                <li key={event.id}>
                   <span className="font-medium">{event.title}</span> —{" "}
                   {format(parseISO(event.date), "dd MMMM yyyy")}
                 </li>

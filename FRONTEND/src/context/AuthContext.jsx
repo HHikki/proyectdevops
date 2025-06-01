@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useCallback } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
@@ -8,57 +8,57 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   // Función para verificar el token
-  const checkAuth = () => {
+  const checkAuth = useCallback(() => {
     const token = localStorage.getItem('jwtToken');
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        // Verifica si el token no ha expirado
-        if (decoded.exp * 1000 > Date.now()) {
-          setIsAuthenticated(true);
-          setUser(decoded);
-          return true;
-        } else {
-          localStorage.removeItem('jwtToken'); // Elimina token expirado
-          setIsAuthenticated(false);
-          setUser(null);
-          return false;
-        }
-      } catch (error) {
-        console.error('Error decodificando token:', error);
-        localStorage.removeItem('jwtToken'); // Token inválido
-        setIsAuthenticated(false);
-        setUser(null);
-        return false;
-      }
+    if (!token) {
+      setIsAuthenticated(false);
+      setUser(null);
+      return false;
     }
+
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp * 1000 > Date.now()) {
+        setIsAuthenticated(true);
+        setUser(decoded);
+        return true;
+      }
+    } catch (error) {
+      console.error('Error decodificando token:', error);
+    }
+
+    localStorage.removeItem('jwtToken');
     setIsAuthenticated(false);
     setUser(null);
     return false;
-  };
+  }, []); // No hay dependencias porque solo usa localStorage
 
   // Verifica el token al montar el componente
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
   // Función para iniciar sesión
-  const login = (token) => {
+  const login = useCallback((token) => {
     localStorage.setItem('jwtToken', token);
-    const decoded = jwtDecode(token);
-    setIsAuthenticated(true);
-    setUser(decoded);
-  };
+    checkAuth();
+  }, [checkAuth]);
 
   // Función para cerrar sesión
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('jwtToken');
     setIsAuthenticated(false);
     setUser(null);
-  };
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, checkAuth }}>
+    <AuthContext.Provider value={{ 
+      isAuthenticated, 
+      user, 
+      login, 
+      logout,
+      checkAuth 
+    }}>
       {children}
     </AuthContext.Provider>
   );
