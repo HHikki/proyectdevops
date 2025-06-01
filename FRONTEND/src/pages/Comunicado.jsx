@@ -4,8 +4,9 @@ import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
+import { VITE_API_KEY, VITE_API_BASE_URL } from "../config/env";
 
-const API_BASE_URL = "http://localhost:4001";
+
 
 export default function Comunicado() {
   const [posts, setPosts] = useState([]);
@@ -15,7 +16,12 @@ export default function Comunicado() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/prisma/post/page`);
+        const response = await fetch(`${VITE_API_BASE_URL}prisma/post/page`, {
+          headers: {
+            "X-API-KEY": VITE_API_KEY, // Agregar la API Key en los headers
+          },
+          cache: "no-cache", // Evitar caché para obtener datos actualizados
+        });
         console.log(response)
         if (!response.ok) {
           throw new Error("Error al cargar los posts");

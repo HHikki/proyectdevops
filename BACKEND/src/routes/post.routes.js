@@ -10,13 +10,15 @@ import {
 } from "../controllers/post.controller.js";
 
 import { loginUser } from "../controllers/auth.controller.js";
-import { authMiddleware, requireAdmin } from "../middlewares/auth.js";
+import { authMiddleware, requireAdmin, validateApiKey } from "../middlewares/auth.js";
 
 const router = Router();
 
-// ✅ Rutas públicas (NO requieren autenticación)
+// Aplicar validación de API_KEY a todas las rutas
+router.use(validateApiKey);
+
+// ✅ Rutas públicas (NO requieren autenticación pero sí API_KEY)
 router.get("/post/page", getPublicPosts); // Endpoint público
-router.post("/login", loginUser); // Endpoint público
 
 // ✅ Middleware de autenticación para rutas protegidas
 router.use(authMiddleware);

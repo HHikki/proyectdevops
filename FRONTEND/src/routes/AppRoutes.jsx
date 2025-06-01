@@ -19,8 +19,9 @@ const AppRoutes = () => (
     <Route path="/Comunicado" element={<Comunicado />} />
     <Route path="/Comunidad" element={<Comunidad />} />
     <Route path="/Login" element={<Login />} />
-    <Route path="/Panel" element={<ProtectedRoute component={ PanelA } />} />
 
+    {/* Rutas protegidas del panel */}
+    <Route path="/Panel/*" element={<ProtectedRoute component={PanelA} />} />
     
     <Route path="/error" element={<ErrorPage />} />
     <Route path="*" element={<Navigate to="/" replace />} />

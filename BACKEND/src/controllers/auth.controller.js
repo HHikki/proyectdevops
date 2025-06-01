@@ -7,6 +7,10 @@ const prisma = new PrismaClient();
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email y contraseña son requeridos" });
+  }
+
   try {
     // Buscar al usuario por su email
     const user = await prisma.user.findUnique({
@@ -26,8 +30,8 @@ export const loginUser = async (req, res) => {
     // Generar el token JWT, incluyendo is_admin
     const token = jwt.sign(
       { userId: user.id, email: user.email, is_admin: user.is_admin },
-      process.env.JWT_SECRET,
-      { expiresIn: "2m" }
+      JWT_SECRET,
+      { expiresIn: "30m" }
     );
 
     res.json({ token });

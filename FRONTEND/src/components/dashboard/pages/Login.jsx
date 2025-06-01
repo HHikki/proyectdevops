@@ -15,15 +15,15 @@ import {
   EyeOff,
 } from "../components/UI";
 import logo from "../assets/logo.jpg";
-
-const API_BASE_URL = "http://localhost:4001";
+import { VITE_API_KEY, VITE_API_BASE_URL } from "/src/config/env.jsx";
 
 const loginAction = async (email, password) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/prisma/login`, {
+    const response = await fetch(`${VITE_API_BASE_URL}/prisma/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-API-KEY": VITE_API_KEY,
       },
       body: JSON.stringify({ email, password }),
     });

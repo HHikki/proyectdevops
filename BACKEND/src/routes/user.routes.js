@@ -8,14 +8,21 @@ import {
   deleteUser,
 } from "../controllers/user.controller.js";
 import { loginUser } from "../controllers/auth.controller.js";
-
-import { authMiddleware, requireAdmin } from "../middlewares/auth.js";
+import {
+  authMiddleware,
+  requireAdmin,
+  validateApiKey,
+} from "../middlewares/auth.js";
 
 const router = Router();
 
-// Ruta de inicio de sesión sin autenticación
-router.post("/login", loginUser); // ✅ Login de usuario
+// Aplicar validación de API_KEY a todas las rutas
 
+
+
+router.use(validateApiKey);
+
+router.post("/login", loginUser); // Endpoint público
 // Aplica el middleware de autenticación a las rutas que lo requieren
 router.use(authMiddleware); // ✅ Middleware de autenticación
 
