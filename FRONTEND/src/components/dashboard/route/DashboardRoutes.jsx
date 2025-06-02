@@ -1,17 +1,16 @@
 import { Routes, Route } from "react-router-dom";
-import CreatePost from "../pages/CreatePost";
-import EditPost from "../pages/EditPost";
-import PostList from "../pages/PostList";
-import UserSettings from "../pages/UserSettings";
+import PanelA from "../pages/PanelA";
+import Eventos from "../pages/Eventos";
+import Publicaciones from "../pages/Publicaciones";
+import Comunicados from "../pages/Comunicados";
 
 const DashboardRoutes = () => {
   return (
     <Routes>
-      <Route index element={<PostList />} />
-      <Route path="crear" element={<CreatePost />} />
-      <Route path="editar/:id" element={<EditPost />} />
-      <Route path="posts" element={<PostList />} />
-      <Route path="configuracion" element={<UserSettings />} />
+      <Route path="/Panel" element={<PanelA />} />
+      <Route path="/Eventos" element={<Eventos />} />
+      <Route path="/Publicaciones" element={<Publicaciones />} />
+      <Route path="/Comunicados" element={<Comunicados />} />
     </Routes>
   );
 };

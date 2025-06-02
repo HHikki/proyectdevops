@@ -2,10 +2,10 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const items = [
-  { label: "Dashboard", to: "/dashboard/pages/PanelA", icon: "📊" },
-  { label: "Publicaciones", to: "/dashboard/pages/Publicaciones", icon: "📰" },
-  { label: "Eventos", to: "/dashboard/pages/Eventos", icon: "📅" },
-  { label: "Comunicados", to: "/dashboard/pages/Comunicados", icon: "📢" },
+  { label: "Dashboard", to: "/Panel", icon: "📊" },
+  { label: "Publicaciones", to: "/Panel/Publicaciones", icon: "📰" },
+  { label: "Eventos", to: "/Panel/Eventos", icon: "📅" },
+  { label: "Comunicados", to: "/Panel/Comunicados", icon: "📢" },
 ];
 
 export default function Barra() {

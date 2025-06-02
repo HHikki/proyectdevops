@@ -4,7 +4,7 @@ import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
-import { VITE_API_KEY, VITE_API_BASE_URL } from "../config/env";
+import { API_KEY, API_BASE_URL } from "/src/config/env.jsx";
 
 
 
@@ -16,9 +16,9 @@ export default function Comunicado() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${VITE_API_BASE_URL}prisma/post/page`, {
+        const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
           headers: {
-            "X-API-KEY": VITE_API_KEY, // Agregar la API Key en los headers
+            "x-api-key": API_KEY, // Agregar la API Key en los headers
           },
           cache: "no-cache", // Evitar caché para obtener datos actualizados
         });

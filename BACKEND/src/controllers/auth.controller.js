@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { JWT_SECRET } from "../config/env.js";
+
 
 const prisma = new PrismaClient();
 

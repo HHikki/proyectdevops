@@ -14,10 +14,10 @@ import GestionContenido from "../components/paneles/Gestion";
 const API_BASE_URL = "http://localhost:4001";
 
 export default function PanelA() {
-  // const { user } = useContext(AuthContext);
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  const { user } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -59,7 +59,7 @@ export default function PanelA() {
           <div className="flex flex-col gap-6">
             <AccionesRapidas/>
             <GestionContenido />
-            <RegistroP />
+            {/* <RegistroP /> */}
           </div>
         </div>
       </div>
