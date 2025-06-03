@@ -15,7 +15,7 @@ import {
   EyeOff,
 } from "../components/UI";
 import logo from "../assets/logo.jpg";
-import { API_KEY, API_BASE_URL } from "/src/config/env.jsx";
+import { API_KEY, API_BASE_URL } from "../../../config/env.jsx";
 
 const loginAction = async (email, password) => {
   try {
@@ -50,7 +50,7 @@ export default function Login() {
   // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/Panel');
+      navigate("/Panel");
     }
   }, [isAuthenticated, navigate]);
 
@@ -103,7 +103,9 @@ export default function Login() {
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle>INICIAR SESIÓN</CardTitle>
-                  <p className="text-gray-600 mt-2">Accede a tu panel de control</p>
+                  <p className="text-gray-600 mt-2">
+                    Accede a tu panel de control
+                  </p>
                 </div>
                 <Link
                   to="/"

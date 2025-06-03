@@ -4,9 +4,8 @@ import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
-import { API_KEY, API_BASE_URL } from "/src/config/env.jsx";
-
-
+// Usa esto (desde donde estés haciendo la importación)
+import { API_KEY, API_BASE_URL } from "../config/env.jsx";
 
 export default function Comunicado() {
   const [posts, setPosts] = useState([]);
@@ -22,12 +21,12 @@ export default function Comunicado() {
           },
           cache: "no-cache", // Evitar caché para obtener datos actualizados
         });
-        console.log(response)
+        console.log(response);
         if (!response.ok) {
           throw new Error("Error al cargar los posts");
         }
         const data = await response.json();
-        
+
         setPosts(data);
       } catch (err) {
         setError(err.message);
