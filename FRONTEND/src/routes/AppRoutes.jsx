@@ -22,9 +22,9 @@ const AppRoutes = () => (
 
     {/* Rutas protegidas del panel */}
     <Route path="/Panel/*" element={<ProtectedRoute component={PanelA} />} />
-
-    {/* <Route path="/error" element={<ErrorPage />} /> */}
-    <Route path="*" element={<ErrorPage />} />
+    
+    <Route path="/error" element={<ErrorPage />} />
+    <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );
 
