@@ -10,6 +10,10 @@ jest.mock("swiper/react", () => ({
 }));
 jest.mock("swiper/css", () => {});
 jest.mock("swiper/css/pagination", () => {});
+jest.mock("../config/env.jsx", () => ({
+  API_BASE_URL: "http://localhost:4001",
+  API_KEY: "test_api_key",
+}));
 
 test("Renderiza sin errores", () => {
   render(
