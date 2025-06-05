@@ -1,76 +1,144 @@
 // Registro.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx"; // Asegúrate de que la ruta sea correcta
 
-const Registro = () => {
-  const [data, setData] = useState([
-    { key: "1", nombre: "Juan Pérez", edad: 28, correo: "juan@example.com" },
-    { key: "2", nombre: "María López", edad: 32, correo: "maria@example.com" },
-  ]);
+const Registro = ({ layoutMode = 0 }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleDelete = (key) => {
-    setData((prev) => prev.filter((item) => item.key !== key));
+  const procesarFechas = (fechaString) => {
+    if (!fechaString) return "Fecha no disponible"; // Manejo de valores nulos
+
+    // Extraer fechas sin importar si tienen "Z" o no
+    const fechas =
+      fechaString.match(
+        /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g
+      ) || [];
+
+    return fechas
+      .map((fecha) => {
+        const date = new Date(fecha);
+        return `${date.getFullYear()}-${(date.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+      })
+      .join(" - ");
   };
 
-  const handleEdit = (record) => {
-    console.log("Editar", record);
-    // Aquí podrías abrir un modal de edición
-  };
+  // Simulamos un fetch desde un archivo o endpoint
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetch(`${API_BASE_URL}/prisma/post/page`, {
+          headers: {
+            "x-api-key": API_KEY, // Agregar la API Key en los headers
+          },
+          cache: "no-cache",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Datos obtenidos:", data);
+            setData(
+              data.filter(item => item.postTypeId === layoutMode) // Filtrar solo eventos
+              .map((item, index) => ({
+                key: index,
+                titulo: item.title || "Título no disponible",
+                autor: item.user.username || "Autor no disponible",
+                fecha: procesarFechas(item.created_at) || "Fecha no disponible",
+                duracion:
+                  procesarFechas(item.start_at) +
+                    " - " +
+                    procesarFechas(item.start_at) || "Fecha no disponible",
+              }))
+            );
+          })
+          .catch((error) => console.error("Error al obtener datos:", error));
+      } catch (error) {
+        console.error("Error en fetch:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const columns = [
-    {
-      title: <span className="text-gray-700 font-semibold">Nombre</span>,
-      dataIndex: "nombre",
-      key: "nombre",
-      render: (text) => <span className="text-gray-800">{text}</span>,
+    fetchData();
+  }, []);
+
+  // Columnas comunes
+  const commonColumns = {
+    titulo: {
+      title: "Título",
+      dataIndex: "titulo",
+      key: "titulo",
     },
-    {
-      title: <span className="text-gray-700 font-semibold">Edad</span>,
-      dataIndex: "edad",
-      key: "edad",
-      render: (text) => <span className="text-gray-800">{text}</span>,
+    autor: {
+      title: "Autor",
+      dataIndex: "autor",
+      key: "autor",
     },
-    {
-      title: <span className="text-gray-700 font-semibold">Correo</span>,
-      dataIndex: "correo",
-      key: "correo",
-      render: (text) => <span className="text-gray-800">{text}</span>,
+    fecha: {
+      title: "Fecha",
+      dataIndex: "fecha",
+      key: "fecha",
     },
-    {
-      title: "",
-      key: "acciones",
+    duracion: {
+      title: "Duración",
+      dataIndex: "duracion",
+      key: "duracion",
+    },
+    edit: {
+      title: "Editar",
+      key: "edit",
       render: (_, record) => (
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleEdit(record)}
-            className="flex items-center gap-1 px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition"
-          >
-            <FaEdit className="text-white" />
-            Editar
-          </button>
-          <button
-            onClick={() => handleDelete(record.key)}
-            className="flex items-center gap-1 px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600 transition"
-          >
-            <FaTrash className="text-white" />
-            Eliminar
-          </button>
-        </div>
+        <button
+          onClick={() => console.log("Editar:", record)}
+          className="text-blue-600 hover:text-blue-800"
+        >
+          <FaEdit />
+        </button>
       ),
     },
-  ];
+    delete: {
+      title: "Eliminar",
+      key: "delete",
+      render: (_, record) => (
+        <button
+          onClick={() => console.log("Eliminar:", record)}
+          className="text-red-600 hover:text-red-800"
+        >
+          <FaTrash />
+        </button>
+      ),
+    },
+  };
+
+  const columns =
+    layoutMode === 1
+      ? [
+          commonColumns.titulo,
+          commonColumns.autor,
+          commonColumns.fecha,
+          commonColumns.duracion,
+          commonColumns.edit,
+          commonColumns.delete,
+        ]
+      : [
+          commonColumns.titulo,
+          commonColumns.autor,
+          commonColumns.fecha,
+          commonColumns.edit,
+          commonColumns.delete,
+        ];
 
   return (
-    <div className="p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
-        Registro de Usuarios
-      </h2>
+    <div className="p-4 bg-white rounded-md shadow-md">
       <Table
         columns={columns}
         dataSource={data}
         pagination={false}
-        className="custom-table"
+        loading={loading}
+        className="w-full"
       />
     </div>
   );

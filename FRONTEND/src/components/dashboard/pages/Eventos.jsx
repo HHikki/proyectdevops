@@ -11,7 +11,7 @@ const Eventos = () => {
       <div className="mb-4">
         <SearchP />
       </div>
-      <Registro />
+      <Registro layoutMode={1}/>
     </div>
   );
 };
