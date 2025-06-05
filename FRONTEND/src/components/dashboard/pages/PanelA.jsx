@@ -47,7 +47,6 @@ export default function PanelA() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <Barra />
       <div className="flex-1 flex flex-col mt-16 ml-4">
         <Header />
         <Stats />
