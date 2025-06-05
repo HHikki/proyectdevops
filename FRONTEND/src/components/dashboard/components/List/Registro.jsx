@@ -63,7 +63,7 @@ const Registro = ({ layoutMode = 0 }) => {
     };
 
     fetchData();
-  }, []);
+  }, [layoutMode]);
 
   // Columnas comunes
   const commonColumns = {
