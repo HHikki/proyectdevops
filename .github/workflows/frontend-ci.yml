@@ -37,5 +37,5 @@ jobs:
         working-directory: ./BACKEND
 
       - name: Run Backend Tests
-        run: npm test
+        run: NODE_ENV=test npm test
         working-directory: ./BACKEND
