@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "npx prisma db seed && node --watch src/index.js",
-    "test": "echo \"No tests implemented yet for backend\""
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,9 @@
     "pg": "^8.16.0"
   },
   "devDependencies": {
-    "prisma": "^6.8.2"
+    "jest": "^29.7.0",
+    "prisma": "^6.8.2",
+    "supertest": "^7.1.1"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
