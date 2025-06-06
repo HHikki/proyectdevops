@@ -1,46 +1,78 @@
 // Registro.jsx
 import React, {useContext, useState, useEffect } from "react";
-import { Table } from "antd";
+import { Table, message } from "antd";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx"; // Asegúrate de que la ruta sea correcta
-
+import Modal from "../Modal.jsx";
+import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 import { AuthContext } from "../../../../context/AuthContext.jsx";
 
 const Registro = ({ layoutMode = 0 }) => {
-  
-  const { user, name, admin} = useContext(AuthContext);
+  const [modalOpen, setModalOpen] = useState(false);
+  const { user, admin } = useContext(AuthContext);
   const [data, setData] = useState([]);
-  
-  const token = localStorage.getItem("jwtToken");
+  const [selectedKey, setSelectedKey] = useState(null);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("jwtToken");
 
-  const procesarFechas = (fechaString) => {
-    if (!fechaString) return "Fecha no disponible"; // Manejo de valores nulos
-
-    // Extraer fechas sin importar si tienen "Z" o no
-    const fechas =
-      fechaString.match(
-        /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g
-      ) || [];
-
-    return fechas
-      .map((fecha) => {
-        const date = new Date(fecha);
-        return `${date.getFullYear()}-${(date.getMonth() + 1)
-          .toString()
-          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-      })
-      .join(" - ");
+  const handleOpenModal = (record) => {
+    if (record) {
+      setSelectedKey(record);
+      setModalOpen(true);
+    }
   };
 
-  // Simulamos un fetch desde un archivo o endpoint
+  const handleConfirm = async () => {
+    if (!selectedKey) return;
+    
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/prisma/post/${selectedKey.id}`, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('Error al eliminar el registro');
+
+      setData(prevData => prevData.filter(item => item.key !== selectedKey.key));
+      message.success('Registro eliminado correctamente');
+      setModalOpen(false);
+    } catch (error) {
+      console.error('Error:', error);
+      message.error('No se pudo eliminar el registro');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const procesarFechas = (fechaString) => {
+    if (!fechaString) return "Fecha no disponible";
+    
+    try {
+      const fecha = new Date(fechaString);
+      if (isNaN(fecha.getTime())) return "Fecha inválida";
+      
+      return fecha.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    } catch (error) {
+      console.error('Error al procesar fecha:', error);
+      return "Error en formato de fecha";
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url =
-          admin
-            ? `${API_BASE_URL}/prisma/post/`
-            : `${API_BASE_URL}/prisma/post/${user}`;
+        setLoading(true);
+        const url = admin
+          ? `${API_BASE_URL}/prisma/post/`
+          : `${API_BASE_URL}/prisma/post/${user}`;
 
         const response = await fetch(url, {
           headers: {
@@ -55,25 +87,25 @@ const Registro = ({ layoutMode = 0 }) => {
           throw new Error(`Error en la respuesta: ${response.status}`);
         }
 
-        const data = await response.json();
-        console.log("Datos obtenidos:", data);
+        const responseData = await response.json();
+        
+        const processedData = responseData
+          .filter((item) => item.postTypeId === layoutMode)
+          .map((item, index) => ({
+            key: item.id || index,
+            id: item.id,
+            titulo: item.title || "Título no disponible",
+            autor: item.user?.username || "Autor no disponible",
+            fecha: procesarFechas(item.created_at),
+            duracion: item.start_at && item.end_at
+              ? `${procesarFechas(item.start_at)} - ${procesarFechas(item.end_at)}`
+              : "Duración no disponible",
+          }));
 
-        setData(
-          data
-            .filter((item) => item.postTypeId === layoutMode)
-            .map((item, index) => ({
-              key: index,
-              titulo: item.title || "Título no disponible",
-              autor: item.user?.username || "Autor no disponible",
-              fecha: procesarFechas(item.created_at) || "Fecha no disponible",
-              duracion:
-                procesarFechas(item.start_at) +
-                  " - " +
-                  procesarFechas(item.end_at) || "Duración no disponible",
-            }))
-        );
+        setData(processedData);
       } catch (error) {
         console.error("Error al obtener datos:", error.message);
+        message.error("Error al cargar los datos");
       } finally {
         setLoading(false);
       }
@@ -82,10 +114,10 @@ const Registro = ({ layoutMode = 0 }) => {
     if (token) {
       fetchData();
     } else {
-      console.warn("Token no disponible, no se puede realizar la solicitud.");
+      message.warning("No hay sesión activa");
       setLoading(false);
     }
-  }, [layoutMode, token, user]);
+  }, [layoutMode, token, user, admin]);
 
   // Columnas comunes
   const commonColumns = {
@@ -126,7 +158,7 @@ const Registro = ({ layoutMode = 0 }) => {
       key: "delete",
       render: (_, record) => (
         <button
-          onClick={() => console.log("Eliminar:", record)}
+          onClick={() => handleOpenModal(record)}
           className="text-red-600 hover:text-red-800"
         >
           <FaTrash />
@@ -160,8 +192,20 @@ const Registro = ({ layoutMode = 0 }) => {
         dataSource={data}
         pagination={false}
         loading={loading}
+        locale={{
+          emptyText: loading ? 'Cargando...' : 'No hay datos disponibles',
+        }}
         className="w-full"
       />
+      
+      {selectedKey && (
+        <Modal
+          id={selectedKey.titulo}
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onConfirm={handleConfirm}
+        />
+      )}
     </div>
   );
 };
