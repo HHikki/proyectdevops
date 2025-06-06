@@ -1,5 +1,7 @@
-import React from "react";
+import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext.jsx";
+import { FiLogOut } from "react-icons/fi";
 
 const items = [
   { label: "Dashboard", to: "/Panel", icon: "📊" },
@@ -11,14 +13,24 @@ const items = [
 export default function Barra() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    // Aquí puedes limpiar el estado de autenticación si lo necesitas
-    navigate("/Login");
+    logout();
+    navigate("/");
   };
-
   return (
-    <aside className="bg-[#1a2433] text-white w-56 min-h-screen flex flex-col py-6 px-4">
+    <aside
+      className="bg-[#1a2433] text-white w-56 min-h-screen flex flex-col py-6 px-4 sticky top-0 h-screen"
+      style={{ scrollbarWidth: "none", msOverflowStyle: "none", overflowY: "auto" }}
+    >
+      <style>
+        {`
+          aside::-webkit-scrollbar {
+            display: none;
+          }
+        `}
+      </style>
       <div className="mb-8">
         <span className="font-bold text-lg">Colegio Admin</span>
       </div>
@@ -45,9 +57,12 @@ export default function Barra() {
         className="mt-auto flex items-center gap-2 text-sm text-red-300 hover:text-red-500 transition-colors"
         onClick={handleLogout}
       >
-        <span>⏻</span>
+        <FiLogOut size={18} />
         Cerrar Sesión
       </button>
+      <footer className="mt-6 text-xs text-gray-400 text-center">
+        © {new Date().getFullYear()} Colegio Admin
+      </footer>
     </aside>
   );
 }
