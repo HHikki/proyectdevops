@@ -9,6 +9,12 @@ export const getPosts = async (req, res) => {
     const posts = await prisma.post.findMany({
       include: {
         postType: true,
+        user: {
+          select: {
+            username: true,
+            email: true,
+          },
+        },
       },
     });
     res.json(posts);
@@ -66,6 +72,12 @@ export const getMyPosts = async (req, res) => {
       include: {
         postType: true,
         images: true, // Incluye las imágenes asociadas a cada post
+        user: {
+          select: {
+            username: true,
+            email: true,
+          },
+        },
       },
     });
 

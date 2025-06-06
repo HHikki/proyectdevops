@@ -36,11 +36,11 @@ const defaultStats = [
   },
 ];
 
-const Stats = ({ stats = defaultStats }) => (
+const Stats = ({ posts }) => (
   <section className="mb-8 mt-6">
     {/* ↑↑↑ Agregado mt-6 para separar del Header */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-      {stats.map((stat, idx) => (
+      {defaultStats.map((stat, idx) => (
         <div
           key={stat.title}
           className="relative bg-white rounded-2xl border border-gray-100 shadow-lg p-7 flex flex-col gap-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group overflow-hidden"
@@ -49,12 +49,16 @@ const Stats = ({ stats = defaultStats }) => (
           <div className="absolute top-5 right-5 transition-transform duration-300 group-hover:scale-110">
             {stat.icon}
           </div>
-          <span className="font-medium text-sm text-gray-700">{stat.title}</span>
+          <span className="font-medium text-sm text-gray-700">
+            {stat.title}
+          </span>
           <span className="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-            {stat.value}
+            {posts[idx]}
           </span>
           <span className="text-xs text-gray-500">{stat.description}</span>
-          <span className={`text-xs mt-2 ${stat.trendColor}`}>{stat.trend}</span>
+          <span className={`text-xs mt-2 ${stat.trendColor}`}>
+            {stat.trend}
+          </span>
           {/* Línea decorativa animada */}
           <span className="absolute left-0 bottom-0 w-0 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-r-full group-hover:w-full transition-all duration-500"></span>
         </div>
