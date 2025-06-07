@@ -6,7 +6,12 @@ const defaultStats = [
     title: "Total Publicaciones",
     value: 5,
     description: "Noticias, eventos y comunicados",
-    icon: <FiFileText className="text-blue-400 bg-blue-50 rounded-full p-1" size={28} />,
+    icon: (
+      <FiFileText
+        className="text-blue-400 bg-blue-50 rounded-full p-1"
+        size={28}
+      />
+    ),
     trend: "+7% vs mes anterior",
     trendColor: "text-green-600",
   },
@@ -14,7 +19,12 @@ const defaultStats = [
     title: "Eventos Activos",
     value: 1,
     description: "Eventos publicados",
-    icon: <FiCalendar className="text-green-400 bg-green-50 rounded-full p-1" size={28} />,
+    icon: (
+      <FiCalendar
+        className="text-green-400 bg-green-50 rounded-full p-1"
+        size={28}
+      />
+    ),
     trend: "+18% vs mes anterior",
     trendColor: "text-green-600",
   },
@@ -22,7 +32,12 @@ const defaultStats = [
     title: "Comunicados",
     value: 2,
     description: "Comunicados totales",
-    icon: <FiBell className="text-orange-400 bg-orange-50 rounded-full p-1" size={28} />,
+    icon: (
+      <FiBell
+        className="text-orange-400 bg-orange-50 rounded-full p-1"
+        size={28}
+      />
+    ),
     trend: "+22% vs mes anterior",
     trendColor: "text-green-600",
   },
@@ -30,7 +45,12 @@ const defaultStats = [
     title: "Visualizaciones",
     value: 663,
     description: "Vistas totales",
-    icon: <FiEye className="text-purple-400 bg-purple-50 rounded-full p-1" size={28} />,
+    icon: (
+      <FiEye
+        className="text-purple-400 bg-purple-50 rounded-full p-1"
+        size={28}
+      />
+    ),
     trend: "+18% vs mes anterior",
     trendColor: "text-green-600",
   },

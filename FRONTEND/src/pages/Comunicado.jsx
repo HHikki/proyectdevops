@@ -11,16 +11,20 @@ export default function Comunicado() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [comunicados, setComunicados] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
-          headers: {
-            "x-api-key": API_KEY, // Agregar la API Key en los headers
-          },
-          cache: "no-cache", // Evitar caché para obtener datos actualizados
-        });
+        const response = await fetch(
+          `${API_BASE_URL}/prisma/post/page?tipo=1`,
+          {
+            headers: {
+              "x-api-key": API_KEY, // Agregar la API Key en los headers
+            },
+            cache: "no-cache", // Evitar caché para obtener datos actualizados
+          }
+        );
         console.log(response);
         if (!response.ok) {
           throw new Error("Error al cargar los posts");
@@ -34,8 +38,29 @@ export default function Comunicado() {
         setLoading(false);
       }
     };
+    const fetchComunicados = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/prisma/post/page?tipo=3`,
+          {
+            headers: {
+              "x-api-key": API_KEY,
+            },
+            cache: "no-cache",
+          }
+        );
+
+        if (!response.ok) throw new Error("Error al cargar los comunicados");
+
+        const data = await response.json();
+        setComunicados(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
 
     fetchPosts();
+    fetchComunicados();
   }, []);
 
   const formatDate = (dateString) => {
@@ -118,38 +143,43 @@ export default function Comunicado() {
         </h2>
 
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-white text-black rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col"
-            >
-              <img
-                src={pict}
-                alt="Comunicado"
-                className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
-                loading="lazy"
-              />
-              <div className="p-6 flex flex-col justify-between flex-1">
-                <div>
-                  <h3 className="font-bold text-xl mb-2">Día de la Madre</h3>
-                  <p className="text-gray-500 text-sm mb-1">
-                    📅 11/05/25 | 📍 Plantel Institucional
-                  </p>
-                  <p className="text-gray-700 text-sm mb-4 line-clamp-3">
-                    Ceremonia especial en honor a todas las mamás de nuestra
-                    comunidad educativa. Presentaciones artísticas,
-                    reconocimientos y más.
-                  </p>
+          {comunicados.length === 0 ? (
+            <p className="col-span-3 text-center text-gray-300">
+              No hay comunicados disponibles.
+            </p>
+          ) : (
+            comunicados.map((post) => (
+              <div
+                key={post.id}
+                className="bg-white text-black rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+              >
+                <img
+                  src={post.image_url || pict}
+                  alt={post.title}
+                  className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="p-6 flex flex-col justify-between flex-1">
+                  <div>
+                    <h3 className="font-bold text-xl mb-2">{post.title}</h3>
+                    <p className="text-gray-500 text-sm mb-1">
+                      📅 {formatDate(post.createdAt)}
+                      {post.location && ` | 📍 ${post.location}`}
+                    </p>
+                    <p className="text-gray-700 text-sm mb-4 line-clamp-3">
+                      {post.content}
+                    </p>
+                  </div>
+                  <a
+                    href={`/comunicado/${post.id}`}
+                    className="mt-auto inline-block text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    Ver más →
+                  </a>
                 </div>
-                <a
-                  href="#"
-                  className="mt-auto inline-block text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  Ver más →
-                </a>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 

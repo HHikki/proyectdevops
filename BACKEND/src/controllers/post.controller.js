@@ -44,12 +44,10 @@ export const getPostById = async (req, res) => {
     });
 
     if (!post) {
-      return res
-        .status(404)
-        .json({
-          error:
-            "Post no encontrado o no tienes permiso para acceder a este recurso",
-        });
+      return res.status(404).json({
+        error:
+          "Post no encontrado o no tienes permiso para acceder a este recurso",
+      });
     }
 
     res.json(post);
@@ -82,7 +80,9 @@ export const getMyPosts = async (req, res) => {
     });
 
     if (posts.length === 0) {
-      return res.status(404).json({ message: "No se encontraron posts para este usuario" });
+      return res
+        .status(404)
+        .json({ message: "No se encontraron posts para este usuario" });
     }
 
     res.json(posts);
@@ -91,7 +91,6 @@ export const getMyPosts = async (req, res) => {
     res.status(500).json({ error: "Error al obtener los posts del usuario" });
   }
 };
-
 
 /**
  * Crear un nuevo post
@@ -130,9 +129,6 @@ export const createPost = async (req, res) => {
     res.status(500).json({ error: "Error al crear el post" });
   }
 };
-
-
-
 
 /**
  * Actualizar un post existente
@@ -176,20 +172,24 @@ export const deletePost = async (req, res) => {
  */
 export const getPublicPosts = async (req, res) => {
   try {
+    const { tipo } = req.query; // se espera ?tipo=1 como query string
+
+    const filter = tipo ? { postTypeId: parseInt(tipo) } : {};
     const posts = await prisma.post.findMany({
+      where: filter,
       include: {
         postType: true,
         user: {
           select: {
             username: true,
-            email: true
-          }
+            email: true,
+          },
         },
-        images: true
+        images: true,
       },
       orderBy: {
-        created_at: 'desc' // Usar created_at en lugar de createdAt
-      }
+        created_at: "desc", // Usar created_at en lugar de createdAt
+      },
     });
     res.json(posts);
   } catch (error) {
@@ -197,5 +197,3 @@ export const getPublicPosts = async (req, res) => {
     res.status(500).json({ error: "Error al obtener los posts" });
   }
 };
-
-
