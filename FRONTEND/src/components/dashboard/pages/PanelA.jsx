@@ -13,7 +13,7 @@ import GestionContenido from "../components/paneles/Gestion";
 import { API_BASE_URL, API_KEY } from "../../../config/env.jsx";
 
 export default function PanelA() {
-  const { user, name, admin , loading } = useContext(AuthContext);
+  const { user, name, admin, loading } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("jwtToken");
   console.log("name:", name, "user:", user, "admin:", admin);
@@ -46,11 +46,11 @@ export default function PanelA() {
         setPosts([
           {
             type: 1,
-            count: data.filter((item) => item.postTypeId === 1).length,
+            count: data.filter((item) => item.postTypeId === 2).length,
           },
           {
             type: 2,
-            count: data.filter((item) => item.postTypeId === 2).length,
+            count: data.filter((item) => item.postTypeId === 1).length,
           },
           {
             type: 3,
