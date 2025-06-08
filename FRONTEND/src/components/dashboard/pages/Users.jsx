@@ -2,7 +2,7 @@ import React from "react";
 import Barra from "../components/Barra";
 import HeaderPublicaciones from "../components/List/HeaderP";
 import SearchP from "../components/List/SearchP";
-import Registro from "../components/List/Registro";
+import UsersView from "../components/UsersView";
 
 const Users = () => {
   return (
@@ -11,7 +11,7 @@ const Users = () => {
       <div className="mb-4">
         <SearchP />
       </div>
-      <p className="text-gray-400 text-5xl">Lista Aqui</p>
+      <UsersView isOpen={true} onClose={() => {}} />
     </div>
   );
 };
