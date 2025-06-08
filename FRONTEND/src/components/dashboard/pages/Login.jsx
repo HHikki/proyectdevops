@@ -89,11 +89,10 @@ export default function Login() {
             <img
               src={logo}
               alt="Estudiante aprendiendo"
-              width={600}
-              height={600}
+              width={400}
+              height={400}
               className="rounded-2xl shadow-2xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
           </div>
         </div>
 

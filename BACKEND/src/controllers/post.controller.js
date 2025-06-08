@@ -191,9 +191,41 @@ export const getPublicPosts = async (req, res) => {
         created_at: "desc", // Usar created_at en lugar de createdAt
       },
     });
-    res.json(posts);
+    // Transforma fechas a strings legibles
+    const formattedPosts = posts.map((post) => ({
+      ...post,
+      created_at: post.created_at.toISOString(), // 👈 convierte a string ISO
+    }));
+    res.json(formattedPosts);
   } catch (error) {
     console.error("Error al obtener los posts públicos:", error);
     res.status(500).json({ error: "Error al obtener los posts" });
+  }
+};
+
+export const getPublicPostById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        postType: true,
+        images: true,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Publicación no encontrada" });
+    }
+
+    res.json(post);
+  } catch (error) {
+    console.error("Error al obtener la publicación pública:", error);
+    res
+      .status(500)
+      .json({ error: "Error del servidor al obtener la publicación" });
   }
 };

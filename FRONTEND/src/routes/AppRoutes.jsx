@@ -11,12 +11,14 @@ import Login from "../components/dashboard/pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ErrorPage from "../pages/ErrorPage";
 import { Panelout } from "../components/dashboard/Panelout";
+import BlogDetalle from "../pages/BlogDetalle";
 
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/Nosotros" element={<Nosotros />} />
     <Route path="/Blog" element={<Blog />} />
+    <Route path="/Blog/:id" element={<BlogDetalle />} />
     <Route path="/Comunicado" element={<Comunicado />} />
     <Route path="/Comunidad" element={<Comunidad />} />
     <Route path="/Login" element={<Login />} />
@@ -27,6 +29,5 @@ const AppRoutes = () => (
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );
-
 
 export default AppRoutes;

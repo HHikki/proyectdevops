@@ -1,16 +1,21 @@
 import { Router } from "express";
-import { 
+import {
   getPosts,
-  getPostById, 
-  createPost, 
-  updatePost, 
-  deletePost, 
+  getPostById,
+  createPost,
+  updatePost,
+  deletePost,
   getMyPosts,
-  getPublicPosts
+  getPublicPosts,
+  getPublicPostById,
 } from "../controllers/post.controller.js";
 
 import { loginUser } from "../controllers/auth.controller.js";
-import { authMiddleware, requireAdmin, validateApiKey } from "../middlewares/auth.js";
+import {
+  authMiddleware,
+  requireAdmin,
+  validateApiKey,
+} from "../middlewares/auth.js";
 
 const router = Router();
 
@@ -19,6 +24,7 @@ router.use(validateApiKey);
 
 // ✅ Rutas públicas (NO requieren autenticación pero sí API_KEY)
 router.get("/post/page", getPublicPosts); // Endpoint público
+router.get("/post/public/:id", getPublicPostById);
 
 // ✅ Middleware de autenticación para rutas protegidas
 router.use(authMiddleware);
