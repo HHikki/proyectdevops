@@ -10,7 +10,7 @@ export default function HeaderPublicaciones({ onNuevaPublicacion ,tipo }) {
           Gestiona todas las noticias, eventos y comunicados del colegio
         </p>
       </div>
-      <Button
+      <Button 
         className="bg-black hover:bg-gray-800 px-6 py-2 rounded-lg font-semibold"
         onClick={onNuevaPublicacion}
       >
