@@ -12,9 +12,9 @@ import {
   FaPlay,
   FaPause,
   FaEye,
-  FaHeart,
   FaBuilding,
   FaRocket,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -27,15 +27,29 @@ import Image1 from "../assets/directivo1.png";
 import Image2 from "../assets/directivo2.png";
 import Image3 from "../assets/directivo3.png";
 import Image4 from "../assets/directivo4.png";
+
 const imagenesGaleria = [galeria1, galeria2, galeria3, galeria4, galeria5];
 
-// Carrusel (sin cambios, solo para visualizar)
+// CarruselCintaMultiple (optimized & responsive)
 const CarruselCintaMultiple = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [hoveredImage, setHoveredImage] = useState(null);
   const timeoutRef = useRef(null);
-  const imagenesPorVista = 3;
+
+  // Responsive: cambia cantidad de imágenes según ancho
+  const [imagenesPorVista, setImagenesPorVista] = useState(3);
+
+  useEffect(() => {
+    const updateImagenesPorVista = () => {
+      if (window.innerWidth < 640) setImagenesPorVista(1);
+      else if (window.innerWidth < 1024) setImagenesPorVista(2);
+      else setImagenesPorVista(3);
+    };
+    updateImagenesPorVista();
+    window.addEventListener("resize", updateImagenesPorVista);
+    return () => window.removeEventListener("resize", updateImagenesPorVista);
+  }, []);
+
   const maxIndex = imagenesGaleria.length - imagenesPorVista;
 
   useEffect(() => {
@@ -51,20 +65,22 @@ const CarruselCintaMultiple = () => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [currentIndex, maxIndex, isPlaying]);
+  }, [currentIndex, isPlaying, maxIndex]);
 
   const nextSlide = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    clearTimeout(timeoutRef.current);
     setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
   };
+
   const prevSlide = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    clearTimeout(timeoutRef.current);
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? maxIndex : prevIndex - 1));
   };
+
   const togglePlayPause = () => setIsPlaying(!isPlaying);
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto" data-aos="fade-in" data-aos-delay="200">
       <div className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800">
         <div
           className="flex transition-transform ease-out duration-700"
@@ -73,18 +89,15 @@ const CarruselCintaMultiple = () => {
           }}
         >
           {imagenesGaleria.map((img, i) => (
-            <div
-              key={i}
+            <div              key={i}
               className="flex-shrink-0 px-2 relative group"
               style={{ width: `${100 / imagenesPorVista}%` }}
-              onMouseEnter={() => setHoveredImage(i)}
-              onMouseLeave={() => setHoveredImage(null)}
             >
               <div className="relative overflow-hidden rounded-xl">
                 <img
                   src={img}
-                  alt={`Imagen ${i + 1}`}
-                  className="w-full h-80 object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+                  alt={`Galería imagen ${i + 1}`}
+                  className="w-full h-44 sm:h-60 md:h-72 lg:h-80 object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -93,45 +106,35 @@ const CarruselCintaMultiple = () => {
                     <span>Momento especial {i + 1}</span>
                   </div>
                 </div>
-                {hoveredImage === i && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 animate-pulse">
-                      <FaHeart className="text-red-400 text-2xl" />
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           ))}
         </div>
-        {/* Controles */}
-        <div className="absolute inset-0 flex items-center justify-between p-6">
+        <div className="absolute inset-0 flex items-center justify-between p-2 sm:p-6">
           <button
             onClick={prevSlide}
-            className="p-3 bg-white/10 text-white rounded-full shadow-xl hover:bg-white/20 border border-white/20"
-            aria-label="Anterior"
+            className="p-2 sm:p-3 bg-white/10 text-white rounded-full shadow-xl hover:bg-white/20 border border-white/20"
+            aria-label="Slide anterior"
           >
             <FaChevronLeft size={20} />
           </button>
           <button
             onClick={nextSlide}
-            className="p-3 bg-white/10 text-white rounded-full shadow-xl hover:bg-white/20 border border-white/20"
-            aria-label="Siguiente"
+            className="p-2 sm:p-3 bg-white/10 text-white rounded-full shadow-xl hover:bg-white/20 border border-white/20"
+            aria-label="Siguiente slide"
           >
             <FaChevronRight size={20} />
           </button>
         </div>
-        {/* Play/Pause */}
         <div className="absolute top-4 right-4">
           <button
             onClick={togglePlayPause}
             className="p-2 bg-white/10 text-white rounded-full shadow-lg hover:bg-white/20 border border-white/20"
-            aria-label={isPlaying ? "Pausar" : "Reproducir"}
+            aria-label={isPlaying ? "Pausar carrusel" : "Reproducir carrusel"}
           >
             {isPlaying ? <FaPause size={16} /> : <FaPlay size={16} />}
           </button>
         </div>
-        {/* Indicadores */}
         <div className="absolute bottom-6 left-0 right-0 flex justify-center space-x-3">
           {Array.from({ length: maxIndex + 1 }).map((_, i) => (
             <button
@@ -142,10 +145,10 @@ const CarruselCintaMultiple = () => {
                   : "w-2 bg-white/50 hover:bg-white/70 hover:w-4"
               }`}
               onClick={() => {
-                if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                clearTimeout(timeoutRef.current);
                 setCurrentIndex(i);
               }}
-              aria-label={`Ir a la imagen ${i + 1}`}
+              aria-label={`Ir al slide ${i + 1}`}
             />
           ))}
         </div>
@@ -154,8 +157,7 @@ const CarruselCintaMultiple = () => {
   );
 };
 
-// Estadísticas animadas (con color celeste y valores cambiados)
-// Estadísticas animadas (actualizado)
+// EstadisticasAnimadas (optimized)
 const EstadisticasAnimadas = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState({
@@ -166,77 +168,65 @@ const EstadisticasAnimadas = () => {
   });
 
   useEffect(() => {
-    if (isVisible) {
-      const targets = { students: 400, teachers: 40, years: 10, awards: 10 };
-      const duration = 2000;
-      const steps = 60;
-      const increment = duration / steps;
-      const timer = setInterval(() => {
-        setCounts((prev) => ({
-          students: Math.min(prev.students + Math.ceil(targets.students / steps), targets.students),
-          teachers: Math.min(prev.teachers + Math.ceil(targets.teachers / steps), targets.teachers),
-          years: Math.min(prev.years + Math.ceil(targets.years / steps), targets.years),
-          awards: Math.min(prev.awards + Math.ceil(targets.awards / steps), targets.awards),
-        }));
-      }, increment);
-      setTimeout(() => clearInterval(timer), duration);
-    }
+    if (!isVisible) return;
+
+    const targets = { students: 400, teachers: 40, years: 10, awards: 10 };
+    const duration = 2000;
+    const steps = 60;
+    const increment = duration / steps;
+
+    const timer = setInterval(() => {
+      setCounts((prev) => ({
+        students: Math.min(prev.students + Math.ceil(targets.students / steps), targets.students),
+        teachers: Math.min(prev.teachers + Math.ceil(targets.teachers / steps), targets.teachers),
+        years: Math.min(prev.years + Math.ceil(targets.years / steps), targets.years),
+        awards: Math.min(prev.awards + Math.ceil(targets.awards / steps), targets.awards),
+      }));
+    }, increment);
+
+    return () => clearInterval(timer);
   }, [isVisible]);
 
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8"
+      className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 py-8"
       ref={(el) => {
-        if (el) {
+        if (el && !isVisible) {
           const observer = new window.IntersectionObserver(
             ([entry]) => {
-              if (entry.isIntersecting && !isVisible) setIsVisible(true);
+              if (entry.isIntersecting) setIsVisible(true);
             },
             { threshold: 0.5 }
           );
           observer.observe(el);
+          return () => observer.disconnect();
         }
       }}
+      data-aos="fade-up"
+      data-aos-delay="100"
     >
       {[
-        {
-          icon: FaUsers,
-          count: counts.students,
-          label: "Estudiantes",
-        },
-        {
-          icon: FaGraduationCap,
-          count: counts.teachers,
-          label: "Docentes",
-        },
-        {
-          icon: FaHistory,
-          count: counts.years,
-          label: "Años de Experiencia",
-        },
-        {
-          icon: FaTrophy,
-          count: counts.awards,
-          label: "Reconocimientos",
-        },
+        { icon: FaUsers, count: counts.students, label: "Estudiantes" },
+        { icon: FaGraduationCap, count: counts.teachers, label: "Docentes" },
+        { icon: FaHistory, count: counts.years, label: "Años de Experiencia" },
+        { icon: FaTrophy, count: counts.awards, label: "Reconocimientos" },
       ].map((stat, index) => (
         <div
           key={index}
-          className="text-center group rounded-xl shadow-xl p-8 bg-[#780000]" 
+          className="text-center group rounded-xl shadow-xl p-4 sm:p-8 bg-[#780000]"
         >
-          <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 text-[#FFFFFF]">
+          <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 text-white">
             <stat.icon className="mx-auto" />
           </div>
-          <div className="text-4xl font-bold text-[#FFFFFF] mb-2 group-hover:text-[#e24585] transition-colors duration-300">
+          <div className="text-2xl sm:text-4xl font-bold text-white mb-2 group-hover:text-[#e24585] transition-colors duration-300">
             {stat.count}+
           </div>
-          <div className="text-[#FFFFFF] font-medium">{stat.label}</div>
+          <div className="text-white font-medium">{stat.label}</div>
         </div>
       ))}
     </div>
   );
 };
-
 
 const Nosotros = () => {
   useEffect(() => {
@@ -247,9 +237,10 @@ const Nosotros = () => {
       easing: "ease-out-cubic",
       offset: 100,
     });
+    AOS.refresh();
+    return () => AOS.refresh();
   }, []);
 
-  // Línea de tiempo
   const valoresV = [
     {
       año: "Fundación",
@@ -279,7 +270,7 @@ const Nosotros = () => {
       nombre: "Evellyng Limaylla",
       cargo: "DIRECTORA GENERAL",
       descripcion: "Líder visionaria con 20 años de experiencia",
-      imagen: Image1, // Agrega el path a la imagen
+      imagen: Image1,
     },
     {
       nombre: "Julian Jameson",
@@ -301,305 +292,238 @@ const Nosotros = () => {
     },
   ];
 
+
   return (
-    <>
-      <div>
-        {/* HERO SECTION */}
-        <div
-          className="relative w-full bg-cover bg-center min-h-screen h-150 p-24 flex items-center"
-          style={{ backgroundImage: `url(${img_map})` }}
-        >
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              background: "linear-gradient(to right, #0d47a1, rgba(0,0,0,0.4), transparent)",
-            }}
-          />
-          <h1 className="text-white text-6xl font-bold relative z-10">
+    <div data-aos="fade-in" data-aos-duration="1200">
+      {/* HERO SECTION */}
+      <div
+        className="relative w-full h-screen bg-cover bg-center flex items-center"
+        style={{ backgroundImage: `url(${img_map})` }}
+        data-aos="fade-in"
+        data-aos-duration="1000"
+      >
+        {/* Estilos para las lucecitas */}
+        <style>
+          {`
+            @keyframes glow {
+              0%, 100% { box-shadow: 0 0 8px #fff, 0 0 24px #80caff, 0 0 40px #fff3, 0 0 60px #33d9ff66; }
+              50% { box-shadow: 0 0 24px #fff, 0 0 48px #33d9ff, 0 0 80px #fff, 0 0 100px #fff3; }
+            }
+            .glow-light {
+              position: absolute;
+              border-radius: 50%;
+              width: 12px;
+              height: 12px;
+              opacity: 0.8;
+              background: #fff;
+              animation: glow 2s ease-in-out infinite;
+              pointer-events: none;
+              z-index: 5;
+            }
+          `}
+        </style>
+        {/* Puntitos luminiscentes */}
+        <div className="absolute inset-0">
+          <div className="glow-light" style={{ top: '15%', left: '20%' }} />
+          <div className="glow-light" style={{ top: '35%', left: '60%' }} />
+          <div className="glow-light" style={{ top: '25%', left: '75%' }} />
+          <div className="glow-light" style={{ top: '55%', left: '40%' }} />
+          <div className="glow-light" style={{ top: '45%', left: '85%' }} />
+        </div>
+
+        {/* Degradado oscuro */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />        {/* Texto alineado izquierda */}
+        <div className="relative z-10 max-w-2xl px-8 lg:px-16">
+          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold">
             Ven conócenos
           </h1>
-          <a
-            href="https://www.google.com/maps/place/Asociaci%C3%B3n+Educativa+Prisma+de+Chincha/@-13.3980394,-76.1247566,17z/data=!3m1!4b1!4m6!3m5!1s0x911016506c0cd3e7:0x516f937d46732c24!8m2!3d-13.3980394!4d-76.1221817!16s%2Fg%2F11hb3g_fmb?entry=ttu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute bottom-6 right-6 z-10 bg-[#780000] hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition duration-300"
-          >
-            {/* Icono de mapa */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 20.25l-4.5-2.25V4.5l4.5 2.25m0 13.5l6-3V6.75m-6 13.5V6.75m6 10.5l4.5 2.25V9l-4.5-2.25"
-              />
-            </svg>
-          </a>
         </div>
+      </div>      {/* Se eliminó el botón redundante de ubicación */}
+      {/* ESTADÍSTICAS */}
+      <div className="bg-[#f0f8ff] py-8 sm:py-12 md:py-16 lg:py-24" data-aos="fade-up" data-aos-delay="200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
+          <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#780000]">
+            Nuestra Comunidad en Números
+          </h2>
+          <div className="w-24 md:w-40 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full"></div>
+          <EstadisticasAnimadas />
+        </div>
+      </div>
 
-        {/* ESTADÍSTICAS CEL ESTE */}
-        <div className="bg-[#f0f8ff] py-6" data-aos="fade-up">
-          <div className="max-w-6xl mx-auto px-2">
-            <h2 className="text-center text-4xl font-bold mb-2" style={{ color: "#780000" }}>
-              Nuestra Comunidad en Números
-            </h2>
-            <div className="w-40 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-1 rounded-full"></div>
-            <EstadisticasAnimadas />
+      {/* HISTORIA / VALORES */}
+      <div className="min-h-[60vh] py-12 sm:py-16 md:py-20 bg-[#003049]" data-aos="fade-up" data-aos-delay="300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+          <div className="text-center mb-10 md:mb-16">
+            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight text-white">
+              Nuestra Historia, <br />
+              <span className="text-[#6698BC]">Identidad y Visión</span>
+            </h1>
+            <div className="h-2 w-20 md:w-32 mx-auto rounded-full mb-4 md:mb-6 bg-[#6698BC]"></div>
+            <p className="text-base sm:text-lg max-w-3xl mx-auto leading-relaxed text-white">
+              Conoce los pilares fundamentales que han guiado nuestro camino hacia la excelencia educativa a lo largo de los años
+            </p>
+          </div>
+          <div className="relative mx-auto w-full max-w-6xl">
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 rounded-full shadow-lg bg-[#6698BC]"></div>
+            {valoresV.map((valor, index) => (
+              <div
+                key={index}
+                className={`flex flex-col md:flex-row items-center mb-10 md:mb-16 ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}
+                data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
+                data-aos-delay={index * 200}
+              >
+                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:text-right md:pr-8" : "md:text-left md:pl-8"} mb-6 md:mb-0`}>
+                  <div className="rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10 bg-[#6698BC]">
+                    <div className="flex items-center gap-4 mb-6 justify-between">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-[#003049]">{valor.año}</h3>
+                      <div className="p-3 rounded-xl bg-[#003049]">{valor.icono}</div>
+                    </div>
+                    <div className="h-px w-full mb-6 bg-[#003049]"></div>
+                    <p className="leading-relaxed text-base sm:text-lg text-[#003049]">{valor.evento}</p>
+                  </div>
+                </div>
+                <div className="relative flex items-center justify-center z-20 mb-6 md:mb-0">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl border-4 bg-[#6698BC] border-[#003049]">
+                    <span className="font-bold text-base sm:text-lg text-[#003049]">{index + 1}</span>
+                  </div>
+                </div>
+                <div className="w-full md:w-5/12"></div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* HISTORIA / VALORES */}
-        <div
-  className="min-h-screen py-20"
-  style={{ background: "#003049" }} // FONDO COSMO
-  data-aos="fade-up"
->
-  <div className="max-w-7xl mx-auto px-6">
-    <div className="text-center mb-16">
-      <h1
-        className="font-bold text-5xl md:text-6xl mb-6 leading-tight"
-        style={{ color: "#fff" }} // LETRAS BLANCAS PARA CONTRASTE
-        data-aos="fade-down"
-      >
-        NUESTRA HISTORIA,
-        <br />
-        <span style={{ color: "#6698BC" }}> {/* CELESTE DESTACADO */}
-          IDENTIDAD Y VISIÓN
-        </span>
-      </h1>
+      {/* DIRECTIVOS */}
       <div
-        className="h-2 w-32 mx-auto rounded-full mb-6"
-        style={{ background: "#6698BC" }}
-        data-aos="zoom-in"
-        data-aos-delay="200"
-      ></div>
-      <p
-        className="text-lg max-w-3xl mx-auto leading-relaxed"
-        style={{ color: "#fff" }}
+        className="relative w-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${img_map})` }}
         data-aos="fade-up"
         data-aos-delay="400"
       >
-        Conoce los pilares fundamentales que han guiado nuestro camino hacia la excelencia educativa a lo largo de los años
-      </p>
-    </div>
-
-    {/* LÍNEA DE TIEMPO MODERNA */}
-    <div className="relative mx-auto w-full max-w-6xl">
-      {/* Línea vertical celeste */}
-      <div
-        className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 rounded-full shadow-lg"
-        style={{ background: "#6698BC" }}
-      ></div>
-
-      {valoresV.map((valor, index) => (
-        <div
-          key={index}
-          className={`flex items-center mb-16 ${index % 2 === 0 ? "flex-row-reverse" : ""}`}
-          data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
-          data-aos-delay={index * 200}
-        >
-          <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
-            <div
-              className="rounded-2xl p-8 shadow-2xl border border-white/10 relative overflow-hidden"
-              style={{ background: "#6698BC" }} // TARJETA CELESTE
-            >
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6 justify-between">
-                  <h3 className="text-3xl font-bold" style={{ color: "#003049" }}>
-                    {valor.año}
-                  </h3>
-                  <div
-                    className="p-3 rounded-xl backdrop-blur-sm"
-                    style={{ background: "#003049" }}
-                  >
-                    {valor.icono}
-                  </div>
-                </div>
-                <div className="h-px w-full mb-6" style={{ background: "#003049" }}></div>
-                <p
-                  className="leading-relaxed text-lg"
-                  style={{ color: "#003049" }}
-                >
-                  {valor.evento}
-                </p>
-              </div>
+        <div className="absolute inset-0 bg-[#f0e4d0]/90"></div>
+        <div className="relative z-10 py-10 sm:py-16 md:py-24 min-h-[50vh] flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-[#003049] mb-4 md:mb-6">
+                Nuestro{" "}
+                <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+                  Equipo Directivo
+                </span>
+              </h2>
+              <div className="h-2 w-20 md:w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-6 md:mb-8 rounded-full"></div>
+              <p className="text-[#003049] text-base sm:text-xl max-w-3xl mx-auto leading-relaxed">
+                Conoce a los profesionales dedicados que lideran nuestra institución con pasión, experiencia y compromiso hacia la excelencia educativa
+              </p>
             </div>
-          </div>
-
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center z-20">
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl border-4"
-              style={{ background: "#6698BC", borderColor: "#003049" }}
-            >
-              <span className="font-bold text-lg" style={{ color: "#003049" }}>
-                {index + 1}
-              </span>
-            </div>
-          </div>
-          <div className="w-5/12"></div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
-
-{/* SECCIÓN DE DIRECTIVOS PREMIUM */}
-        <div
-          className="relative w-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${img_map})` }}
-          data-aos="fade-up"
-        >
-          <div className="absolute inset-0 bg-[#f0e4d0]"></div>
-
-          <div className="relative z-10 py-24 min-h-screen flex flex-col justify-center">
-            <div className="max-w-7xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2
-                  className="text-5xl md:text-6xl font-bold text-[#003049] mb-6"
-                  data-aos="zoom-in"
-                >
-                  Nuestro{" "}
-                  <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-                    Equipo Directivo
-                  </span>
-                </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {directivos.map((item, i) => (
                 <div
-                  className="h-2 w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full"
-                  data-aos="zoom-in"
-                  data-aos-delay="200"
-                ></div>
-                <p
-                  className="text-[#003049] text-xl max-w-3xl mx-auto leading-relaxed"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
+                  key={i}
+                  className="group relative bg-[#003049] rounded-xl overflow-hidden shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20"
+                  data-aos="flip-up"
+                  data-aos-delay={i * 150}
                 >
-                  Conoce a los profesionales dedicados que lideran nuestra
-                  institución con pasión, experiencia y compromiso hacia la
-                  excelencia educativa
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {directivos.map((item, i) => (
-                  <div
-                    key={i}
-                    className="group relative bg-[#003049] backdrop-blur-md rounded-xl overflow-hidden shadow-xl transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl border border-white/20"
-                    data-aos="flip-up"
-                    data-aos-delay={i * 150}
-                  >
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={item.imagen}
-                        alt={item.nombre}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                      {/* Overlay con información adicional */}
-                      <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="text-white">
-                          <p className="text-xs mb-1">{item.descripcion}</p>
-                          <div className="flex gap-1 items-center">
-                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                            <span className="text-xs text-gray-300">
-                              Disponible
-                            </span>
-                            <span className="text-xs text-gray-300">
-                              Disponible
-                            </span>
-                          </div>
+                  <div className="relative h-48 sm:h-64 overflow-hidden">
+                    <img
+                      src={item.imagen}
+                      alt={`Foto de ${item.nombre}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 flex items-end p-2 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="text-white">
+                        <p className="text-xs sm:text-sm mb-1">{item.descripcion}</p>
+                        <div className="flex gap-1 items-center">
+                          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          <span className="text-xs text-gray-300">Disponible</span>
                         </div>
                       </div>
                     </div>
-
-                    <div className="p-6 text-center">
-                      <h3 className="text-white text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-                        {item.nombre}
-                      </h3>
-                      <p className="text-gray-300 text-xs uppercase tracking-wide font-medium">
-                        {item.cargo}
-                      </p>
-                      <div className="mt-3 w-full h-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECCIÓN DE GALERÍA MEJORADA - ELIMINADO "CONÓCENOS" */}
-        <div
-          className="bg-gradient-to-br from-gray-50 to-blue-50 py-20"
-          data-aos="fade-up"
-        >
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h1 className="text-gray-800 font-bold text-5xl md:text-6xl mb-6 leading-tight">
-                ÚNETE AL EQUIPO
-                <br />
-                <span
-                  className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent"
-                >
-                  GANADOR
-                </span>
-              </h1>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-                Estos son algunos de los momentos más especiales que hemos
-                vivido en nuestra institución educativa
-              </p>
-            </div>
-            <CarruselCintaMultiple />
-          </div>
-        </div>
-
-        {/* SECCIÓN DE VIDEO PREMIUM */}
-        <div
-          className="py-24"
-          style={{ background: "#6698BC" }}
-          data-aos="fade-up"
-        >
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <div
-                className="inline-block bg-gradient-to-r from-[#a5123b] to-[#e24585] rounded-2xl p-8 shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-8"
-                data-aos="zoom-in"
-              >
-                <h2 className="text-white text-2xl lg:text-3xl font-bold flex items-center gap-2">
-                  <FaPlay className="text-1xl" />
-                  Himno Institucional
-                </h2>
-              </div>
-              <p className="text-[#FFFFFF] text-lg max-w-2xl mx-auto">
-                Escucha nuestro himno institucional que representa los valores y el espíritu de nuestra comunidad educativa
-              </p>
-            </div>
-            <div
-              className="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl"
-              data-aos="zoom-in"
-              data-aos-delay="200"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#c2e9f9]/20 to-[#663399]/20 z-10 pointer-events-none"></div>
-              <iframe
-                className="w-full h-full"
-                // CAMBIA AQUÍ EL VIDEO DE YOUTUBE SI QUIERES
-                src="https://www.youtube.com/embed/KZJvRU4JJak"
-                title="Himno Institucional"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+                  <div className="p-4 sm:p-6 text-center">
+                    <h3 className="text-white text-lg sm:text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                      {item.nombre}
+                    </h3>
+                    <p className="text-gray-300 text-xs uppercase tracking-wide font-medium">
+                      {item.cargo}
+                    </p>
+                    <div className="mt-3 w-full h-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+
+      {/* GALERÍA */}
+      <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-10 sm:py-16 md:py-20" data-aos="fade-up" data-aos-delay="500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+          <div className="text-center mb-10 md:mb-16">
+            <h1 className="text-gray-800 font-bold text-3xl sm:text-5xl md:text-6xl mb-4 md:mb-6 leading-tight">
+              Únete al Equipo <br />
+              <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+                Ganador
+              </span>
+            </h1>
+            <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Estos son algunos de los momentos más especiales que hemos vivido en nuestra institución educativa
+            </p>
+          </div>
+          <CarruselCintaMultiple />
+        </div>
+      </div>
+
+      {/* VIDEO */}
+      <div className="py-12 sm:py-16 md:py-24 bg-[#6698BC]" data-aos="fade-up" data-aos-delay="600">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
+          <div className="text-center mb-8 md:mb-12">
+            <div className="inline-block bg-gradient-to-r from-[#a5123b] to-[#e24585] rounded-2xl p-4 sm:p-8 shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-6 sm:mb-8">
+              <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-bold flex items-center gap-2">
+                <FaPlay className="text-xl" />
+                Himno Institucional
+              </h2>
+            </div>
+            <p className="text-white text-base sm:text-lg max-w-2xl mx-auto">
+              Escucha nuestro himno institucional que representa los valores y el espíritu de nuestra comunidad educativa
+            </p>
+          </div>
+          <div
+            className="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#c2e9f9]/20 to-[#663399]/20 z-10 pointer-events-none"></div>
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/KZJvRU4JJak"
+              title="Himno Institucional"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            >            
+            </iframe>
+          </div>
+        </div>  
+        </div>    
+<Footer />  
+{/* Botón flotante, SIEMPRE visible, tapa el footer */}
+<div className="sticky bottom-4 right-3 z-50 flex justify-end">
+  <a
+    href="https://www.google.com.pe/maps/@-13.4176273,-76.1279866,18.25z?entry=ttu"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-red-700 hover:bg-red-800 text-white rounded-full p-4 shadow-lg flex items-center gap-2 transition duration-300"
+    aria-label="Ver ubicación de Prisma en Google Maps"
+  >
+    <FaMapMarkerAlt className="text-0.5xl"/>
+    <span className="hidden md:inline font-semibold">
+    </span>
+  </a>
+</div>
+</div>
+
   );
 };
 

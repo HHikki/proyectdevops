@@ -19,40 +19,40 @@ const galeria = [
   { src: galeria5, categoria: "talleres" },
   { src: galeria6, categoria: "talleres" },
 ];
-
 const categorias = ["all", "actividades", "eventos", "talleres"];
 
 const Comunidad = () => {
   const [categoriaActiva, setCategoriaActiva] = useState("all");
-
   const galeriaFiltrada =
     categoriaActiva === "all"
       ? galeria
       : galeria.filter((item) => item.categoria === categoriaActiva);
+
   return (
     <div className="bg-white">
       <Crush pict={pict} />
 
+      {/* SECCIÓN ALUMNOS */}
       <section className="bg-[#0c1a2c] text-white py-20 px-6 sm:px-10 lg:px-20">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
           {/* Texto descriptivo */}
           <div className="flex-1 ">
-            <div className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-400/30 mb-6">
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-400/30 mb-6 animate-fade-in-right">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-blue-200 text-sm font-medium tracking-wide">
                 NUESTROS ESTUDIANTES
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight animate-fade-in-right">
               Alumnos - Perfil
             </h2>
-            <p className="mb-10 text-gray-300 text-lg md:text-xl leading-relaxed">
+            <p className="mb-10 text-gray-300 text-lg md:text-xl leading-relaxed animate-fade-in-right" style={{ animationDelay: '120ms' }}>
               Celebramos a los verdaderos protagonistas de nuestra institución:
               nuestros alumnos.
             </p>
 
             {/* Lista de características */}
-            <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 "Investigan de manera rigurosa y buscan la verdad desde una perspectiva holística.",
                 "Tienen un profundo arraigo y amor por su país, su familia, su colegio y el mundo.",
@@ -63,11 +63,10 @@ const Comunidad = () => {
               ].map((text, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 border border-white/10 text-white flex items-start gap-4 px-5 py-5 rounded-xl shadow-sm hover:shadow-lg transition duration-300"
+                  className="bg-white/5 border border-white/10 text-white flex items-start gap-4 px-5 py-5 rounded-xl shadow-sm hover:shadow-xl hover:scale-[1.05] transition-all duration-300 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 70}ms` }}
                 >
-                  <span className="text-yellow-400 text-2xl font-bold pt-1">
-                    ✓
-                  </span>
+                  <span className="text-yellow-400 text-2xl font-bold pt-1 animate-bounce-slow">✓</span>
                   <p className="text-base leading-snug">{text}</p>
                 </div>
               ))}
@@ -75,23 +74,20 @@ const Comunidad = () => {
           </div>
 
           {/* Imagen y badge institucional */}
-          <div className="w-full xl:w-[400px] flex-shrink-0 space-y-6">
-            {/* Imagen con efecto */}
+          <div className="w-full xl:w-[400px] flex-shrink-0 space-y-6 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-violet-500 to-blue-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-300"></div>
               <div className="relative">
                 <img
                   src={alumnosImg}
                   alt="Estudiantes de I.E.P. Ganador"
-                  className="w-full h-[500px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-[500px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.04] group-hover:brightness-110 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-xl"></div>
               </div>
             </div>
-
-            {/* Badge institucional */}
             <div className="text-center space-y-3">
-              <div className="inline-flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-600/50 shadow-md">
+              <div className="inline-flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-600/50 shadow-md animate-fade-in-up">
                 <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-violet-400 rounded-full"></div>
                 <span className="text-slate-300 text-sm font-semibold tracking-wider uppercase">
                   I.E.P. GANADOR
@@ -106,6 +102,7 @@ const Comunidad = () => {
         </div>
       </section>
 
+      {/* SECCIÓN PROFESORES */}
       <section className="relative bg-[#f0e4d0] text-[#003049] py-12 px-6 sm:px-8 lg:px-24 overflow-hidden">
         {/* Elementos decorativos de fondo */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#e4bfa2]/30 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -113,52 +110,38 @@ const Comunidad = () => {
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#c87f6a]/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
 
         <div className="relative max-w-7xl mx-auto">
-          {/* Header de la sección */}
           <div className="text-center mb-6 space-y-6 text-[#003049]">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#003049] ">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#003049] animate-fade-in-down">
               Nuestros Profesores
             </h2>
           </div>
-
-          {/* Contenido principal */}
           <div className="flex flex-col lg:flex-row items-center gap-16">
             {/* Imagen */}
-            <div className="w-full lg:w-1/2 relative group">
+            <div className="w-full lg:w-1/2 relative group animate-fade-in-left">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#c87f6a] via-[#db9e82] to-[#f2b89e] rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
               <div className="relative">
                 <img
                   src={docentesImg}
                   alt="Equipo docente de I.E.P. Ganador"
-                  className="w-full h-[480px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-[480px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.04] group-hover:brightness-110 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#5a4e3c]/30 via-transparent to-transparent rounded-xl"></div>
-
                 {/* Overlay con estadísticas */}
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="bg-[#fff8f1]/70 backdrop-blur-lg rounded-lg p-4 border border-[#e0c8a0]/50">
                     <div className="flex justify-between items-center text-center">
                       <div>
-                        <div className="text-2xl font-bold text-[#9d584c]">
-                          15+
-                        </div>
-                        <div className="text-xs text-[#5a4e3c]">
-                          Años de experiencia
-                        </div>
+                        <div className="text-2xl font-bold text-[#9d584c] animate-flash-once">15+</div>
+                        <div className="text-xs text-[#5a4e3c]">Años de experiencia</div>
                       </div>
                       <div className="w-px h-8 bg-[#c4a88e]/50"></div>
                       <div>
-                        <div className="text-2xl font-bold text-[#9d584c]">
-                          25+
-                        </div>
-                        <div className="text-xs text-[#5a4e3c]">
-                          Docentes expertos
-                        </div>
+                        <div className="text-2xl font-bold text-[#9d584c] animate-flash-once" style={{ animationDelay: '150ms' }}>25+</div>
+                        <div className="text-xs text-[#5a4e3c]">Docentes expertos</div>
                       </div>
                       <div className="w-px h-8 bg-[#c4a88e]/50"></div>
                       <div>
-                        <div className="text-2xl font-bold text-[#9d584c]">
-                          100%
-                        </div>
+                        <div className="text-2xl font-bold text-[#9d584c] animate-flash-once" style={{ animationDelay: '300ms' }}>100%</div>
                         <div className="text-xs text-[#5a4e3c]">Compromiso</div>
                       </div>
                     </div>
@@ -166,9 +149,8 @@ const Comunidad = () => {
                 </div>
               </div>
             </div>
-
-            {/* Contenido de texto */}
-            <div className="w-full lg:w-1/2 space-y-8">
+            {/* Texto */}
+            <div className="w-full lg:w-1/2 space-y-8 animate-fade-in-right">
               <div className="space-y-6">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-1 bg-gradient-to-r from-[#d97706] via-[#f59e0b] to-[#fcd34d] rounded-full"></div>
@@ -178,46 +160,38 @@ const Comunidad = () => {
                     <div className="w-2 h-2 bg-[#fcd34d] rounded-full"></div>
                   </div>
                 </div>
-
                 <h3 className="text-3xl md:text-4xl font-bold text-[#780000]">
                   Nuestro Equipo Excepcional
                 </h3>
-
                 <p className="text-lg text-[#5a4e3c] leading-relaxed">
                   Contamos con un equipo de{" "}
-                  <span className="text-[#003049] font-semibold">
-                    profesionales altamente calificados
-                  </span>{" "}
-                  y comprometidos con la educación y formación integral de
-                  nuestros estudiantes.
+                  <span className="text-[#003049] font-semibold">profesionales altamente calificados</span>{" "}
+                  y comprometidos con la educación y formación integral de nuestros estudiantes.
                 </p>
               </div>
-
-              {/* Características del equipo */}
+              {/* Características */}
               <div className="space-y-4">
                 {[
                   {
                     icon: "🎓",
                     title: "Formación Especializada",
-                    description:
-                      "Docentes con estudios superiores y especialización en sus áreas",
+                    description: "Docentes con estudios superiores y especialización en sus áreas",
                   },
                   {
                     icon: "🌟",
                     title: "Innovación Pedagógica",
-                    description:
-                      "Metodologías modernas adaptadas a las necesidades actuales",
+                    description: "Metodologías modernas adaptadas a las necesidades actuales",
                   },
                   {
                     icon: "🤝",
                     title: "Trabajo en Equipo",
-                    description:
-                      "Colaboración constante para el fortalecimiento de nuestra comunidad educativa",
+                    description: "Colaboración constante para el fortalecimiento de nuestra comunidad educativa",
                   },
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="group flex items-start gap-4 p-4 rounded-lg bg-[#003049] backdrop-blur-sm border border-[#e0c8a0]/30 hover:bg-[#fffaf5] hover:border-[#d8b48e] transition-all duration-300"
+                    className="group flex items-start gap-4 p-4 rounded-lg bg-[#003049] backdrop-blur-sm border border-[#e0c8a0]/30 hover:bg-[#fffaf5] hover:border-[#d8b48e] transition-all duration-300 hover:scale-[1.04] animate-fade-in-up"
+                    style={{ animationDelay: `${index * 90 + 100}ms` }}
                   >
                     <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[#c87f6a] to-[#e4bfa2] rounded-lg flex items-center justify-center text-lg group-hover:scale-110 transition-transform duration-300">
                       {item.icon}
@@ -238,15 +212,15 @@ const Comunidad = () => {
         </div>
       </section>
 
+      {/* SECCIÓN TESTIMONIOS */}
       <section className="bg-[#6698BC] text-[#003049] py-12 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 leading-tight">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 leading-tight animate-fade-in-down">
           Testimonios de Padres de Familia
         </h2>
-        <p className="text-center text-white  mb-16 max-w-2xl mx-auto text-lg">
+        <p className="text-center text-white  mb-16 max-w-2xl mx-auto text-lg animate-fade-in-down" style={{ animationDelay: '80ms' }}>
           Reconocemos y valoramos el rol fundamental que cumplen los padres en
           el desarrollo integral de nuestros estudiantes.
         </p>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {[
             {
@@ -266,12 +240,13 @@ const Comunidad = () => {
           ].map((padre, index) => (
             <div
               key={index}
-              className="bg-white/80 text-[#333] rounded-2xl shadow-xl p-8 flex flex-col items-center space-y-4 hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white/80 text-[#333] rounded-2xl shadow-xl p-8 flex flex-col items-center space-y-4 hover:shadow-2xl hover:scale-[1.04] transition-all duration-300 animate-fade-in-up"
+              style={{ animationDelay: `${index * 120 + 100}ms` }}
             >
               <img
                 src={padre.img}
                 alt={padre.nombre}
-                className="w-24 h-24 rounded-full object-cover border-4 border-[#f0e4d0] shadow-md"
+                className="w-24 h-24 rounded-full object-cover border-4 border-[#f0e4d0] shadow-md hover:scale-110 transition-transform duration-300"
               />
               <p className="text-md italic text-center text-[#444]">
                 “{padre.texto}”
@@ -286,20 +261,22 @@ const Comunidad = () => {
         </div>
       </section>
 
+      {/* SECCIÓN GALERÍA */}
       <section className="bg-[#f0e4d0] text-white py-12 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-4xl font-bold text-center mb-8">Galería</h2>
+        <h2 className="text-4xl font-bold text-center mb-8 animate-fade-in-up">Galería</h2>
 
         {/* Botones de filtro */}
         <div className="flex justify-center gap-4 flex-wrap mb-12">
-          {categorias.map((cat) => (
+          {categorias.map((cat, idx) => (
             <button
               key={cat}
               onClick={() => setCategoriaActiva(cat)}
-              className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${
-                categoriaActiva === cat
-                  ? "bg-white text-[#445da7]"
-                  : "bg-[#780000] hover:bg-[#6b85da]"
-              }`}
+              className={`px-5 py-2 rounded-full font-medium transition-all duration-300 animate-fade-in-up
+                ${categoriaActiva === cat
+                  ? "bg-white text-[#445da7] shadow-lg scale-105"
+                  : "bg-[#780000] hover:bg-[#6b85da]"}
+              `}
+              style={{ animationDelay: `${idx * 70}ms` }}
             >
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </button>
@@ -311,19 +288,25 @@ const Comunidad = () => {
           {galeriaFiltrada.map((item, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl shadow-lg group relative"
+              className="overflow-hidden rounded-xl shadow-lg group relative animate-fade-in-up"
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               <img
                 src={item.src}
                 alt={`Galería ${i + 1}`}
-                className="w-full h-50 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-50 object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-300"></div>
+              {/* Efecto de brillo cuando pasas el mouse */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="w-1/2 h-full bg-gradient-to-l from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-2xl"></div>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="bg-[#1c2540] text-white py-16 px-6 md:px-24">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-sm">
           <div>
@@ -379,6 +362,40 @@ const Comunidad = () => {
           </div>
         </div>
       </footer>
+
+      {/* --- ANIMACIONES personalizadas --- */}
+      <style>{`
+        @keyframes fade-in-up {
+          0% { opacity: 0; transform: translateY(40px);}
+          100% { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fade-in-up { animation: fade-in-up 1s cubic-bezier(.4,2,.6,1) both;}
+        @keyframes fade-in-down {
+          0% { opacity: 0; transform: translateY(-40px);}
+          100% { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fade-in-down { animation: fade-in-down 1s cubic-bezier(.4,2,.6,1) both;}
+        @keyframes fade-in-right {
+          0% { opacity: 0; transform: translateX(-40px);}
+          100% { opacity: 1; transform: translateX(0);}
+        }
+        .animate-fade-in-right { animation: fade-in-right 1s cubic-bezier(.4,2,.6,1) both;}
+        @keyframes fade-in-left {
+          0% { opacity: 0; transform: translateX(40px);}
+          100% { opacity: 1; transform: translateX(0);}
+        }
+        .animate-fade-in-left { animation: fade-in-left 1s cubic-bezier(.4,2,.6,1) both;}
+        @keyframes bounce-slow {
+          0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);}
+        }
+        .animate-bounce-slow { animation: bounce-slow 1.8s infinite;}
+        @keyframes flash-once {
+          0%{background:#ffe1c1; box-shadow:0 0 0px #ffe1c1;}
+          50%{background:#ffe1c1; box-shadow:0 0 18px #ffe1c1;}
+          100%{background:none; box-shadow:none;}
+        }
+        .animate-flash-once { animation: flash-once 1.3s 1;}
+      `}</style>
     </div>
   );
 };
