@@ -4,16 +4,16 @@ import HeaderPublicaciones from "../components/List/HeaderP";
 import SearchP from "../components/List/SearchP";
 import Registro from "../components/List/Registro";
 
-const Eventos = () => {
+const Users = () => {
   return (
     <div className="flex-1 p-6 mt-16">
-      <HeaderPublicaciones tipo={"Eventos"} />
+      <HeaderPublicaciones tipo={"Usuarios"} />
       <div className="mb-4">
         <SearchP />
       </div>
-      <Registro layoutMode={1}/>
+      <p className="text-gray-400 text-5xl">Lista Aqui</p>
     </div>
   );
 };
 
-export default Eventos;
+export default Users;

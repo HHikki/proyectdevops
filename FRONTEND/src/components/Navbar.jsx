@@ -2,23 +2,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { User } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   /* ───────────────── 1. Estado para el menú móvil ───────────────── */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext);
 
   /* ───────────────── 2. Ruta / hash actual (React Router) ────────── */
   const location = useLocation();
   const currentPath = location.pathname + location.hash; // p.ej. "/Nosotros" o "/#about"
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
 
   /* ───────────────── 3. Datos de navegación ─────────────────────── */
   const navLinks = [
@@ -76,25 +70,12 @@ const Navbar = () => {
             <>
               <Link
                 to="/Panel"
-                className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                className="text-sm font-bold text-blue-700 hover:text-blue-900"
               >
                 Panel
               </Link>
-              <button
-                onClick={handleLogout}
-                className="text-sm font-medium text-red-600 hover:text-red-700"
-              >
-                Cerrar Sesión
-              </button>
             </>
-          ) :   (
-            <Link
-              to="/Login"
-              className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-blue-600"
-            >
-              <User className="h-4 w-4" />
-              Iniciar Sesión
-            </Link>
+          ) :   (<> </>
           )}
         </div>
 
@@ -149,25 +130,8 @@ const Navbar = () => {
                 >
                   Panel
                 </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
-                  className="block w-full text-left text-sm font-medium text-red-600"
-                >
-                  Cerrar Sesión
-                </button>
               </>
-            ) : (
-              <Link
-                to="/Login"
-                className="flex items-center gap-1 text-sm font-medium text-gray-700"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <User className="h-4 w-4" />
-                Iniciar Sesión
-              </Link>
+            ) : (<></>
             )}
           </div>
         </div>

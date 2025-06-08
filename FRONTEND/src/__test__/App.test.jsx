@@ -1,12 +1,16 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+/* eslint-env jest */
+/* global jest */
+
+import { render } from "@testing-library/react";
+import { test } from '@jest/globals';
 import App from "../App";
 import { BrowserRouter } from "react-router-dom";
 
 // Mocks de Swiper y sus estilos para evitar errores de Jest
 jest.mock("swiper/react", () => ({
-  Swiper: ({ children }) => <div>{children}</div>,
-  SwiperSlide: ({ children }) => <div>{children}</div>,
+  // Mock components that render a div wrapper
+  Swiper: ({ children }) => <div data-testid="swiper-mock">{children}</div>,
+  SwiperSlide: ({ children }) => <div data-testid="swiper-slide-mock">{children}</div>
 }));
 jest.mock("swiper/css", () => {});
 jest.mock("swiper/css/pagination", () => {});
@@ -21,8 +25,4 @@ test("Renderiza sin errores", () => {
       <App />
     </BrowserRouter>
   );
-
-  // Aquí puedes validar algún texto o componente que esperes
-  // Por ejemplo, si tu App tiene un título visible:
-  // expect(screen.getByText("Bienvenido")).toBeInTheDocument();
 });

@@ -12,7 +12,7 @@ const Comunicados = () => {
       <div className="mb-4">
         <SearchP />
       </div>
-      <Registro />
+      <Registro layoutMode={3}/>
     </div>
   );
 };

@@ -10,6 +10,31 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    # Servicio de PostgreSQL para el backend
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: nodepg
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # Variables de entorno necesarias
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      DATABASE_URL: postgres://postgres:12345@localhost:5432/nodepg
+      CORS_ORIGIN: http://localhost:5173
+      PORT: 4001
+      NODE_ENV: test
+
     steps:
       - uses: actions/checkout@v3
 
@@ -34,6 +59,18 @@ jobs:
       ## BACKEND
       - name: Install Backend Dependencies
         run: npm install
+        working-directory: ./BACKEND
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        working-directory: ./BACKEND
+
+      - name: Sync DB Schema (Prisma)
+        run: npx prisma migrate deploy
+        working-directory: ./BACKEND
+
+      - name: Seed test data
+        run: node prisma/seed.js
         working-directory: ./BACKEND
 
       - name: Run Backend Tests
