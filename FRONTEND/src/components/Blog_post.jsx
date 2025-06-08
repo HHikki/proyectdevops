@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_KEY, API_BASE_URL } from "../config/env.jsx";
-import img4 from "../assets/prisma_logo.jpg";
+import img4 from "../assets/blog_post1.jpg";
+import { Link } from "react-router-dom";
 
 const Blog_post = () => {
   const [posts, setPosts] = useState([]);
@@ -46,40 +47,61 @@ const Blog_post = () => {
   };
 
   return (
-    <section className="px-6 py-10 bg-[#6698BC]">
-      <h2 className="text-5xl md:text-6xl font-black text-center mb-8 text-white">
+    <section className="px-6 py-10 bg-[#f0e4d0]">
+      <h2 className="text-5xl md:text-6xl font-black text-center mb-8 text-[#003049]">
         Publicaciones
       </h2>
-
+      <p className="text-lg md:text-1x5 text-[#3B4D61] text-center max-w-2xl mx-auto mb-8">
+        Aquí compartimos reflexiones, novedades y recomendaciones para
+        acompañarte en el crecimiento y formación de tus hijos dentro y fuera
+        del aula.
+      </p>
       {loading ? (
         <div className="text-center text-white">Cargando publicaciones...</div>
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-25">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="border shadow-lg rounded overflow-hidden bg-white hover:bg-red-300 transition duration-300"
+              className="border-2x1 shadow-lg rounded overflow-hidden bg-[#780000] hover:bg-[#003049] transition duration-300"
             >
               <div className="relative">
                 <img
                   src={post.image_url || img4}
                   alt={post.title}
-                  className="w-full h-65 object-cover"
+                  className="w-65  my-5  h-65 object-cover mx-auto rounded"
                   loading="lazy"
                 />
-                <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                  {post.category || "Sin categoría"}
-                </span>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-lg text-blue-900 mb-2">
+                <h3 className="font-semibold text-lg text-white mb-1">
                   {post.title}
                 </h3>
-                <p className="text-sm text-gray-500">
-                  {formatDate(post.createdAt)}
+                <p className="text-sm text-white">
+                  {formatDate(post.created_at)}
                 </p>
+                <Link
+                  to={`/Blog/${post.id}`}
+                  className="flex items-center gap-1 text-blue-300 hover:underline ml-45"
+                >
+                  Leer más
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           ))}

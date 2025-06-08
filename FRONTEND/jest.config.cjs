@@ -3,15 +3,17 @@ module.exports = {
   setupFiles: ["<rootDir>/src/setupTests.js"],
   setupFilesAfterEnv: ["@testing-library/jest-dom"],
   moduleNameMapper: {
+    "^react-markdown$": "<rootDir>/__mocks__/react-markdown.js",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-    "\\.(svg|png|jpg|jpeg|gif)$": "<rootDir>/__mocks__/fileMock.js",
+    "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
   },
+  // Unificamos transformIgnorePatterns para que transforme swiper y otros módulos que necesitas
   transformIgnorePatterns: [
-    "node_modules/(?!swiper)", // <--- permite que Jest transforme swiper
+    "node_modules/(?!(swiper|react-markdown|remark-.*|unified|bail|trough|vfile|mdast-util.*|micromark.*|hast-util.*|unist-util.*|property-information|comma-separated-tokens|estree-util-is-identifier-name)/)",
   ],
   transform: {
-    "^.+\\.[jt]sx?$": "babel-jest", // js, jsx, ts, tsx
-    "^.+\\.mjs$": "babel-jest", // <--- añade esta línea
+    "^.+\\.[jt]sx?$": "babel-jest",
+    "^.+\\.mjs$": "babel-jest",
   },
   testMatch: [
     "**/__tests__/**/*.test.[jt]s?(x)",

@@ -5,8 +5,8 @@ function authMiddleware(req, res, next) {
   // Permitir pasar sin autenticación durante pruebas
   if (process.env.NODE_ENV === "test") return next();
 
-  if (req.path === "/post/page") {
-    return next(); // ✅ Permitir acceso sin autenticación
+  if (req.path === "/post/page" || req.path.startsWith("/post/public/")) {
+    return next(); // Permitir acceso
   }
 
   const token = req.headers.authorization?.split(" ")[1];

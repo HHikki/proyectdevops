@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Crush from "../components/Crush";
 import pict from "../assets/eventos.png";
 import { FiBook } from "react-icons/fi";
+import ReactMarkdown from "react-markdown";
 import { Footer } from "../components/Footer";
 import Calendar from "../components/Calendar";
 import { API_KEY, API_BASE_URL } from "../config/env.jsx";
@@ -113,9 +114,7 @@ export default function Comunicado() {
                       📅 {formatDate(post.createdAt)}
                       {post.location && ` | 📍 ${post.location}`}
                     </p>
-                    <p className="text-sm text-white mb-4 line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
-                      {post.content}
-                    </p>
+                    <ReactMarkdown>{post.content}</ReactMarkdown>
                   </div>
                   <a
                     href={`/comunicado/${post.id}`}
