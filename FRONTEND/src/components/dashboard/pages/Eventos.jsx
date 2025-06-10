@@ -1,17 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Barra from "../components/Barra";
 import HeaderPublicaciones from "../components/List/HeaderP";
 import SearchP from "../components/List/SearchP";
 import Registro from "../components/List/Registro";
+import { API_KEY, API_BASE_URL } from "../../../config/env.jsx";
 
 const Eventos = () => {
+  const [eventos, setEventos] = useState([]);
+  const [filteredEventos, setFilteredEventos] = useState([]);
+
+  useEffect(() => {
+    const fetchEventos = async () => {
+      const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+        headers: { "x-api-key": API_KEY },
+      });
+      const data = await response.json();
+      // Filtra solo los eventos (ajusta el postTypeId si es necesario)
+      const soloEventos = data.filter((item) => item.postTypeId === 1);
+      setEventos(soloEventos);
+      setFilteredEventos(soloEventos);
+    };
+    fetchEventos();
+  }, []);
+
+  const handleSearch = (query) => {
+    const lowerQuery = query.toLowerCase();
+    const result = eventos.filter((evento) => {
+      const matchTitle = evento.title.toLowerCase().includes(lowerQuery);
+      const fecha = evento.created_at
+        ? new Date(evento.created_at).toLocaleDateString()
+        : "";
+      const matchFecha = fecha.includes(lowerQuery);
+      return matchTitle || matchFecha;
+    });
+    setFilteredEventos(result);
+  };
+
   return (
     <div className="flex-1 p-6 mt-16">
-      <HeaderPublicaciones tipo={"Eventos"} />
+      <HeaderPublicaciones
+        tipo={"Eventos"}
+        descripcion={"Gestiona todos los eventos en la plataforma"}
+        textoBoton={"+ Nuevo Evento"}
+      />
       <div className="mb-4">
-        <SearchP />
+        <SearchP placeholder="Buscar eventos..." onSearch={handleSearch} />
       </div>
-      <Registro layoutMode={1}/>
+      <Registro layoutMode={1} posts={filteredEventos} />
     </div>
   );
 };

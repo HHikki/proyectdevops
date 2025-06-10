@@ -1,73 +1,74 @@
 import React, { useEffect, useState } from "react";
-
-const tipoColor = {
-  evento: "bg-black text-white",
-  comunicado: "bg-gray-200 text-gray-800",
-  noticia: "bg-blue-100 text-blue-700",
-};
-
-const estadoColor = {
-  publicado: "bg-green-100 text-green-700",
-  borrador: "bg-gray-100 text-gray-500",
-};
+import { Table, Spin, message } from "antd";
+import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 
 const PublicacionesRecientes = () => {
-  const [publicaciones, setPublicaciones] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Cambia la URL por la de tu API real
-    fetch("http://localhost:4001/api/publicaciones")
-      .then((res) => res.json())
-      .then((data) => {
-        setPublicaciones(data);
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) throw new Error("Error al obtener publicaciones");
+        const data = await response.json();
+
+        // Filtrar posts de los últimos 3 días
+        const tresDiasAtras = new Date();
+        tresDiasAtras.setDate(tresDiasAtras.getDate() - 3);
+
+        const recientes = data.filter((post) => {
+          // Usa created_at si existe, si no, muestra todos
+          if (!post.created_at) return false;
+          return new Date(post.created_at) >= tresDiasAtras;
+        });
+
+        setPosts(
+          recientes.map((post) => ({
+            key: post.id,
+            titulo: post.title,
+            autor:
+              post.user?.username || post.autor || post.userId || "Sin autor",
+            fecha: post.created_at
+              ? new Date(post.created_at).toLocaleDateString()
+              : "-",
+          }))
+        );
+      } catch (error) {
+        message.error("No se pudieron cargar las publicaciones recientes");
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+    fetchPosts();
   }, []);
 
-  if (loading) {
-    return (
-      <section className="bg-white rounded-xl shadow p-6">
-        {/* Quitado mb-6 para evitar doble margen */}
-        <h2 className="text-lg font-semibold mb-2">Publicaciones Recientes</h2>
-        <p className="text-sm text-gray-500 mb-4">Cargando...</p>
-      </section>
-    );
-  }
+  const columns = [
+    { title: "Título", dataIndex: "titulo", key: "titulo" },
+    { title: "Autor", dataIndex: "autor", key: "autor" },
+    { title: "Fecha", dataIndex: "fecha", key: "fecha" },
+  ];
 
   return (
     <section className="bg-white rounded-xl shadow p-6">
-      {/* Quitado mb-6 para evitar doble margen */}
       <h2 className="text-lg font-semibold mb-2">Publicaciones Recientes</h2>
       <p className="text-sm text-gray-500 mb-4">
         Las últimas noticias, eventos y comunicados publicados
       </p>
-      <ul className="space-y-4">
-        {publicaciones.map((pub, idx) => (
-          <li key={idx} className="border-b pb-2 last:border-b-0 last:pb-0">
-            <div className="flex items-center gap-2">
-              <span className="font-medium">{pub.titulo}</span>
-              <span className={`ml-2 text-xs px-2 py-0.5 rounded ${tipoColor[pub.tipo]}`}>
-                {pub.tipo}
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 mt-1">
-              {pub.etiquetas?.map((et, i) => (
-                <span key={i} className="text-xs bg-gray-100 text-gray-700 rounded px-2 py-0.5">
-                  {et}
-                </span>
-              ))}
-              <span className="text-xs text-gray-500">{pub.fecha}</span>
-              <span className="text-xs text-gray-500">· {pub.autor}</span>
-              <span className="text-xs text-gray-500">· {pub.vistas} vistas</span>
-            </div>
-            <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded ${estadoColor[pub.estado]}`}>
-              {pub.estado}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <Spin spinning={loading}>
+        <Table
+          columns={columns}
+          dataSource={posts}
+          pagination={false}
+          className="mt-4"
+        />
+      </Spin>
     </section>
   );
 };

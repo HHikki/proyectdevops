@@ -4,7 +4,11 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
-const SearchP = ({ onSearch, onFilterChange }) => {
+const SearchP = ({
+  onSearch,
+  onFilterChange,
+  placeholder = "Buscar publicaciones...",
+}) => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("todos");
 
@@ -21,7 +25,7 @@ const SearchP = ({ onSearch, onFilterChange }) => {
   return (
     <div style={{ display: "flex", gap: 16 }}>
       <Input
-        placeholder="Buscar publicaciones..."
+        placeholder={placeholder}
         prefix={<SearchOutlined />}
         value={query}
         onChange={handleInputChange}
@@ -35,7 +39,6 @@ const SearchP = ({ onSearch, onFilterChange }) => {
         <Option value="todos">Todos</Option>
         <Option value="publicadas">Publicadas</Option>
         <Option value="borradores">Borradores</Option>
-
         {/* Puedes agregar más opciones aquí */}
       </Select>
     </div>

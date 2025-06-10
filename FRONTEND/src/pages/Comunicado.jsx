@@ -81,7 +81,9 @@ export default function Comunicado() {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#003049] mx-auto"></div>
             </div>
           ) : error ? (
-            <div className="col-span-2 text-center py-10 text-red-600">{error}</div>
+            <div className="col-span-2 text-center py-10 text-red-600">
+              {error}
+            </div>
           ) : (
             posts.map((post, idx) => (
               <div
@@ -225,7 +227,8 @@ export default function Comunicado() {
       <Footer />
 
       {/* --- Animaciones personalizadas --- */}
-      <style>{`
+      <style>
+        {`
         @keyframes fade-in-up {
           0% { opacity: 0; transform: translateY(40px);}
           100% { opacity: 1; transform: translateY(0);}
