@@ -105,7 +105,11 @@ export const createPost = async (req, res) => {
       data: {
         title,
         content,
-        postType,
+        postType: {
+          connect: {
+            id: postType,
+          },
+        },
         start_at: start_at ? new Date(start_at) : undefined,
         end_at: end_at ? new Date(end_at) : undefined,
         user: {
@@ -114,18 +118,41 @@ export const createPost = async (req, res) => {
       },
     });
 
+    res.status(201).json(newPost);
     // Crear las imágenes asociadas al post
-    if (images && images.length > 0) {
+    
+    if (images && Array.isArray(images) && images.length > 0) {
+      console.log('Creando imágenes:', images);
+      
       const postImages = await prisma.postImage.createMany({
         data: images.map((img) => ({
-          postId: newPost.id, // Asociar la imagen al post recién creado
+          postId: newPost.id,
           image_url: img.image_url,
           is_cover: img.is_cover || false,
         })),
       });
+      
+      console.log('Imágenes creadas:', postImages);
+      
+      // Obtener el post completo con las imágenes
+      const postWithImages = await prisma.post.findUnique({
+        where: { id: newPost.id },
+        include: {
+          postImages: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          },
+          postType: true
+        }
+      });
+      
+      return res.status(201).json(postWithImages);
     }
 
-    res.status(201).json(newPost);
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ error: "Error al crear el post" });

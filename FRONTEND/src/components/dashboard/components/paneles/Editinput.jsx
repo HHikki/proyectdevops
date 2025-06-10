@@ -9,6 +9,7 @@ export default function Crearinput({
   isOpen,
   onClose,
   onSubmit,
+  IDpub,
   Tipo = "</>",
 }) {
   const [title, setTitle] = useState("");

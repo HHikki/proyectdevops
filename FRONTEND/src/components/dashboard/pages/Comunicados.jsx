@@ -8,11 +8,11 @@ import Registro from "../components/List/Registro";
 const Comunicados = () => {
   return (
     <div className="flex-1 p-6 mt-16">
-      <HeaderPublicaciones tipo={"Comunicados"} />
+      <HeaderPublicaciones tipo={"Comunicado"} />
       <div className="mb-4">
         <SearchP />
       </div>
-      <Registro layoutMode={3}/>
+      <Registro layoutMode={3} />
     </div>
   );
 };
