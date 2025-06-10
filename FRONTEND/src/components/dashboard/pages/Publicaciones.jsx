@@ -11,7 +11,7 @@ const Publicaciones = () => {
       <div className="mb-4">
         <SearchP />
       </div>
-      <Registro layoutMode={2} />
+      <Registro layoutMode={2} tipo={"Blog"} />
     </div>
   );
 };

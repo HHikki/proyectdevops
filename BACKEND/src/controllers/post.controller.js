@@ -28,25 +28,38 @@ export const getPosts = async (req, res) => {
  */
 export const getPostById = async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.user; // Se obtiene el userId del usuario autenticado
+  const { userId, is_admin } = req.user; // Se obtiene el userId y is_admin del usuario autenticado
 
   try {
-    // Buscar el post por ID y verificar que pertenezca al usuario autenticado
+    // Definir las condiciones de búsqueda según el rol del usuario
+    const whereCondition = {
+      id: Number(id),
+      // Si no es admin, agregar la condición de que el post debe pertenecerle
+      ...(is_admin ? {} : { userId: Number(userId) }),
+    };
+
+    // Buscar el post por ID con las condiciones apropiadas
     const post = await prisma.post.findFirst({
-      where: {
-        id: Number(id),
-        userId: Number(userId), // Asegurarse de que el post pertenece al usuario autenticado
-      },
+      where: whereCondition,
       include: {
         postType: true,
-        images: true,
+        images: true, // Imágenes del post
+        user: {
+          // Relación con el usuario
+          select: {
+            id: true, // Seleccionamos el ID del usuario
+            email: true, // Seleccionamos el correo electrónico del usuario
+            // No seleccionamos 'name' si no está en tu modelo de 'User'
+          },
+        },
       },
     });
 
     if (!post) {
       return res.status(404).json({
-        error:
-          "Post no encontrado o no tienes permiso para acceder a este recurso",
+        error: is_admin
+          ? "Post no encontrado"
+          : "Post no encontrado o no tienes permiso para acceder a este recurso",
       });
     }
 
@@ -120,10 +133,10 @@ export const createPost = async (req, res) => {
 
     res.status(201).json(newPost);
     // Crear las imágenes asociadas al post
-    
+
     if (images && Array.isArray(images) && images.length > 0) {
-      console.log('Creando imágenes:', images);
-      
+      console.log("Creando imágenes:", images);
+
       const postImages = await prisma.postImage.createMany({
         data: images.map((img) => ({
           postId: newPost.id,
@@ -131,9 +144,9 @@ export const createPost = async (req, res) => {
           is_cover: img.is_cover || false,
         })),
       });
-      
-      console.log('Imágenes creadas:', postImages);
-      
+
+      console.log("Imágenes creadas:", postImages);
+
       // Obtener el post completo con las imágenes
       const postWithImages = await prisma.post.findUnique({
         where: { id: newPost.id },
@@ -143,16 +156,15 @@ export const createPost = async (req, res) => {
             select: {
               id: true,
               name: true,
-              email: true
-            }
+              email: true,
+            },
           },
-          postType: true
-        }
+          postType: true,
+        },
       });
-      
+
       return res.status(201).json(postWithImages);
     }
-
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ error: "Error al crear el post" });
@@ -164,23 +176,66 @@ export const createPost = async (req, res) => {
  */
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { title, content, start_at, end_at, postTypeId } = req.body;
+  const { title, content, start_at, end_at, images } = req.body;
+
   try {
+    // 1. Obtener la publicación actual
+    const currentPost = await prisma.post.findUnique({
+      where: { id: Number(id) },
+      include: { images: true }, // Incluye las imágenes asociadas al post
+    });
+
+    if (!currentPost) {
+      throw new Error("Publicación no encontrada");
+    }
+
+    // 2. Si se enviaron imágenes en el request, manejar la actualización
+    if (images && Array.isArray(images)) {
+      // Eliminar todas las imágenes actuales de la relación
+      await prisma.postImage.deleteMany({
+        where: { postId: Number(id) },
+      });
+
+      // Crear las nuevas relaciones de imágenes
+      if (images.length > 0) {
+        const imageData = images.map((img, index) => ({
+          postId: Number(id),
+          image_url: img.image_url,
+          is_cover: img.is_cover || index === 0, // Primera imagen como cover por defecto
+        }));
+
+        await prisma.postImage.createMany({
+          data: imageData,
+        });
+      }
+    }
+
+    // 3. Actualizar los datos básicos del post (título, contenido, fechas)
     const updatedPost = await prisma.post.update({
       where: { id: Number(id) },
       data: {
-        title,
-        content,
-        start_at: start_at ? new Date(start_at) : undefined,
-        end_at: end_at ? new Date(end_at) : undefined,
-        postTypeId,
+        title, // Nuevo título
+        content, // Nuevo contenido
+        start_at: start_at ? new Date(start_at) : null, // Asegurarse de que sea un objeto Date
+        end_at: end_at ? new Date(end_at) : null, // Asegurarse de que sea un objeto Date
+      },
+      include: {
+        images: true, // Incluir las imágenes en la respuesta (para confirmar la actualización)
       },
     });
+
+    // 4. Responder con el post actualizado
     res.json(updatedPost);
   } catch (error) {
-    res.status(500).json({ error: "Error al actualizar el post" });
+    console.error("Error al actualizar el post:", error);
+    res.status(500).json({
+      error: "Error al actualizar el post",
+      details: error.message,
+    });
   }
 };
+
+
 
 /**
  * Eliminar un post
