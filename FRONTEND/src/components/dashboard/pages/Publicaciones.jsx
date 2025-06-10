@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Barra from "../components/Barra";
 import HeaderPublicaciones from "../components/List/HeaderP";
 import SearchP from "../components/List/SearchP";
 import Registro from "../components/List/Registro";
-import { API_KEY, API_BASE_URL } from "../../../config/env.jsx"; // Asegúrate de importar esto
+import { API_KEY, API_BASE_URL } from "../../../config/env.jsx";
+import { AuthContext } from "../../../context/AuthContext.jsx"; // Importa tu contexto
 
 const Publicaciones = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const { user } = useContext(AuthContext); // Obtén el usuario actual
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -15,11 +17,18 @@ const Publicaciones = () => {
         headers: { "x-api-key": API_KEY },
       });
       const data = await response.json();
-      setPosts(data);
-      setFilteredPosts(data);
+
+      // Filtra según el tipo de usuario
+      let visibles = data;
+      if (!user?.admin) {
+        visibles = data.filter((post) => post.userId === user.id);
+      }
+
+      setPosts(visibles);
+      setFilteredPosts(visibles);
     };
     fetchPosts();
-  }, []);
+  }, [user]);
 
   // Función de búsqueda por título o fecha
   const handleSearch = (query) => {

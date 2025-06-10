@@ -72,7 +72,11 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
       key: item.id || index,
       id: item.id,
       titulo: item.title || "Título no disponible",
-      autor: item.user?.username || item.autor || "Autor no disponible",
+      autor:
+        item.user?.username ||
+        item.autor ||
+        `ID: ${item.userId}` ||
+        "Autor no disponible",
       fecha: procesarFechas(item.created_at),
       duracion:
         item.start_at && item.end_at

@@ -3,13 +3,24 @@ import { Form, Input, Button, Select } from "antd";
 
 const { Option } = Select;
 
-const FormularioUsuario = ({ onFinish, onCancel }) => (
+const FormularioUsuario = ({
+  onFinish,
+  onCancel,
+  initialValues = {},
+  title = "Nuevo Usuario",
+  buttonText = "Crear Usuario",
+}) => (
   <div className="p-2">
-    <h2 className="text-2xl font-bold mb-0">Nuevo Usuario</h2>
-    <p className="text-gray-500 mb-6">Crea un nuevo usuario en el sistema</p>
+    <h2 className="text-2xl font-bold mb-0">{title}</h2>
+    <p className="text-gray-500 mb-6">
+      {title === "Nuevo Usuario"
+        ? "Crea un nuevo usuario en el sistema"
+        : "Edita los datos del usuario"}
+    </p>
     <Form
       layout="vertical"
       onFinish={onFinish}
+      initialValues={initialValues}
       className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2"
     >
       <Form.Item
@@ -61,7 +72,7 @@ const FormularioUsuario = ({ onFinish, onCancel }) => (
           htmlType="submit"
           className="bg-black hover:bg-gray-800"
         >
-          Crear Usuario
+          {buttonText}
         </Button>
       </div>
     </Form>

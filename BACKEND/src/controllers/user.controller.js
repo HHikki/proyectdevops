@@ -1,10 +1,7 @@
-
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
-
-
 
 /**
  * Obtener todos los usuarios
@@ -40,7 +37,7 @@ export const getUserById = async (req, res) => {
 export const createUser = async (req, res) => {
   const { username, email, password, is_admin } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, 10); 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
       data: {
         username,
@@ -59,19 +56,22 @@ export const createUser = async (req, res) => {
  * Actualizar un usuario existente
  */
 export const updateUser = async (req, res) => {
-  const { id } = req.params;
-  const { username, email, password_hash, is_admin } = req.body;
+  const { username, email, password, is_admin } = req.body;
   try {
+    let dataToUpdate = {
+      username,
+      email,
+      is_admin,
+    };
+    if (password && password.trim() !== "") {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      dataToUpdate.password_hash = hashedPassword;
+    }
     const updatedUser = await prisma.user.update({
-      where: { id: Number(id) },
-      data: {
-        username,
-        email,
-        password_hash,
-        is_admin,
-      },
+      where: { id: Number(req.params.id) },
+      data: dataToUpdate,
     });
-    res.json(updatedUser);
+    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: "Error al actualizar el usuario" });
   }

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import HeaderPublicaciones from "../components/List/HeaderP";
 import SearchP from "../components/List/SearchP";
 import Registro from "../components/List/Registro";
 import { API_KEY, API_BASE_URL } from "../../../config/env.jsx";
+import { AuthContext } from "../../../context/AuthContext.jsx";
 
 const Comunicados = () => {
   const [comunicados, setComunicados] = useState([]);
   const [filteredComunicados, setFilteredComunicados] = useState([]);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchComunicados = async () => {
@@ -14,11 +16,18 @@ const Comunicados = () => {
         headers: { "x-api-key": API_KEY },
       });
       const data = await response.json();
-      setComunicados(data);
-      setFilteredComunicados(data);
+
+      // Filtra según el tipo de usuario
+      let visibles = data;
+      if (!user?.admin) {
+        visibles = data.filter((com) => Number(com.userId) === Number(user.id));
+      }
+
+      setComunicados(visibles);
+      setFilteredComunicados(visibles);
     };
     fetchComunicados();
-  }, []);
+  }, [user]);
 
   const handleSearch = (query) => {
     const lowerQuery = query.toLowerCase();

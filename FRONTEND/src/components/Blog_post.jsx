@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Pagination } from "antd";
 import { API_KEY, API_BASE_URL } from "../config/env.jsx";
 import img4 from "../assets/blog_post1.jpg";
 import { Link } from "react-router-dom";
@@ -7,6 +8,8 @@ const Blog_post = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,6 +49,11 @@ const Blog_post = () => {
     });
   };
 
+  // Calcular los posts a mostrar en la página actual
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedPosts = posts.slice(startIndex, endIndex);
+
   return (
     <section className="px-6 py-10 bg-[#f0e4d0]">
       <h2 className="text-5xl md:text-6xl font-black text-center mb-8 text-[#003049]">
@@ -61,51 +69,62 @@ const Blog_post = () => {
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-25">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="border-2x1 shadow-lg rounded overflow-hidden bg-[#780000] hover:bg-[#003049] transition duration-300"
-            >
-              <div className="relative">
-                <img
-                  src={post.image_url || img4}
-                  alt={post.title}
-                  className="w-65  my-5  h-65 object-cover mx-auto rounded"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg text-white mb-1">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-white">
-                  {formatDate(post.created_at)}
-                </p>
-                <Link
-                  to={`/Blog/${post.id}`}
-                  className="flex items-center gap-1 text-blue-300 hover:underline ml-45"
-                >
-                  Leer más
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+        <>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-25">
+            {paginatedPosts.map((post) => (
+              <div
+                key={post.id}
+                className="border-2x1 shadow-lg rounded overflow-hidden bg-[#780000] hover:bg-[#003049] transition duration-300"
+              >
+                <div className="relative">
+                  <img
+                    src={post.image_url || img4}
+                    alt={post.title}
+                    className="w-65  my-5  h-65 object-cover mx-auto rounded"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg text-white mb-1">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-white">
+                    {formatDate(post.created_at)}
+                  </p>
+                  <Link
+                    to={`/Blog/${post.id}`}
+                    className="flex items-center gap-1 text-blue-300 hover:underline ml-45"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
+                    Leer más
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-8">
+            <Pagination
+              current={currentPage}
+              pageSize={pageSize}
+              total={posts.length}
+              onChange={setCurrentPage}
+              showSizeChanger={false}
+            />
+          </div>
+        </>
       )}
     </section>
   );
