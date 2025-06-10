@@ -2,23 +2,85 @@ import React, { useContext, useState } from "react";
 import { Table, message } from "antd";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Modal from "../Modal.jsx";
+import Editpost from "../paneles/Editinput.jsx";
 import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 import { AuthContext } from "../../../../context/AuthContext.jsx";
 
-const Registro = ({ layoutMode = 0, posts = [] }) => {
+const Registro = ({ layoutMode = 0, tipo, posts = [] }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const { user, admin } = useContext(AuthContext);
+  const [data, setData] = useContext(posts);
   const [selectedKey, setSelectedKey] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("jwtToken");
 
-  const handleOpenModal = (record) => {
+  // Función para abrir modal de eliminación
+  const handleOpenDeleteModal = (record) => {
     if (record) {
       setSelectedKey(record);
       setModalOpen(true);
     }
   };
 
+  // Función para abrir modal de edición
+  const handleOpenEditModal = (record) => {
+    if (record) {
+      setSelectedKey(record);
+      setEditOpen(true);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const url = admin
+        ? `${API_BASE_URL}/prisma/post/`
+        : `${API_BASE_URL}/prisma/post/${user}`;
+
+      const response = await fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-cache",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error en la respuesta: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+
+      const processedData = responseData
+        .filter((item) => item.postTypeId === layoutMode)
+        .map((item, index) => ({
+          key: item.id || index,
+          id: item.id,
+          titulo: item.title || "Título no disponible",
+          autor: item.user?.username || "Autor no disponible",
+          fecha: procesarFechas(item.created_at),
+          duracion:
+            item.start_at && item.end_at
+              ? `${procesarFechas(item.start_at)} - ${procesarFechas(
+                  item.end_at
+                )}`
+              : "Duración no disponible",
+        }));
+
+      setData(processedData);
+    } catch (error) {
+      console.error("Error al obtener datos:", error.message);
+      message.error("Error al cargar los datos");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
+  // Función para confirmar eliminación
   const handleConfirm = async () => {
     if (!selectedKey) return;
 
@@ -40,7 +102,7 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
 
       message.success("Registro eliminado correctamente");
       setModalOpen(false);
-      // Aquí podrías emitir un evento o pedir al padre que recargue los datos si lo necesitas
+
     } catch (error) {
       console.error("Error:", error);
       message.error("No se pudo eliminar el registro");
@@ -49,11 +111,34 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
     }
   };
 
+  // Función callback después de editar
+  const handleEditSubmit = (updatedPost) => {
+    if (!updatedPost) {
+      console.error("Error: updatedPost es undefined o null.");
+      message.error("Error al actualizar el post.");
+      return;
+    }
+
+    console.log("Post actualizado recibido:", updatedPost);
+
+    // Recargar los datos después de editar
+    fetchData();
+
+    message.success("Post actualizado correctamente");
+
+    // Cerrar el modal y limpiar la selección
+    setEditOpen(false);
+    setSelectedKey(null);
+  };
+  
+
   const procesarFechas = (fechaString) => {
     if (!fechaString) return "Fecha no disponible";
+
     try {
       const fecha = new Date(fechaString);
       if (isNaN(fecha.getTime())) return "Fecha inválida";
+
       return fecha.toLocaleDateString("es-ES", {
         year: "numeric",
         month: "2-digit",
@@ -111,8 +196,9 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
       key: "edit",
       render: (_, record) => (
         <button
-          onClick={() => console.log("Editar:", record)}
-          className="text-blue-600 hover:text-blue-800"
+          onClick={() => handleOpenEditModal(record)}
+          className="text-blue-600 hover:text-blue-800 p-2"
+          title="Editar post"
         >
           <FaEdit />
         </button>
@@ -123,8 +209,9 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
       key: "delete",
       render: (_, record) => (
         <button
-          onClick={() => handleOpenModal(record)}
-          className="text-red-600 hover:text-red-800"
+          onClick={() => handleOpenDeleteModal(record)}
+          className="text-red-600 hover:text-red-800 p-2"
+          title="Eliminar post"
         >
           <FaTrash />
         </button>
@@ -163,12 +250,30 @@ const Registro = ({ layoutMode = 0, posts = [] }) => {
         className="w-full"
       />
 
+      {/* Modal de confirmación para eliminar */}
       {selectedKey && (
         <Modal
           id={selectedKey.titulo}
           isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={() => {
+            setModalOpen(false);
+            setSelectedKey(null);
+          }}
           onConfirm={handleConfirm}
+        />
+      )}
+
+      {/* Modal de edición */}
+      {selectedKey && (
+        <Editpost
+          id={selectedKey.id}
+          isOpen={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedKey(null);
+          }}
+          onSubmit={handleEditSubmit}
+          Tipo={tipo}
         />
       )}
     </div>

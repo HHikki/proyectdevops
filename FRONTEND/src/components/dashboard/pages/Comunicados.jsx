@@ -49,10 +49,17 @@ const Comunicados = () => {
         descripcion={"Gestiona todos los comunicados en la plataforma"}
         textoBoton={"+ Nuevo Comunicado"}
       />
+      <HeaderPublicaciones tipo={"Comunicado"} />
       <div className="mb-4">
         <SearchP placeholder="Buscar comunicados..." onSearch={handleSearch} />
       </div>
-      <Registro layoutMode={3} posts={filteredComunicados} />
+
+      {/* REVISAR */}
+      <Registro
+        layoutMode={3}
+        tipo={"Comunicado"}
+        posts={filteredComunicados}
+      />
     </div>
   );
 };

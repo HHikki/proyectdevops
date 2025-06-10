@@ -57,7 +57,8 @@ const Publicaciones = () => {
           onSearch={handleSearch}
         />
       </div>
-      <Registro layoutMode={2} posts={filteredPosts} />
+      {/* revisar */}
+      <Registro layoutMode={2} tipo={"Blog"} posts={filteredPosts} />
     </div>
   );
 };

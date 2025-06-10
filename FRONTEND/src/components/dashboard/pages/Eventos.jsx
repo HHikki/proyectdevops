@@ -54,7 +54,8 @@ const Eventos = () => {
       <div className="mb-4">
         <SearchP placeholder="Buscar eventos..." onSearch={handleSearch} />
       </div>
-      <Registro layoutMode={1} posts={filteredEventos} />
+
+      <Registro layoutMode={1} tipo={"Evento"} posts={filteredEventos} />
     </div>
   );
 };

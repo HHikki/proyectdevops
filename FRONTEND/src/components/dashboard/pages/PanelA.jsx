@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button } from "../components/UI";
 import { AuthContext } from "../../../context/AuthContext.jsx";
+import { Button } from "../components/UI";
 
 import Barra from "../components/Barra";
 import Header from "../components/Header";
@@ -16,7 +16,8 @@ export default function PanelA() {
   const { user, name, admin, loading } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("jwtToken");
-  console.log("name:", name, "user:", user, "admin:", admin);
+
+  console.log(">>name:", name, "user:", user, "admin:", admin);
   useEffect(() => {
     if (loading) return; // Esperar a que el contexto esté completamente cargado
 
