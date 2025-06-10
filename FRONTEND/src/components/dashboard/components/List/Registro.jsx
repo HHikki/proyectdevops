@@ -6,11 +6,12 @@ import Editpost from "../paneles/Editinput.jsx";
 import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 import { AuthContext } from "../../../../context/AuthContext.jsx";
 
-const Registro = ({ layoutMode = 0, tipo, posts = [] }) => {
+const Registro = ({ layoutMode = 0, tipo , posts = [] }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const { user, admin } = useContext(AuthContext);
-  const [data, setData] = useContext(posts);
+
+  const [data, setData] = useState(...posts);
   const [selectedKey, setSelectedKey] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("jwtToken");

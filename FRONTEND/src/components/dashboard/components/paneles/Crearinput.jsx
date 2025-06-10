@@ -235,7 +235,7 @@ export default function Crearinput({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-sm p-4 overflow-auto">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl p-6 md:p-10 relative transform transition-all duration-300 animate-modalIn">
-        <h2 className="text-xl font-bold mb-6 text-center">Crear {tipo_pub}</h2>
+        <h2 className="text-xl font-bold mb-6 text-center">Crear {Tipo}</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">

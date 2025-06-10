@@ -29,6 +29,7 @@ export default function BlogDetalle() {
 
         const data = await response.json();
         setPost(data);
+        console.log(data)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -68,6 +69,7 @@ export default function BlogDetalle() {
           {/* ✅ Más espacio y redondeo */}
           {/* Imagen del post */}
           <div className="mb-8">
+            {/* Mejorar la imagenes, pueden o no poseer mas */}
             <img
               src={post.image_url || pict}
               alt={post.title}

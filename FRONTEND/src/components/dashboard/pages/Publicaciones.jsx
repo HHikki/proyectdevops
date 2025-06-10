@@ -47,9 +47,10 @@ const Publicaciones = () => {
   return (
     <div className="flex-1 p-6 mt-16">
       <HeaderPublicaciones
-        tipo={"Publicaciones"}
+        tipo={"Blog"}
         descripcion={"Gestiona todos las publicaciones en la plataforma"}
         textoBoton={"+ Nueva Publicación"}
+        onNuevaPublicacion={true}
       />
       <div className="mb-4">
         <SearchP

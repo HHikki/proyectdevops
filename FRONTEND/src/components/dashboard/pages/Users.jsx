@@ -52,6 +52,7 @@ const Users = () => {
       >
         <FormularioUsuario onFinish={handleCrearUsuario} />
       </ModalGeneral>
+      
       <RegistroU reload={reload} />
     </div>
   );

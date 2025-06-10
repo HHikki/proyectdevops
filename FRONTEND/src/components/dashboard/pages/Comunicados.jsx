@@ -12,20 +12,21 @@ const Comunicados = () => {
 
   useEffect(() => {
     const fetchComunicados = async () => {
-      const response = await fetch(`${API_BASE_URL}/prisma/post/page?tipo=3`, {
-        headers: { "x-api-key": API_KEY },
-      });
-      const data = await response.json();
-
-      // Filtra según el tipo de usuario
-      let visibles = data;
-      if (!user?.admin) {
-        visibles = data.filter((com) => Number(com.userId) === Number(user.id));
-      }
-
-      setComunicados(visibles);
-      setFilteredComunicados(visibles);
-    };
+      const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+              headers: { "x-api-key": API_KEY },
+            });
+            const data = await response.json();
+      
+            // Filtra según el tipo de usuario
+            let visibles = data;
+            console.log(user.admin);
+            if (user.id!=1) {
+              visibles = data.filter((post) => post.userId === user.id);
+            }
+      
+            setComunicados(visibles);
+            setFilteredComunicados(visibles);
+          };
     fetchComunicados();
   }, [user]);
 
@@ -49,7 +50,6 @@ const Comunicados = () => {
         descripcion={"Gestiona todos los comunicados en la plataforma"}
         textoBoton={"+ Nuevo Comunicado"}
       />
-      <HeaderPublicaciones tipo={"Comunicado"} />
       <div className="mb-4">
         <SearchP placeholder="Buscar comunicados..." onSearch={handleSearch} />
       </div>
