@@ -96,19 +96,21 @@ export const getMyPosts = async (req, res) => {
  * Crear un nuevo post
  */
 export const createPost = async (req, res) => {
-  const { userId, postTypeId, title, content, start_at, end_at, images } =
+  const { userId, postType, title, content, start_at, end_at, images } =
     req.body;
 
   try {
     // Crear el post
     const newPost = await prisma.post.create({
       data: {
-        userId,
-        postTypeId,
         title,
         content,
+        postType,
         start_at: start_at ? new Date(start_at) : undefined,
         end_at: end_at ? new Date(end_at) : undefined,
+        user: {
+          connect: { id: userId }, // Conectando al usuario existente
+        },
       },
     });
 

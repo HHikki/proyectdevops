@@ -7,7 +7,7 @@ import Registro from "../components/List/Registro";
 const Eventos = () => {
   return (
     <div className="flex-1 p-6 mt-16">
-      <HeaderPublicaciones tipo={"Eventos"} />
+      <HeaderPublicaciones tipo={"Evento"} />
       <div className="mb-4">
         <SearchP />
       </div>

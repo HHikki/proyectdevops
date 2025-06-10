@@ -11,7 +11,9 @@
     "test": "jest --watchAll=false"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
     "@tailwindcss/vite": "^4.1.7",
+    "@uiw/react-md-editor": "^4.0.7",
     "antd": "^5.25.4",
     "aos": "^2.3.4",
     "date-fns": "^4.1.0",

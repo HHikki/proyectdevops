@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../UI";
+import Crearinput from "../paneles/Crearinput";
 
-export default function HeaderPublicaciones({ onNuevaPublicacion ,tipo }) {
+export default function HeaderPublicaciones({ tipo }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
+
+  const handleFormSubmit = (data) => {
+    console.log("Formulario enviado:", data);
+    // Aquí puedes hacer una petición o guardar el estado
+  };
+
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
       <div>
@@ -10,12 +21,19 @@ export default function HeaderPublicaciones({ onNuevaPublicacion ,tipo }) {
           Gestiona todas las noticias, eventos y comunicados del colegio
         </p>
       </div>
-      <Button 
+      <Button
         className="bg-black hover:bg-gray-800 px-6 py-2 rounded-lg font-semibold"
-        onClick={onNuevaPublicacion}
+        onClick={handleOpenModal}
       >
         + Nueva Publicación
       </Button>
+
+      <Crearinput
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleFormSubmit}
+        Tipo={tipo}
+      />
     </div>
   );
 }
