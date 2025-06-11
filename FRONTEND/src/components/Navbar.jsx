@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import insignia from "../assets/insignia_prima.png";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -42,7 +43,7 @@ const Navbar = () => {
         {/* ─── Logo ─── */}
         <Link to="/" className="flex items-center gap-2 cursor-pointer">
           <img
-            src="/src/assets/insignia_prima.png"
+            src={insignia}
             alt="Insignia del colegio"
             className="w-10 h-10 object-contain"
           />
@@ -75,7 +76,8 @@ const Navbar = () => {
                 Panel
               </Link>
             </>
-          ) :   (<> </>
+          ) : (
+            <> </>
           )}
         </div>
 
@@ -131,7 +133,8 @@ const Navbar = () => {
                   Panel
                 </Link>
               </>
-            ) : (<></>
+            ) : (
+              <></>
             )}
           </div>
         </div>

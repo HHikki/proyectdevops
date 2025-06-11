@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Typewriter from "typewriter-effect";
+import logo from "../assets/prisma_logo.jpg";
 import { FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 const Hero = () => {
@@ -12,7 +13,7 @@ const Hero = () => {
   return (
     <div
       className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-start"
-      style={{ backgroundImage: 'url("/src/assets/prisma_logo.jpg")' }}
+      style={{ backgroundImage: `url(${logo})` }}
     >
       {/* 🎨 Degradado rojo suave */}
       <div
