@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ModalForm from "./ModalForm";
- // Ajusta la ruta si tu estructura es diferente
+import banner1 from "../assets/banner1.jpg";
+import banner2 from "../assets/banner2.jpg";
+import banner3 from "../assets/banner3.jpg";
+// Ajusta la ruta si tu estructura es diferente
 
 const levels = [
   {
@@ -20,11 +23,7 @@ const levels = [
   },
 ];
 
-const bannerImages = [
-  "/src/assets/banner1.jpg",
-  "/src/assets/banner2.jpg",
-  "/src/assets/banner3.jpg",
-];
+const bannerImages = [banner1, banner2, banner3];
 
 export default function Level() {
   const [current, setCurrent] = useState(0);

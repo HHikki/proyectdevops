@@ -1,34 +1,33 @@
-# docker-compose.yml (en la raíz)
+#version: '3.8'  # Recomendado agregarlo
 
 services:
   frontend:
     build: ./FRONTEND
     ports:
-      - "5173:80"  # Puerto 3001 para evitar conflictos
+      - "5173:80"
     env_file:
-      - ./frontend/.env
+      - ./FRONTEND/.env
     depends_on:
       - backend
-    command: npm run dev
 
   backend:
     build: ./BACKEND
     ports:
       - "4001:4001"
+      - "5555:5555" # Necesario para Prisma Studio
     env_file:
-      - ./backend/.env
+      - ./BACKEND/.env.docker
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/mydb
+      - DATABASE_URL=postgresql://postgres:12345@postgres:5432/nodepg # 👈 TU USUARIO, CONTRASEÑA Y DB CAMBIADOS A LOS REALES
     depends_on:
       - postgres
-
 
   postgres:
     image: postgres:15
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=mydb
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=nodepg
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
