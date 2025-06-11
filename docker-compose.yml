@@ -16,7 +16,7 @@ services:
       - "4001:4001"
       - "5555:5555" # Necesario para Prisma Studio
     env_file:
-      - ./BACKEND/.env
+      - ./BACKEND/.env.docker
     environment:
       - DATABASE_URL=postgresql://postgres:12345@postgres:5432/nodepg # 👈 TU USUARIO, CONTRASEÑA Y DB CAMBIADOS A LOS REALES
     depends_on:

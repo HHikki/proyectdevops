@@ -47,7 +47,7 @@ const Eventos = () => {
   return (
     <div className="flex-1 p-6 mt-16">
       <HeaderPublicaciones
-        tipo={"Eventos"}
+        tipo={"Evento"}
         descripcion={"Gestiona todos los eventos en la plataforma"}
         textoBoton={"+ Nuevo Evento"}
       />
