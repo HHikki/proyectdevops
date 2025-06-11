@@ -9,7 +9,7 @@ import { AuthContext } from "../../../context/AuthContext.jsx";
 const Eventos = () => {
   const [eventos, setEventos] = useState([]);
   const [filteredEventos, setFilteredEventos] = useState([]);
-  const { user } = useContext(AuthContext);
+  const { user ,admin} = useContext(AuthContext);
 
   useEffect(() => {
     const fetchEventos = async () => {
@@ -19,14 +19,14 @@ const Eventos = () => {
       const data = await response.json();
       console.log("Todos los posts recibidos:", data);
 
-      const soloEventos = user?.admin
-        ? data.filter((item) => item.postTypeId === 1)
-        : data.filter(
-            (item) => item.postTypeId === 1 && item.userId === user.id
-          );
-      console.log("Eventos visibles para este usuario:", soloEventos);
-      setEventos(soloEventos);
-      setFilteredEventos(soloEventos);
+      let visibles = data;
+      console.log(user.admin);
+      if (!admin) {
+        visibles = data.filter((post) => post.userId === user.id);
+      }
+
+      setEventos(visibles);
+      setFilteredEventos(visibles);
     };
     fetchEventos();
   }, [user]);

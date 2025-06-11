@@ -8,8 +8,8 @@ import { AuthContext } from "../../../context/AuthContext.jsx";
 const Comunicados = () => {
   const [comunicados, setComunicados] = useState([]);
   const [filteredComunicados, setFilteredComunicados] = useState([]);
-  const { user } = useContext(AuthContext);
-
+  const { user, admin } = useContext(AuthContext);
+  console.log("user:",user)
   useEffect(() => {
     const fetchComunicados = async () => {
       const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
@@ -19,8 +19,7 @@ const Comunicados = () => {
       
             // Filtra según el tipo de usuario
             let visibles = data;
-            console.log(user.admin);
-            if (user.id!=1) {
+            if (!admin) {
               visibles = data.filter((post) => post.userId === user.id);
             }
       
