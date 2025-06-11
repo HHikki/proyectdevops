@@ -46,7 +46,7 @@ const Comunicados = () => {
   return (
     <div className="flex-1 p-6 mt-16">
       <HeaderPublicaciones
-        tipo={"Comunicados"}
+        tipo={"Comunicado"}
         descripcion={"Gestiona todos los comunicados en la plataforma"}
         textoBoton={"+ Nuevo Comunicado"}
       />

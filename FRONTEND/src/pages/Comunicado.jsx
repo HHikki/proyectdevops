@@ -29,6 +29,7 @@ export default function Comunicado() {
         if (!response.ok) throw new Error("Error al cargar los posts");
         const data = await response.json();
         setPosts(data);
+        console.log("EVENTOS>>>",data)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -47,6 +48,8 @@ export default function Comunicado() {
         if (!response.ok) throw new Error("Error al cargar los comunicados");
         const data = await response.json();
         setComunicados(data);
+        
+        console.log("COMU>>>", data);
       } catch (err) {
         setError(err.message);
       }
@@ -99,7 +102,9 @@ export default function Comunicado() {
                 {/* Imagen */}
                 <div className="md:w-1/2 w-full h-52 md:h-auto overflow-hidden">
                   <img
-                    src={post.image_url || pict}
+                    src={
+                      post.images?.length > 0 ? post.images[0].image_url : pict
+                    }
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
@@ -113,17 +118,10 @@ export default function Comunicado() {
                       {post.title}
                     </h3>
                     <p className="text-white text-xs mb-2">
-                      📅 {formatDate(post.createdAt)}
-                      {post.location && ` | 📍 ${post.location}`}
+                      📅 {formatDate(post.start_at)} {"hasta "}
+                      {formatDate(post.end_at)}
                     </p>
-                    <ReactMarkdown>{post.content}</ReactMarkdown>
                   </div>
-                  <a
-                    href={`/comunicado/${post.id}`}
-                    className="text-[#780000] hover:text-orange-800 text-sm font-semibold transition group-hover:underline focus:outline-none animate-pulse-on-hover"
-                  >
-                    Leer más 🔍
-                  </a>
                 </div>
               </div>
             ))
@@ -153,7 +151,9 @@ export default function Comunicado() {
                 style={{ animationDelay: `${idx * 80}ms` }}
               >
                 <img
-                  src={post.image_url || pict}
+                  src={
+                    post.images?.length > 0 ? post.images[0].image_url : pict
+                  }
                   alt={post.title}
                   className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
                   loading="lazy"
@@ -164,8 +164,7 @@ export default function Comunicado() {
                       {post.title}
                     </h3>
                     <p className="text-gray-500 text-sm mb-1">
-                      📅 {formatDate(post.createdAt)}
-                      {post.location && ` | 📍 ${post.location}`}
+                      📅 {formatDate(post.created_at)}
                     </p>
                     <p className="text-gray-700 text-sm mb-4 line-clamp-3 hover:line-clamp-none transition-all duration-300">
                       {post.content}
