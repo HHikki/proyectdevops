@@ -8,7 +8,7 @@ module.exports = {
     "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
   },
   transformIgnorePatterns: [
-    "node_modules/(?!(swiper|react-markdown|@uiw/react-md-editor|@uiw/react-markdown-preview|remark-.*|unified|bail|trough|vfile|mdast-util.*|micromark.*|hast-util.*|unist-util.*|property-information|comma-separated-tokens|estree-util-is-identifier-name)/)",
+    "node_modules/(?!(swiper|react-markdown|@uiw/react-md-editor|@uiw/react-markdown-preview|@supabase|remark-.*|unified|bail|trough|vfile|mdast-util.*|micromark.*|hast-util.*|unist-util.*|property-information|comma-separated-tokens|estree-util-is-identifier-name|rehype-prism-plus|parse-numeric-range|refractor|cross-fetch|whatwg-fetch)/)",
   ],
   transform: {
     "^.+\\.[jt]sx?$": "babel-jest",
