@@ -27,6 +27,7 @@
     "react-markdown": "^10.1.0",
     "react-parallax-tilt": "^1.7.296",
     "react-router-dom": "^7.6.0",
+    "react-scripts": "^5.0.1",
     "swiper": "^11.2.8",
     "tailwind": "^2.3.1",
     "typewriter-effect": "^2.22.0"

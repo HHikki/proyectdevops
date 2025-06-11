@@ -1,0 +1,38 @@
+# docker-compose.yml (en la raíz)
+
+services:
+  frontend:
+    build: ./FRONTEND
+    ports:
+      - "5173:80"  # Puerto 3001 para evitar conflictos
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+    command: npm run dev
+
+  backend:
+    build: ./BACKEND
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/mydb
+    depends_on:
+      - postgres
+
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
