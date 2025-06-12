@@ -2,7 +2,7 @@ import React from "react";
 import Girl from "../assets/girl.png";
 
 export default function Contact() {
-  const fields = ["Nombre Completo", "DNI", "Teléfono", "Correo", "Grado"];
+  const fields = ["Nombre Completo", "DNI", "Teléfono", "Correo"];
 
   return (
     <section id="contact" className="w-full flex flex-col md:flex-row">
@@ -29,7 +29,7 @@ export default function Contact() {
 
       {/* ───── Formulario ───── */}
       <div className="w-full md:w-3/5 bg-gray-50 flex flex-col justify-center px-8 py-16">
-        <form className="space-y-6 max-w-2xl w-full mx-auto">
+        <form className="space-y-3 max-w-2xl w-full mx-auto">
           {fields.map((label, idx) => (
             <div key={idx} className="flex flex-col space-y-1">
               {/* Etiqueta fija arriba */}
