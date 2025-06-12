@@ -11,12 +11,13 @@ import {
 } from "../middlewares/auth.js";
 
 const router = Router();
+// Esta ruta es pública y solo requiere que se envíe el header "x-api-key" válido.
+// No se valida el JWT en este endpoint.
 
-// Ruta de creación: solo necesita API Key.
-router.post("/upform", validateApiKey, createSubmission);
 
-// Rutas de lectura y eliminación: requieren JWT y que el usuario sea admin.
-router.get("/getform", authMiddleware, requireAdmin, getSubmissions);
-router.delete("/delfrom/:id", authMiddleware, requireAdmin, deleteSubmission);
+router.use(authMiddleware);
+// Estas rutas requieren que se envíe un JWT válido y además que el usuario tenga privilegios de administrador.
+router.get("/getform", requireAdmin, getSubmissions);
+router.delete("/delfrom/:id", requireAdmin, deleteSubmission);
 
 export default router;

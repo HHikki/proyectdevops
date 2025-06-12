@@ -9,7 +9,7 @@ import { AuthContext } from "../../../context/AuthContext.jsx";
 const Eventos = () => {
   const [eventos, setEventos] = useState([]);
   const [filteredEventos, setFilteredEventos] = useState([]);
-  const { user ,admin} = useContext(AuthContext);
+  const { user, admin } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchEventos = async () => {

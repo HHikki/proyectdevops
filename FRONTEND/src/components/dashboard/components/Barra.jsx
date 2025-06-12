@@ -9,6 +9,7 @@ const items = [
   { label: "Eventos", to: "/Panel/Eventos", icon: "📅" },
   { label: "Comunicados", to: "/Panel/Comunicados", icon: "📢" },
   { label: "Usuarios", to: "/Panel/Usuarios", icon: "👩‍🏫" },
+  { label: "Interesados", to: "/Panel/Interesados", icon: "👩‍💼" },
 ];
 
 export default function Barra() {
@@ -45,7 +46,7 @@ export default function Barra() {
       <nav className="flex-1">
         <ul className="space-y-2">
           {items
-            .filter((_, index) => (!admin ? index !== 4 : true)) // Exclude the "Usuarios" item
+            .filter((_, index) => (!admin ? index !== 4 && index !== 5 : true)) // Exclude the "Usuarios" item
             .map(({ label, to, icon }) => (
               <li key={to}>
                 <Link
