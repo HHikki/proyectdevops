@@ -4,6 +4,7 @@ import Eventos from "../pages/Eventos";
 import Publicaciones from "../pages/Publicaciones";
 import Comunicados from "../pages/Comunicados";
 import Users from "../pages/Users";
+import { Interesados } from "../pages/Interesados";
 
 const DashboardRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const DashboardRoutes = () => {
       <Route path="/Publicaciones" element={<Publicaciones />} />
       <Route path="/Comunicados" element={<Comunicados />} />
       <Route path="/Usuarios" element={<Users />} />
+      <Route path="/Interesados" element={<Interesados />} />
       {/* Ruta para manejar 404 */}
     </Routes>
   );
