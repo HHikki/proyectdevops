@@ -30,6 +30,7 @@ const Blog_post = () => {
 
         const data = await response.json();
         setPosts(data);
+        console.log(data)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -78,7 +79,9 @@ const Blog_post = () => {
               >
                 <div className="relative">
                   <img
-                    src={post.image_url || img4}
+                    src={
+                      post.images?.length > 0 ? post.images[0].image_url : img4
+                    }
                     alt={post.title}
                     className="w-65  my-5  h-65 object-cover mx-auto rounded"
                     loading="lazy"

@@ -187,7 +187,7 @@ const RegistroU = ({ reload }) => {
             initialValues={{
               username: usuarioEditar.username,
               email: usuarioEditar.email,
-              password: "", // No mostrar la real
+              password: usuarioEditar.password, // No mostrar la real
               is_admin: usuarioEditar.is_admin,
             }}
             title="Editar Usuario"

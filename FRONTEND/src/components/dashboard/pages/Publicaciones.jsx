@@ -9,7 +9,7 @@ import { AuthContext } from "../../../context/AuthContext.jsx"; // Importa tu co
 const Publicaciones = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const { user } = useContext(AuthContext); // Obtén el usuario actual
+  const { user, admin } = useContext(AuthContext); // Obtén el usuario actual
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -20,7 +20,8 @@ const Publicaciones = () => {
 
       // Filtra según el tipo de usuario
       let visibles = data;
-      if (!user?.admin) {
+      console.log(user.admin);
+      if (!admin) {
         visibles = data.filter((post) => post.userId === user.id);
       }
 
