@@ -28,9 +28,15 @@ export const Footer = () => {
         <div className="flex flex-col items-center">
           <h3 className="text-lg font-bold mb-4">Síguenos</h3>
           <div className="flex space-x-5 text-2xl">
-            <a href="https://web.facebook.com/Prisma.Chincha"><FaFacebook /></a>
-            <a href="#"><FaInstagram /></a>
-            <a href="#"><FaTiktok /></a>
+            <a href="https://web.facebook.com/Prisma.Chincha">
+              <FaFacebook />
+            </a>
+            <a href="#">
+              <FaInstagram />
+            </a>
+            <a href="#">
+              <FaTiktok />
+            </a>
           </div>
         </div>
 
@@ -44,30 +50,29 @@ export const Footer = () => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <FaBook />
-            <a href="#" className="hover:underline">Libro de reclamaciones</a>
-          </div>
-
-          <div className="flex items-center space-x-2">
             <FaQuestionCircle />
-            <a href="#" className="hover:underline">Preguntas frecuentes</a>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <FaShieldAlt />
-            <a href="#" className="hover:underline">Política de privacidad</a>
+            <a href="#" className="hover:underline">
+              Preguntas frecuentes
+            </a>
           </div>
 
           <div className="flex items-center space-x-2">
             <FaMapMarkerAlt />
-            <a href="#" className="hover:underline">Ubicación</a>
+            <a
+              href="https://www.google.com.pe/maps/@-13.4176273,-76.1279866,18.25z?entry=ttu"
+              className="hover:underline"
+            >
+              Ubicación
+            </a>
           </div>
         </div>
       </div>
 
       {/* Línea inferior */}
       <div className="mt-10 pt-6 border-t border-white/20 text-center">
-        <p className="text-sm">© 2025 Colegio Prisma. Todos los derechos reservados</p>
+        <p className="text-sm">
+          © 2025 Colegio Prisma. Todos los derechos reservados
+        </p>
       </div>
     </footer>
   );
