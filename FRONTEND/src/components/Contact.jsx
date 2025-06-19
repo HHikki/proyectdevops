@@ -1,8 +1,63 @@
 import React from "react";
 import Girl from "../assets/girl.png";
+import { API_KEY, API_BASE_URL } from "../../src/config/env.jsx";
 
 export default function Contact() {
-  const fields = ["Nombre Completo", "DNI", "Teléfono", "Correo"];
+
+  const level = "General";
+
+
+  
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const nombre = formData.get("nombre");
+    const dni = formData.get("dni");
+    const telefono = formData.get("telefono");
+    const correo = formData.get("correo");
+    const grado = "Consultar";
+
+    if (!nombre || !dni || !telefono || !correo) {
+      alert(
+        "Por favor, completa todos los campos"
+      );
+      return;
+    }
+
+    const data = {
+      nombre,
+      dni,
+      telefono,
+      correo,
+      grado,
+      nivel: level,
+    };
+
+    // Construir headers condicionalmente
+        const headers = {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+        };
+        console.log(data)
+        try {
+          const response = await fetch(`${API_BASE_URL}/prisma/upform`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(data),
+          });
+    
+          if (!response.ok) throw new Error("Error al enviar la información");
+    
+          alert("¡Registro enviado correctamente!");
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        };
+  };
+
+
+
+
 
   return (
     <section id="contact" className="w-full flex flex-col md:flex-row">
@@ -29,36 +84,52 @@ export default function Contact() {
 
       {/* ───── Formulario ───── */}
       <div className="w-full md:w-3/5 bg-gray-50 flex flex-col justify-center px-8 py-16">
-        <form className="space-y-3 max-w-2xl w-full mx-auto">
-          {fields.map((label, idx) => (
-            <div key={idx} className="flex flex-col space-y-1">
-              {/* Etiqueta fija arriba */}
+        <form
+          className="space-y-3 max-w-2xl w-full mx-auto"
+          onSubmit={handleSubmit}
+        >
+          {[
+            {
+              label: "Nombre Completo",
+              placeholder: "Insertar nombre completo",
+              id: "nombre",
+            },
+            { label: "DNI", placeholder: "Insertar DNI", id: "dni" },
+            {
+              label: "Teléfono",
+              placeholder: "Insertar teléfono",
+              id: "telefono",
+            },
+            {
+              label: "Correo",
+              placeholder: "Insertar correo",
+              id: "correo",
+              type: "email",
+            },
+          ].map(({ label, placeholder, id, type }) => (
+            <div key={id}>
               <label
-                htmlFor={`field-${idx}`}
-                className="text-sm text-gray-700 font-medium px-1"
+                className="block text-[#003049] font-semibold mb-1 ml-1"
+                htmlFor={id}
               >
                 {label}
               </label>
-
-              {/* Input con fondo blanco y placeholder temporal */}
               <input
-                id={`field-${idx}`}
-                type="text"
-                placeholder={`Insertar ${label.toLowerCase()}`}
-                className="
-          w-full bg-white border border-black rounded-xl
-          px-5 py-3 text-base text-gray-900
-          placeholder-gray-400
-          focus:outline-none focus:border-[#003049]
-        "
+                id={id}
+                name={id}
+                type={type || "text"}
+                className="w-full px-4 py-2.5 rounded-xl border border-[#003049] bg-white/70 shadow-inner
+                  focus:ring-2 focus:ring-[#6698BC] focus:border-[#003049] outline-none
+                  placeholder-gray-400 transition-all duration-200"
+                placeholder={placeholder}
+                autoComplete="off"
               />
             </div>
           ))}
 
           <button
-            type="button"
+            type="submit"
             className="w-full rounded-xl bg-[#780000] py-4 text-lg font-semibold text-white transition hover:bg-[#5e0000]"
-            onClick={() => alert("Formulario visual sin envío")}
           >
             ÚNETE
           </button>
