@@ -11,6 +11,8 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+
+
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
 

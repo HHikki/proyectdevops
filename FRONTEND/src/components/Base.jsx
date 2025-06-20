@@ -1,107 +1,149 @@
+// src/components/EducationalPillars.jsx
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { BookOpen, ClipboardCheck, Flag } from "lucide-react";
 
+/* —— datos de pilares —— */
 const pillars = [
   {
     title: "ESTUDIO",
     description:
       "El estudio es la base del conocimiento y el camino hacia el crecimiento personal. Fomenta la curiosidad, el pensamiento crítico y la preparación para enfrentar los desafíos del mañana.",
-    icon: <BookOpen className="w-7 h-7 text-red-600" />,
+    Icon: BookOpen,
+    iconColor: "text-red-600",
     bgFrom: "#003049",
     bgTo: "#234870",
-    text: "text-white",
   },
   {
     title: "DISCIPLINA",
     description:
       "La disciplina es el puente entre las metas y los logros. Forma hábitos positivos, fortalece la voluntad y guía el comportamiento hacia la excelencia académica y personal.",
-    icon: <ClipboardCheck className="w-7 h-7 text-[#003049]" />,
+    Icon: ClipboardCheck,
+    iconColor: "text-[#003049]",
     bgFrom: "#780000",
     bgTo: "#a5123b",
-    text: "text-white",
   },
   {
     title: "SUPERACIÓN",
     description:
       "La superación es el motor del progreso. Impulsa a los estudiantes a dar siempre lo mejor de sí mismos, superar obstáculos y alcanzar nuevas metas con determinación.",
-    icon: <Flag className="w-7 h-7 text-red-600" />,
+    Icon: Flag,
+    iconColor: "text-red-600",
     bgFrom: "#003049",
     bgTo: "#234870",
-    text: "text-white",
   },
 ];
 
 export default function EducationalPillars() {
+  /* —— AOS & keyframes —— */
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-      mirror: true,
-      easing: "ease-out-cubic",
-      offset: 100,
-    });
-    AOS.refresh();
+    AOS.init({ duration: 1000, offset: 100 });
+
+    /* inyectamos keyframes para brillo */
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes iconGlow {
+        0%   { filter: drop-shadow(0 0 0 rgba(255,255,0,0)); transform: scale(1); }
+        100% { filter: drop-shadow(0 0 8px rgba(255,255,0,.9)); transform: scale(1.25); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
   }, []);
 
   return (
     <section className="relative w-full py-10 text-center">
+      {/* fondos decorativos */}
       <div className="absolute inset-0 bg-gray-50 -z-20" />
       <div className="absolute inset-y-0 left-0 w-24 md:w-80 bg-[#f0e4d0] -z-10" />
 
+      {/* título & subtítulo */}
       <h2
         className="text-3xl md:text-4xl font-bold mb-2 text-[#003049]"
         data-aos="fade-up"
-        data-aos-delay="100"
       >
         NUESTROS PILARES EDUCATIVOS
       </h2>
       <p
         className="text-sm md:text-base text-[#003049] mb-8"
         data-aos="fade-up"
-        data-aos-delay="300"
+        data-aos-delay="200"
       >
         Educamos con propósito, valores y excelencia.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-10 px-4 overflow-visible">
-        {pillars.map((pillar, index) => (
+      {/* tarjetas */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-10 px-4">
+        {pillars.map((p, i) => (
           <div
-            key={index}
-            className={`pillar-card relative p-10 md:p-12 flex flex-col items-center gap-6 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl ${pillar.text}`}
+            key={p.title}
+            className={`
+              group relative p-10 md:p-12 flex flex-col items-center gap-6
+              transition-all duration-300 transform
+              hover:scale-105 hover:shadow-2xl
+              text-white
+            `}
             style={{
-              background: `linear-gradient(135deg, ${pillar.bgFrom} 80%, ${pillar.bgTo} 100%)`,
+              background: `linear-gradient(135deg, ${p.bgFrom} 80%, ${p.bgTo} 100%)`,
               borderRadius: "1.2rem",
-              zIndex: 1,
               boxShadow: "0 4px 20px #00304918",
             }}
-            data-aos={
-              index === 0 ? "fade-left" : index === 1 ? "fade-up" : "fade-right"
-            }
-            data-aos-delay={index * 200}
+            data-aos={i === 0 ? "fade-left" : i === 1 ? "fade-up" : "fade-right"}
+            data-aos-delay={i * 200}
           >
-            <div className="corner absolute top-0 right-0 w-4 h-4 bg-[#f0e4d0]" />
-            <div className="corner absolute bottom-0 left-0 w-4 h-4 bg-[#f0e4d0]" />
-            <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center shadow-md mb-2 icon-bounce transition-all text-center">
-              {pillar.icon}
+            {/* esquinas decorativas */}
+            <div className="absolute top-0 right-0 w-4 h-4 bg-[#f0e4d0]" />
+            <div className="absolute bottom-0 left-0 w-4 h-4 bg-[#f0e4d0]" />
+
+            {/* icono con brillo */}
+            <div
+              className="
+                icon-wrap w-16 h-16 rounded-full bg-white/80 flex items-center
+                justify-center shadow-md transition-transform
+              "
+              /* animación glow al hover de la tarjeta */
+              style={{ animation: "iconGlow 0.8s ease-in-out forwards paused" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.animationPlayState = "running")
+              }
+              onAnimationEnd={(e) =>
+                (e.currentTarget.style.animationPlayState = "paused")
+              }
+            >
+              <p.Icon size={28} className={p.iconColor} />
             </div>
-            <h3 className="pillar-title text-2xl font-bold tracking-wide mb-1">
-              {pillar.title}
-            </h3>
-            <p className="pillar-desc text-base leading-relaxed">
-              {pillar.description}
-            </p>
+
+            {/* título + desc */}
+            <h3 className="text-2xl font-bold tracking-wide">{p.title}</h3>
+            <p className="text-base leading-relaxed">{p.description}</p>
           </div>
         ))}
       </div>
 
-      <div className="w-full bg-[#0F172A] overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-red-500 to-blue-600 py-4">
-          ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! · ESTUDIO ·
-          DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! ·
-        </div>
-      </div>
+      {/* ——— CINTA DESLIZANTE ——— */}
+<div className="w-full bg-[#0F172A] overflow-hidden">
+  {/* style in-place: keyframes + aplicación */}
+  <style>{`
+    @keyframes marqueeLeft {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  `}</style>
+
+  <div
+    className="
+      whitespace-nowrap text-2xl font-extrabold
+      text-transparent bg-clip-text
+      bg-gradient-to-r from-sky-400 via-red-500 to-blue-600
+      py-4
+    "
+    style={{ animation: "marqueeLeft 20s linear infinite" }}
+  >
+    ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! · ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! ·
+  </div>
+</div>
+
     </section>
   );
 }
