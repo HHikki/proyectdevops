@@ -1,3 +1,4 @@
+// src/components/Level.jsx
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -6,6 +7,7 @@ import banner1 from "../assets/banner1.jpg";
 import banner2 from "../assets/banner2.jpg";
 import banner3 from "../assets/banner3.jpg";
 
+/* —— data —— */
 const levels = [
   {
     name: "INICIAL",
@@ -27,19 +29,14 @@ const levels = [
 const bannerImages = [banner1, banner2, banner3];
 
 export default function Level() {
+  /* —— state —— */
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState("");
 
+  /* —— efectos —— */
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-      mirror: true,
-      easing: "ease-out-cubic",
-      offset: 100,
-    });
-    AOS.refresh();
+    AOS.init({ duration: 1000, offset: 100 });
   }, []);
 
   useEffect(() => {
@@ -50,69 +47,94 @@ export default function Level() {
     return () => clearInterval(id);
   }, []);
 
-  const openModal = (levelName) => {
-    setSelectedLevel(levelName);
+  /* —— helpers —— */
+  const openModal = (name) => {
+    setSelectedLevel(name);
     setModalOpen(true);
   };
 
-  const closeModal = () => setModalOpen(false);
-
+  /* —— render —— */
   return (
     <>
-      <section className="flex flex-col md:flex-row w-full min-h-[700px]">
-        {/* Banner celeste */}
+      <section className="flex flex-col md:flex-row w-full min-h-[600px]">
+        {/* ——— Banner ——— */}
         <div
-          className="w-full md:w-2/5 flex items-center justify-center py-8"
-          style={{ backgroundColor: "#6698BC" }}
+          className="w-full md:w-2/5 flex items-center justify-center py-8 bg-[#6698BC]"
           data-aos="zoom-in"
-          data-aos-delay="100"
         >
           <img
             src={bannerImages[current]}
             alt={`Banner ${current + 1}`}
-            className="w-[500px] h-[550px] object-cover rounded-xl shadow transition-opacity duration-700"
+            className="
+              w-4/5 sm:w-[420px] lg:w-[500px] h-auto
+              object-cover rounded-xl shadow
+              transition-opacity duration-700
+            "
           />
         </div>
 
-        {/* Rectángulos de niveles */}
+        {/* ——— Tarjetas ——— */}
         <div
-          className="w-full md:w-3/5 bg-gray-50 flex flex-col items-start justify-start gap-8 p-10"
+          className="
+            w-full md:w-3/5 bg-gray-50
+            flex flex-col gap-6 sm:gap-8
+            p-6 sm:p-8 lg:p-10
+          "
           data-aos="fade-left"
           data-aos-delay="200"
         >
           <h2
-            className="text-3xl md:text-4xl font-bold text-[#003049] mb-2"
+            className="text-2xl md:text-4xl font-bold text-[#003049]"
             data-aos="fade-up"
-            data-aos-delay="300"
           >
             NUESTROS NIVELES EDUCATIVOS
           </h2>
 
-          {levels.map((level, index) => (
+          {levels.map((lvl, i) => (
             <div
-              key={level.name}
-              className={`w-full max-w-2xl bg-[#003049] text-white px-6 py-6 shadow rounded-xl flex flex-col transition-all
-                ${index === 1 ? "ml-16" : index === 2 ? "ml-32" : "ml-0"}
+              key={lvl.name}
+              className={`
+                group relative w-full
+                sm:max-w-lg md:max-w-xl
+                bg-[#003049] text-white
+                px-5 py-6 sm:px-6 sm:py-7
+                rounded-xl shadow-md
+                flex flex-col
+                transition-all duration-300
+                hover:scale-105 hover:-translate-y-2 hover:shadow-2xl
+                ${i === 1 ? "md:ml-8" : i === 2 ? "md:ml-16" : ""}
               `}
               data-aos="fade-up"
-              data-aos-delay={400 + index * 200}
+              data-aos-delay={400 + i * 150}
             >
-              <h3 className="text-xl font-bold mb-2">{level.name}</h3>
-              <div className="flex flex-row items-center justify-between gap-4">
-                <p className="text-base flex-1">{level.description}</p>
-                <button
-                  className="bg-[#780000] text-white font-semibold px-5 py-2 rounded hover:bg-[#a5123b] shadow transition text-lg animate-bounce"
-                  onClick={() => openModal(level.name)}
-                >
-                  ÚNETE
-                </button>
-              </div>
+              <h3 className="text-lg sm:text-xl font-bold mb-3">{lvl.name}</h3>
+
+              <p className="text-sm sm:text-base leading-relaxed mb-6">
+                {lvl.description}
+              </p>
+
+              <button
+                className="
+                  self-start sm:self-center
+                  bg-[#780000] px-5 py-2 rounded-lg font-semibold
+                  transition-colors duration-300
+                  hover:bg-[#a5123b] hover:shadow-md
+                "
+                onClick={() => openModal(lvl.name)}
+              >
+                ÚNETE
+              </button>
             </div>
           ))}
         </div>
       </section>
 
-      <ModalForm open={modalOpen} onClose={closeModal} level={selectedLevel} />
+      {/* —— Modal —— */}
+      <ModalForm
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        level={selectedLevel}
+      />
     </>
   );
 }
