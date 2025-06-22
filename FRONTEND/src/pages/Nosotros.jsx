@@ -315,131 +315,224 @@ const Nosotros = () => {
 
   return (
     <div data-aos="fade-in" data-aos-duration="1200">
+
+
       {/* HERO SECTION */}
-      <div
-        className="relative w-full h-screen bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url(${img_map})` }}
-        data-aos="fade-in"
-        data-aos-duration="1000"
-      >
-        {/* Estilos para las lucecitas */}
-        <style>
-          {`
-            @keyframes glow {
-              0%, 100% { box-shadow: 0 0 8px #fff, 0 0 24px #80caff, 0 0 40px #fff3, 0 0 60px #33d9ff66; }
-              50% { box-shadow: 0 0 24px #fff, 0 0 48px #33d9ff, 0 0 80px #fff, 0 0 100px #fff3; }
-            }
-            .glow-light {
-              position: absolute;
-              border-radius: 50%;
-              width: 12px;
-              height: 12px;
-              opacity: 0.8;
-              background: #fff;
-              animation: glow 2s ease-in-out infinite;
-              pointer-events: none;
-              z-index: 5;
-            }
-          `}
-        </style>
-        {/* Puntitos luminiscentes */}
-        <div className="absolute inset-0">
-          <div className="glow-light" style={{ top: "15%", left: "20%" }} />
-          <div className="glow-light" style={{ top: "35%", left: "60%" }} />
-          <div className="glow-light" style={{ top: "25%", left: "75%" }} />
-          <div className="glow-light" style={{ top: "55%", left: "40%" }} />
-          <div className="glow-light" style={{ top: "45%", left: "85%" }} />
-        </div>
+<div
+  className="relative w-full h-screen bg-cover bg-center flex items-center"
+  style={{ backgroundImage: `url(${img_map})` }}  /* tu imagen de mapa */
+  data-aos="fade-in"
+  data-aos-duration="1000"
+>
+  {/* ---------- CSS in-line ---------- */}
+  <style>{`
+    /* luciérnagas */
+    @keyframes glow{0%,100%{box-shadow:0 0 8px #fff,0 0 24px #80caff}50%{box-shadow:0 0 24px #fff,0 0 48px #33d9ff}}
+    .glow-light{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;opacity:.8;animation:glow 2s ease-in-out infinite;z-index:5}
 
-        {/* Degradado oscuro */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
-        {/* Texto alineado izquierda */}
-        <div className="relative z-10 max-w-2xl px-8 lg:px-16">
-          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold">
-            Ven conócenos
-          </h1>
-        </div>
-      </div>
+    /* contorno neón giratorio */
+    @keyframes spin-slow{to{transform:rotate(360deg)}}
+    .card-wrapper::before{
+      content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;
+      background:conic-gradient(#ffd700,#ff7300,#ff0000,#ff7300,#ffd700);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;
+      animation:spin-slow 20s linear infinite;
+    }
+  `}</style>
 
-      {/* ESTADÍSTICAS EN LA PARTE SUPERIOR */}
-      <div
-        className="bg-[#f0f8ff] py-8 sm:py-12 md:py-16 lg:py-24"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
-          <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#780000]">
-            Nuestra Comunidad en Números
-          </h2>
-          <div className="w-24 md:w-40 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-8 rounded-full"></div>
-          <EstadisticasAnimadas />
-        </div>
-      </div>
+  {/* luciérnagas */}
+  <div className="absolute inset-0 pointer-events-none">
+    <div className="glow-light" style={{ top: '15%', left: '20%' }} />
+    <div className="glow-light" style={{ top: '35%', left: '60%' }} />
+    <div className="glow-light" style={{ top: '25%', left: '75%' }} />
+    <div className="glow-light" style={{ top: '55%', left: '40%' }} />
+    <div className="glow-light" style={{ top: '45%', left: '85%' }} />
+  </div>
 
-      {/* HISTORIA / VALORES */}
-      <div
-        className="min-h-[60vh] py-12 sm:py-16 md:py-20 bg-[#003049]"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-          <div className="text-center mb-10 md:mb-16">
-            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight text-white">
-              Nuestra Historia, <br />
-              <span className="text-[#6698BC]">Identidad y Visión</span>
-            </h1>
-            <div className="h-2 w-20 md:w-32 mx-auto rounded-full mb-4 md:mb-6 bg-[#6698BC]"></div>
-            <p className="text-base sm:text-lg max-w-3xl mx-auto leading-relaxed text-white">
-              Conoce los pilares fundamentales que han guiado nuestro camino
-              hacia la excelencia educativa a lo largo de los años
-            </p>
+  {/* degradado azul */}
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
+
+  {/* ---------- CONTENIDO ---------- */}
+  <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-start justify-between px-8 lg:px-24 gap-12">
+
+    {/* título */}
+    <div className="relative" data-aos="fade-right">
+      <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl text-center lg:text-left">
+        Ven&nbsp;conócenos
+      </h1>
+      <span className="absolute inset-0 rounded-lg bg-white/10 blur-sm -z-10" />
+    </div>
+
+    {/* GRID 2×2 tarjetas */}
+    <div
+      className="grid grid-cols-2 gap-6 lg:gap-10 lg:ml-auto"
+      data-aos="zoom-in-up"
+      data-aos-delay="150"
+    >
+      {[
+        {
+          n: '400+',
+          lbl: 'Estudiantes',
+          path: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'
+        },
+        {
+          n: '40+',
+          lbl: 'Docentes',
+          path: 'M12 14l9-5-9-5-9 5 9 5zm0 0v6'
+        },
+        {
+          n: '10+',
+          lbl: 'Años de Experiencia',
+          path: 'M12 8v4l3 3M12 3a9 9 0 100 18 9 9 0 000-18z'
+        },
+        {
+          n: '10+',
+          lbl: 'Reconocimientos',
+          path: 'M8 21h8M12 17a5 5 0 005-5V9a9 9 0 10-10 0v3a5 5 0 005 5z'
+        },
+      ].map(({ n, lbl, path }, idx) => (
+        /* contorno neón */
+        <div key={idx} className="relative card-wrapper rounded-xl p-[2px]">
+          {/* tarjeta opaca con hover */}
+          <div
+            className="group relative flex flex-col items-center justify-center
+                        w-32 h-32 sm:w-36 sm:h-36
+                        bg-[#780000] text-white rounded-[10px] shadow-lg
+                        transition-transform duration-500
+                        hover:scale-105 hover:rotate-[6deg]"
+          >
+            {/* destello */}
+            <span className="absolute -top-1 -left-1 w-0.5 h-0.5 bg-transparent
+                             shadow-[0_0_8px_4px_rgba(255,255,255,.45)] animate-ping" />
+
+            {/* icono */}
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 className="w-6 h-6 mb-1 drop-shadow-[0_0_4px_rgb(255,255,255)]"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={path} />
+            </svg>
+
+            <p className="text-2xl font-extrabold drop-shadow-[0_0_4px_rgb(255,255,255)]">{n}</p>
+            <p className="text-[0.7rem] sm:text-xs text-center">{lbl}</p>
           </div>
-          <div className="relative mx-auto w-full max-w-6xl">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 rounded-full shadow-lg bg-[#6698BC]"></div>
-            {valoresV.map((valor, index) => (
-              <div
-                key={index}
-                className={`flex flex-col md:flex-row items-center mb-10 md:mb-16 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-                data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
-                data-aos-delay={index * 200}
-              >
-                <div
-                  className={`w-full md:w-5/12 ${
-                    index % 2 === 0
-                      ? "md:text-right md:pr-8"
-                      : "md:text-left md:pl-8"
-                  } mb-6 md:mb-0`}
-                >
-                  <div className="rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10 bg-[#6698BC]">
-                    <div className="flex items-center gap-4 mb-6 justify-between">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-[#003049]">
-                        {valor.año}
-                      </h3>
-                      <div className="p-3 rounded-xl bg-[#003049]">
-                        {valor.icono}
-                      </div>
-                    </div>
-                    <div className="h-px w-full mb-6 bg-[#003049]"></div>
-                    <p className="leading-relaxed text-base sm:text-lg text-[#003049]">
-                      {valor.evento}
-                    </p>
-                  </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+     {/* HISTORIA / VALORES “PROFESIONAL+” CON TÍTULO ARREGLADO */}
+<div
+  className="relative overflow-hidden min-h-[60vh] py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#002f4b] to-[#003558] perspective-1000"
+  data-aos="fade-up"
+  data-aos-delay="300"
+>
+  {/* Fondo patrones y blobs (igual que antes) */}
+  <div className="absolute inset-0 bg-[url('/pattern-diagonal.svg')] bg-center bg-repeat opacity-10 pointer-events-none" />
+  <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#5E7FA1]/10 rounded-full animate-blob-slow opacity-30 pointer-events-none" />
+  <div className="absolute bottom-1/6 right-1/3 w-[500px] h-[500px] bg-[#44789B]/10 rounded-full animate-blob-fast opacity-20 pointer-events-none" />
+
+  {/* Keyframes y utilidades extra (idéntico) */}
+  <style>{`
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    @keyframes blob-slow { 0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.1)} }
+    @keyframes blob-fast { 0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.2)} }
+    @keyframes icon-bounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-25%)} }
+    @keyframes pulse-slow { 0%,100%{opacity:0.7}50%{opacity:1} }
+    @keyframes ripple { 0%{transform:scale(0);opacity:0.4}100%{transform:scale(2);opacity:0} }
+    .animate-blob-slow { animation: blob-slow 14s ease-in-out infinite; }
+    .animate-blob-fast { animation: blob-fast 10s ease-in-out infinite; }
+    .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+    .animate-icon-bounce { animation: icon-bounce 1.2s ease-in-out infinite; }
+    .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+    .ripple-effect::after {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 80%);
+      transform: scale(0); opacity: 0; transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    }
+    .group:hover .ripple-effect::after {
+      transform: scale(1.5); opacity: 1; animation: ripple 0.6s ease-out;
+    }
+  `}</style>
+
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+    {/* — TÍTULO con las dos líneas separadas — */}
+    <div className="text-center mb-12 md:mb-20 group">
+      <h1 className="inline-block font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white relative overflow-hidden drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+        {/* Primera línea con shine */}
+        <span className="block relative">
+          Nuestra Historia,
+          <span className="absolute top-0 left-[-75%] w-1/2 h-full bg-white/20 mix-blend-screen skew-x-[-20deg]
+                           transition-transform duration-1000 group-hover:translate-x-[200%] z-0" />
+        </span>
+        {/* Segunda línea completamente visible */}
+        <span className="block relative z-10 text-[#88AECF] drop-shadow-[0_0_6px_rgba(0,0,0,0.5)]">
+          Identidad y Visión
+        </span>
+      </h1>
+      <div className="mt-4 h-1 w-32 mx-auto bg-gradient-to-r from-[#88AECF] to-[#6698BC] rounded-full animate-pulse-slow" />
+      <p className="mt-6 text-base sm:text-lg text-white/80 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]">
+        Conoce los pilares fundamentales que han guiado nuestro camino hacia la excelencia educativa a lo largo de los años
+      </p>
+    </div>
+
+    <div className="relative mx-auto w-full max-w-6xl">
+      {/* Línea central */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#88AECF] to-[#6698BC] opacity-70
+                      animate-pulse-slow drop-shadow-[0_0_10px_#88AECF]" />
+
+      {valoresV.map((valor, i) => (
+        <div
+          key={i}
+          className={`group flex flex-col md:flex-row items-center mb-16 perspective-1000 ${
+            i % 2 === 0 ? 'md:flex-row-reverse' : ''
+          }`}
+          data-aos={i % 2 === 0 ? 'fade-left' : 'fade-right'}
+          data-aos-delay={i * 200}
+        >
+          {/* Tarjeta 3D con ripple, glow y tilt */}
+          <div className={`w-full md:w-5/12 ${i % 2 === 0 ? 'md:pl-12' : 'md:pr-12'} mb-8 md:mb-0`}>
+            <div className="relative rounded-3xl p-8 bg-gradient-to-br from-[#5E7FA1] to-[#44789B]
+                            shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 ripple-effect
+                            transform transition-all duration-500
+                            group-hover:-translate-y-6 group-hover:rotate-y-8 group-hover:rotate-x-4 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)]">
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#6698BC]/20 rounded-full animate-spin-slow pointer-events-none" />
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="relative text-2xl sm:text-3xl font-bold text-white/90
+                               before:absolute before:-bottom-1 before:left-0 before:h-1 before:w-0
+                               before:bg-gradient-to-r from-white to-[#88AECF]
+                               before:transition-all before:duration-500 group-hover:before:w-full">
+                  {valor.año}
+                </h3>
+                <div className="flex items-center justify-center w-16 h-16 bg-white/20 rounded-full
+                                transition-all duration-500 group-hover:scale-150 group-hover:rotate-12
+                                drop-shadow-[0_0_20px_#fff] group-hover:drop-shadow-[0_0_40px_#fff] animate-icon-bounce">
+                  {valor.icono}
                 </div>
-                <div className="relative flex items-center justify-center z-20 mb-6 md:mb-0">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl border-4 bg-[#6698BC] border-[#003049]">
-                    <span className="font-bold text-base sm:text-lg text-[#003049]">
-                      {index + 1}
-                    </span>
-                  </div>
-                </div>
-                <div className="w-full md:w-5/12"></div>
               </div>
-            ))}
+              <div className="h-px w-full mb-6 bg-white/20" />
+              <p className="text-base sm:text-lg text-white/80 leading-relaxed
+                            transition-colors duration-300 group-hover:text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]">
+                {valor.evento}
+              </p>
+            </div>
           </div>
+
+          {/* Punto numerado con pulso, glow y pop */}
+          <div className="relative flex items-center justify-center z-20 mb-8 md:mb-0">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#88AECF] rounded-full flex items-center justify-center
+                            ring-4 ring-white/50 shadow-[0_0_20px_#88AECF] animate-pulse-slow
+                            transition-all duration-500 group-hover:scale-150 group-hover:shadow-[0_0_40px_#88AECF]">
+              <span className="font-extrabold text-white text-lg">{i + 1}</span>
+            </div>
+          </div>
+          <div className="w-full md:w-5/12" />
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
 
       {/* DIRECTIVOS */}
       <div

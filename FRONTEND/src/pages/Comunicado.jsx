@@ -251,158 +251,118 @@ export default function Comunicado() {
         </div>
       </section>
 
-      {/* ─────────────  COMUNICADOS  ───────────── */}
-      <section className="bg-gradient-to-br from-[#1a2238] via-[#26335D] to-[#1e2a52] text-white py-20 px-4 sm:px-8 lg:px-24 relative overflow-hidden">
-        {/* Elementos decorativos de fondo mejorados */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-cyan-400/20 to-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-tr from-indigo-500/15 to-purple-400/10 rounded-full blur-2xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-br from-blue-300/10 to-cyan-300/5 rounded-full blur-xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-white/5 rounded-full blur-xl animate-pulse"
-          style={{ animationDelay: "0.5s" }}
-        ></div>
+      {/* ─────────────  COMUNICADOS (FULLY RESPONSIVE)  ───────────── */}
+<section className="relative overflow-hidden bg-gradient-to-br from-[#1a2238] via-[#26335D] to-[#1e2a52] text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+  {/* Decorativos de fondo */}
+  <div className="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-gradient-to-bl from-cyan-400/20 to-blue-500/10 rounded-full blur-3xl animate-pulse" />
+  <div className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-gradient-to-tr from-indigo-500/15 to-purple-400/10 rounded-full blur-2xl animate-pulse delay-1000" />
+  <div className="absolute top-1/3 right-1/3 w-28 h-28 sm:w-40 sm:h-40 md:w-48 md:h-48 bg-gradient-to-br from-blue-300/10 to-cyan-300/5 rounded-full blur-xl animate-pulse delay-2000" />
+  <div className="absolute bottom-1/4 right-1/4 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-white/5 rounded-full blur-xl animate-pulse delay-500" />
 
-        <div className="relative z-10">
-          <div className="text-center mb-16">
-            <div className="inline-block">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-wide bg-gradient-to-r from-white via-cyan-200 to-blue-300 bg-clip-text text-transparent mb-4 drop-shadow-lg">
-                COMUNICADOS
-              </h2>
-              <div className="h-1.5 w-40 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-blue-500/30"></div>
-            </div>
-            <p className="mt-8 text-blue-100/90 max-w-2xl mx-auto text-lg leading-relaxed">
-              Mantente informado con nuestras últimas noticias y anuncios
-              oficiales
+  <div className="relative z-10 max-w-7xl mx-auto">
+    {/* Título */}
+    <div className="text-center mb-8 sm:mb-12">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight
+                     bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-blue-300
+                     drop-shadow-lg">
+        COMUNICADOS
+      </h2>
+      <div className="mt-2 h-1 w-24 sm:w-32 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-blue-500/30" />
+      <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100/90 max-w-xl mx-auto leading-relaxed">
+        Mantente informado con nuestras últimas noticias y anuncios oficiales
+      </p>
+    </div>
+
+    {/* Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {comunicados.length === 0 ? (
+        <div className="col-span-full text-center py-12">
+          <div className="mx-auto max-w-sm bg-white/5 backdrop-blur-lg border border-white/20 rounded-2xl p-8 sm:p-12 shadow-xl shadow-black/20">
+            <div className="text-5xl sm:text-6xl mb-4 opacity-70 animate-bounce">📢</div>
+            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
+              No hay comunicados disponibles
+            </h3>
+            <p className="text-sm sm:text-base text-blue-200/80">
+              Pronto publicaremos nuevos comunicados oficiales
             </p>
           </div>
-
-          <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {comunicados.length === 0 ? (
-              <div className="col-span-3 text-center py-16">
-                <div className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl p-12 max-w-md mx-auto shadow-2xl shadow-black/20">
-                  <div className="text-6xl mb-6 opacity-70 animate-bounce">
-                    📢
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4 text-white">
-                    No hay comunicados disponibles
-                  </h3>
-                  <p className="text-blue-200/80">
-                    Pronto publicaremos nuevos comunicados oficiales
-                  </p>
+        </div>
+      ) : (
+        comunicados.map((post, idx) => (
+          <div
+            key={post.id}
+            className="group relative bg-white/90 backdrop-blur-md text-gray-900 rounded-2xl overflow-hidden
+                       transform transition duration-500 ease-out
+                       hover:-translate-y-2 hover:scale-105 hover:shadow-2xl
+                       border border-white/20 flex flex-col"
+            style={{ animation: `fade-in-up 0.6s ease ${idx * 0.1}s both` }}
+          >
+            {/* Imagen */}
+            <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
+              <img
+                src={post.images?.[0]?.image_url || pict}
+                alt={post.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute top-3 left-3 bg-gradient-to-r from-[#26335D] via-blue-600 to-cyan-600
+                              text-white text-xs sm:text-sm px-3 py-1 rounded-full shadow-md backdrop-blur-sm border border-white/20">
+                📢 COMUNICADO
+              </div>
+              {/* Partículas */}
+              <div className="absolute top-4 right-4 w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-70" />
+              <div className="absolute top-6 right-8 w-1 h-1 bg-blue-300 rounded-full animate-ping delay-500 opacity-50" />
+            </div>
+            {/* Contenido */}
+            <div className="p-4 sm:p-6 flex-1 flex flex-col">
+              <h3 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-[#26335D] transition-colors">
+                {post.title}
+              </h3>
+              <div className="flex items-center mb-4">
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl px-3 py-1 flex items-center space-x-2 shadow-sm border border-blue-100/50">
+                  <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse-slow" />
+                  <span className="text-xs sm:text-sm font-medium">
+                    {formatDate(post.created_at)}
+                  </span>
                 </div>
               </div>
-            ) : (
-              comunicados.map((post, idx) => (
-                <div
-                  key={post.id}
-                  className={`group relative bg-white/95 backdrop-blur-lg text-gray-800 rounded-3xl shadow-xl hover:shadow-2xl overflow-hidden
-            transform transition-all duration-700 ease-out
-            hover:-translate-y-6 hover:scale-[1.03] hover:rotate-1
-            border border-white/30 flex flex-col animate-fade-in-up
-            before:absolute before:inset-0 before:bg-gradient-to-br before:from-cyan-500/5 before:via-blue-500/5 before:to-indigo-500/10 
-            before:opacity-0 before:transition-opacity before:duration-700 hover:before:opacity-100
-            after:absolute after:inset-0 after:rounded-3xl after:shadow-inner after:shadow-blue-500/10
-            `}
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                >
-                  {/* Contenedor de imagen con efectos mejorados */}
-                  <div className="relative h-45 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent z-10"></div>
-                    <img
-                      src={
-                        post.images?.length > 0
-                          ? post.images[0].image_url
-                          : pict
-                      }
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-115 group-hover:brightness-110 group-hover:contrast-105"
-                      loading="lazy"
-                    />
-
-                    {/* Efecto de brillo deslizante mejorado */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1200 ease-out"></div>
-
-                    {/* Badge de "Comunicado" mejorado */}
-                    <div className="absolute top-4 left-4 bg-gradient-to-r from-[#26335D] via-blue-600 to-cyan-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg shadow-blue-600/30 z-20 backdrop-blur-sm border border-white/20">
-                      <span className="mr-1">📢</span>
-                      COMUNICADO
-                    </div>
-
-                    {/* Efecto de partículas */}
-                    <div className="absolute top-6 right-6 w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-60"></div>
-                    <div
-                      className="absolute top-8 right-10 w-1 h-1 bg-blue-300 rounded-full animate-ping opacity-40"
-                      style={{ animationDelay: "0.5s" }}
-                    ></div>
-                  </div>
-
-                  {/* Contenido de texto mejorado */}
-                  <div className="p-8 flex flex-col justify-between flex-1 relative z-10">
-                    <div className="flex-1">
-                      <h3 className="font-bold text-xl mb-4 leading-tight text-gray-800 group-hover:text-[#26335D] transition-all duration-500 group-hover:transform group-hover:scale-[1.02]">
-                        {post.title}
-                      </h3>
-
-                      {/* Fecha con diseño mejorado */}
-                      <div className="flex items-center mb-6 text-gray-500">
-                        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl px-4 py-2 flex items-center space-x-3 shadow-sm border border-blue-100/50">
-                          <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-                          <span className="text-sm font-medium text-gray-700">
-                            {formatDate(post.created_at)}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Contenido completo con mejor tipografía */}
-                      <div className="relative bg-gradient-to-br from-gray-50/80 to-blue-50/50 rounded-2xl p-6 border border-gray-100/80 shadow-inner">
-                        <div className="prose prose-sm max-w-none">
-                          <p className="text-gray-700 leading-relaxed text-sm whitespace-pre-wrap break-words">
-                            {post.content}
-                          </p>
-                        </div>
-
-                        {/* Efecto de borde interno */}
-                        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-blue-200/30 pointer-events-none"></div>
-                      </div>
-                    </div>
-
-                    {/* Decoración inferior */}
-                    <div className="mt-6 pt-4 border-t border-gradient-to-r from-transparent via-gray-200 to-transparent">
-                      <div className="flex items-center justify-center space-x-2 text-gray-400">
-                        <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse"></div>
-                        <span className="text-xs font-medium">
-                          Comunicado oficial
-                        </span>
-                        <div
-                          className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
-                          style={{ animationDelay: "0.5s" }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Indicador de número mejorado */}
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-white/30 backdrop-blur-md border border-white/40 text-[#26335D] rounded-full flex items-center justify-center text-sm font-bold opacity-70 group-hover:opacity-100 transition-all duration-500 shadow-lg group-hover:scale-110">
-                    {idx + 1}
-                  </div>
-
-                  {/* Efecto de hover en el borde mejorado */}
-                  <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-gradient-to-br group-hover:from-cyan-300/50 group-hover:via-blue-300/50 group-hover:to-indigo-300/50 transition-all duration-500 pointer-events-none"></div>
-
-                  {/* Efecto de resplandor */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm -z-10"></div>
+              <div className="prose prose-sm max-w-none text-gray-800 mb-4">
+                <p className="leading-relaxed text-sm sm:text-base break-words">
+                  {post.content}
+                </p>
+              </div>
+              <div className="mt-auto pt-4 border-t border-gray-200/30">
+                <div className="flex items-center justify-center space-x-2 text-gray-500 text-xs sm:text-sm">
+                  <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse-slow" />
+                  <span>Comunicado oficial</span>
+                  <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse-slow delay-500" />
                 </div>
-              ))
-            )}
+              </div>
+            </div>
+            {/* Número */}
+            <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 bg-white/30 backdrop-blur-sm border border-white/40
+                            text-[#26335D] rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold
+                            opacity-80 transition-opacity group-hover:opacity-100">
+              {idx + 1}
+            </div>
           </div>
-        </div>
-      </section>
+        ))
+      )}
+    </div>
+  </div>
+  
+  {/* Animación fade-in-up */}
+  <style>{`
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up { animation: fade-in-up 0.6s ease both; }
+  `}</style>
+</section>
+
+
 
       {/* ─────────────  NORMAS INSTITUCIONALES  ───────────── */}
       <section className="bg-gradient-to-r from-[#9b1c1c] via-[#b73333] to-[#9b1c1c] text-white py-20 px-4 sm:px-8 lg:px-24">
