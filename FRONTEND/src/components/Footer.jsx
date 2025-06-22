@@ -10,6 +10,7 @@ import {
   FaQuestionCircle,
   FaShieldAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -28,9 +29,15 @@ export const Footer = () => {
         <div className="flex flex-col items-center">
           <h3 className="text-lg font-bold mb-4">Síguenos</h3>
           <div className="flex space-x-5 text-2xl">
-            <a href="https://web.facebook.com/Prisma.Chincha"><FaFacebook /></a>
-            <a href="#"><FaInstagram /></a>
-            <a href="#"><FaTiktok /></a>
+            <a href="https://web.facebook.com/Prisma.Chincha">
+              <FaFacebook />
+            </a>
+            <a href="#">
+              <FaInstagram />
+            </a>
+            <a href="#">
+              <FaTiktok />
+            </a>
           </div>
         </div>
 
@@ -43,31 +50,44 @@ export const Footer = () => {
             <span>Teléfono: +51 123-456-789</span>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <FaBook />
-            <a href="#" className="hover:underline">Libro de reclamaciones</a>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <FaQuestionCircle />
-            <a href="#" className="hover:underline">Preguntas frecuentes</a>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <FaShieldAlt />
-            <a href="#" className="hover:underline">Política de privacidad</a>
-          </div>
+          <Link
+            to="/PreguntasFrecuentes"
+            className="flex items-center gap-1 text-white hover:underline"
+          >
+            Preguntas frecuentes
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
 
           <div className="flex items-center space-x-2">
             <FaMapMarkerAlt />
-            <a href="#" className="hover:underline">Ubicación</a>
+            <a
+              href="https://www.google.com.pe/maps/@-13.4176273,-76.1279866,18.25z?entry=ttu"
+              className="hover:underline"
+            >
+              Ubicación
+            </a>
           </div>
         </div>
       </div>
 
       {/* Línea inferior */}
       <div className="mt-10 pt-6 border-t border-white/20 text-center">
-        <p className="text-sm">© 2025 Colegio Prisma. Todos los derechos reservados</p>
+        <p className="text-sm">
+          © 2025 Colegio Prisma. Todos los derechos reservados
+        </p>
       </div>
     </footer>
   );

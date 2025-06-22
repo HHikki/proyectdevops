@@ -6,7 +6,7 @@ import Editpost from "../paneles/Editinput.jsx";
 import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 import { AuthContext } from "../../../../context/AuthContext.jsx";
 
-const Registro = ({ layoutMode = 0, tipo , posts = [] }) => {
+const Registro = ({ layoutMode = 0, tipo , posts = [], onDelete, onEdit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const { user, admin } = useContext(AuthContext);
@@ -84,7 +84,6 @@ const Registro = ({ layoutMode = 0, tipo , posts = [] }) => {
   // Función para confirmar eliminación
   const handleConfirm = async () => {
     if (!selectedKey) return;
-
     try {
       setLoading(true);
       const response = await fetch(
@@ -98,12 +97,10 @@ const Registro = ({ layoutMode = 0, tipo , posts = [] }) => {
           },
         }
       );
-
       if (!response.ok) throw new Error("Error al eliminar el registro");
-
       message.success("Registro eliminado correctamente");
       setModalOpen(false);
-
+      if (onDelete) onDelete();
     } catch (error) {
       console.error("Error:", error);
       message.error("No se pudo eliminar el registro");
@@ -119,15 +116,9 @@ const Registro = ({ layoutMode = 0, tipo , posts = [] }) => {
       message.error("Error al actualizar el post.");
       return;
     }
-
     console.log("Post actualizado recibido:", updatedPost);
-
-    // Recargar los datos después de editar
-    fetchData();
-
+    if (onEdit) onEdit();
     message.success("Post actualizado correctamente");
-
-    // Cerrar el modal y limpiar la selección
     setEditOpen(false);
     setSelectedKey(null);
   };

@@ -31,6 +31,20 @@ const Eventos = () => {
     fetchEventos();
   }, [user]);
 
+  // Refrescar eventos desde la API
+  const refreshEventos = async () => {
+    const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+      headers: { "x-api-key": API_KEY },
+    });
+    const data = await response.json();
+    let visibles = data;
+    if (!admin) {
+      visibles = data.filter((post) => post.userId === user.id);
+    }
+    setEventos(visibles);
+    setFilteredEventos(visibles);
+  };
+
   const handleSearch = (query) => {
     const lowerQuery = query.toLowerCase();
     const result = eventos.filter((evento) => {
@@ -50,12 +64,19 @@ const Eventos = () => {
         tipo={"Evento"}
         descripcion={"Gestiona todos los eventos en la plataforma"}
         textoBoton={"+ Nuevo Evento"}
+        onNuevaPublicacion={refreshEventos}
       />
       <div className="mb-4">
         <SearchP placeholder="Buscar eventos..." onSearch={handleSearch} />
       </div>
 
-      <Registro layoutMode={1} tipo={"Evento"} posts={filteredEventos} />
+      <Registro
+        layoutMode={1}
+        tipo={"Evento"}
+        posts={filteredEventos}
+        onDelete={refreshEventos}
+        onEdit={refreshEventos}
+      />
     </div>
   );
 };

@@ -31,6 +31,20 @@ const Publicaciones = () => {
     fetchPosts();
   }, [user]);
 
+  // Refrescar publicaciones desde la API
+  const refreshPosts = async () => {
+    const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+      headers: { "x-api-key": API_KEY },
+    });
+    const data = await response.json();
+    let visibles = data;
+    if (!admin) {
+      visibles = data.filter((post) => post.userId === user.id);
+    }
+    setPosts(visibles);
+    setFilteredPosts(visibles);
+  };
+
   // Función de búsqueda por título o fecha
   const handleSearch = (query) => {
     const lowerQuery = query.toLowerCase();
@@ -51,7 +65,7 @@ const Publicaciones = () => {
         tipo={"Blog"}
         descripcion={"Gestiona todos las publicaciones en la plataforma"}
         textoBoton={"+ Nueva Publicación"}
-        onNuevaPublicacion={true}
+        onNuevaPublicacion={refreshPosts}
       />
       <div className="mb-4">
         <SearchP
@@ -60,7 +74,13 @@ const Publicaciones = () => {
         />
       </div>
       {/* revisar */}
-      <Registro layoutMode={2} tipo={"Blog"} posts={filteredPosts} />
+      <Registro
+        layoutMode={2}
+        tipo={"Blog"}
+        posts={filteredPosts}
+        onDelete={refreshPosts}
+        onEdit={refreshPosts}
+      />
     </div>
   );
 };

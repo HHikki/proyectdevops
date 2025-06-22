@@ -29,6 +29,20 @@ const Comunicados = () => {
     fetchComunicados();
   }, [user]);
 
+  // Refrescar comunicados desde la API
+  const refreshComunicados = async () => {
+    const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
+      headers: { "x-api-key": API_KEY },
+    });
+    const data = await response.json();
+    let visibles = data;
+    if (!admin) {
+      visibles = data.filter((post) => post.userId === user.id);
+    }
+    setComunicados(visibles);
+    setFilteredComunicados(visibles);
+  };
+
   const handleSearch = (query) => {
     const lowerQuery = query.toLowerCase();
     const result = comunicados.filter((com) => {
@@ -48,16 +62,18 @@ const Comunicados = () => {
         tipo={"Comunicado"}
         descripcion={"Gestiona todos los comunicados en la plataforma"}
         textoBoton={"+ Nuevo Comunicado"}
+        onNuevaPublicacion={refreshComunicados}
       />
       <div className="mb-4">
         <SearchP placeholder="Buscar comunicados..." onSearch={handleSearch} />
       </div>
 
-      {/* REVISAR */}
       <Registro
         layoutMode={3}
         tipo={"Comunicado"}
         posts={filteredComunicados}
+        onDelete={refreshComunicados}
+        onEdit={refreshComunicados}
       />
     </div>
   );

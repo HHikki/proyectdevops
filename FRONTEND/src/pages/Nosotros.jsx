@@ -74,22 +74,31 @@ const CarruselCintaMultiple = () => {
 
   const prevSlide = () => {
     clearTimeout(timeoutRef.current);
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? maxIndex : prevIndex - 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? maxIndex : prevIndex - 1
+    );
   };
 
   const togglePlayPause = () => setIsPlaying(!isPlaying);
 
   return (
-    <div className="w-full max-w-7xl mx-auto" data-aos="fade-in" data-aos-delay="200">
+    <div
+      className="w-full max-w-7xl mx-auto"
+      data-aos="fade-in"
+      data-aos-delay="200"
+    >
       <div className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800">
         <div
           className="flex transition-transform ease-out duration-700"
           style={{
-            transform: `translateX(-${currentIndex * (100 / imagenesPorVista)}%)`,
+            transform: `translateX(-${
+              currentIndex * (100 / imagenesPorVista)
+            }%)`,
           }}
         >
           {imagenesGaleria.map((img, i) => (
-            <div              key={i}
+            <div
+              key={i}
               className="flex-shrink-0 px-2 relative group"
               style={{ width: `${100 / imagenesPorVista}%` }}
             >
@@ -177,10 +186,22 @@ const EstadisticasAnimadas = () => {
 
     const timer = setInterval(() => {
       setCounts((prev) => ({
-        students: Math.min(prev.students + Math.ceil(targets.students / steps), targets.students),
-        teachers: Math.min(prev.teachers + Math.ceil(targets.teachers / steps), targets.teachers),
-        years: Math.min(prev.years + Math.ceil(targets.years / steps), targets.years),
-        awards: Math.min(prev.awards + Math.ceil(targets.awards / steps), targets.awards),
+        students: Math.min(
+          prev.students + Math.ceil(targets.students / steps),
+          targets.students
+        ),
+        teachers: Math.min(
+          prev.teachers + Math.ceil(targets.teachers / steps),
+          targets.teachers
+        ),
+        years: Math.min(
+          prev.years + Math.ceil(targets.years / steps),
+          targets.years
+        ),
+        awards: Math.min(
+          prev.awards + Math.ceil(targets.awards / steps),
+          targets.awards
+        ),
       }));
     }, increment);
 
@@ -292,7 +313,6 @@ const Nosotros = () => {
     },
   ];
 
-
   return (
     <div data-aos="fade-in" data-aos-duration="1200">
       {/* HERO SECTION */}
@@ -324,23 +344,29 @@ const Nosotros = () => {
         </style>
         {/* Puntitos luminiscentes */}
         <div className="absolute inset-0">
-          <div className="glow-light" style={{ top: '15%', left: '20%' }} />
-          <div className="glow-light" style={{ top: '35%', left: '60%' }} />
-          <div className="glow-light" style={{ top: '25%', left: '75%' }} />
-          <div className="glow-light" style={{ top: '55%', left: '40%' }} />
-          <div className="glow-light" style={{ top: '45%', left: '85%' }} />
+          <div className="glow-light" style={{ top: "15%", left: "20%" }} />
+          <div className="glow-light" style={{ top: "35%", left: "60%" }} />
+          <div className="glow-light" style={{ top: "25%", left: "75%" }} />
+          <div className="glow-light" style={{ top: "55%", left: "40%" }} />
+          <div className="glow-light" style={{ top: "45%", left: "85%" }} />
         </div>
 
         {/* Degradado oscuro */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />        {/* Texto alineado izquierda */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
+        {/* Texto alineado izquierda */}
         <div className="relative z-10 max-w-2xl px-8 lg:px-16">
           <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold">
             Ven conócenos
           </h1>
         </div>
-      </div>      {/* Se eliminó el botón redundante de ubicación */}
-      {/* ESTADÍSTICAS */}
-      <div className="bg-[#f0f8ff] py-8 sm:py-12 md:py-16 lg:py-24" data-aos="fade-up" data-aos-delay="200">
+      </div>
+
+      {/* ESTADÍSTICAS EN LA PARTE SUPERIOR */}
+      <div
+        className="bg-[#f0f8ff] py-8 sm:py-12 md:py-16 lg:py-24"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
           <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#780000]">
             Nuestra Comunidad en Números
@@ -351,7 +377,11 @@ const Nosotros = () => {
       </div>
 
       {/* HISTORIA / VALORES */}
-      <div className="min-h-[60vh] py-12 sm:py-16 md:py-20 bg-[#003049]" data-aos="fade-up" data-aos-delay="300">
+      <div
+        className="min-h-[60vh] py-12 sm:py-16 md:py-20 bg-[#003049]"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
           <div className="text-center mb-10 md:mb-16">
             <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight text-white">
@@ -360,7 +390,8 @@ const Nosotros = () => {
             </h1>
             <div className="h-2 w-20 md:w-32 mx-auto rounded-full mb-4 md:mb-6 bg-[#6698BC]"></div>
             <p className="text-base sm:text-lg max-w-3xl mx-auto leading-relaxed text-white">
-              Conoce los pilares fundamentales que han guiado nuestro camino hacia la excelencia educativa a lo largo de los años
+              Conoce los pilares fundamentales que han guiado nuestro camino
+              hacia la excelencia educativa a lo largo de los años
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-6xl">
@@ -368,23 +399,39 @@ const Nosotros = () => {
             {valoresV.map((valor, index) => (
               <div
                 key={index}
-                className={`flex flex-col md:flex-row items-center mb-10 md:mb-16 ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}
+                className={`flex flex-col md:flex-row items-center mb-10 md:mb-16 ${
+                  index % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
                 data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
                 data-aos-delay={index * 200}
               >
-                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:text-right md:pr-8" : "md:text-left md:pl-8"} mb-6 md:mb-0`}>
+                <div
+                  className={`w-full md:w-5/12 ${
+                    index % 2 === 0
+                      ? "md:text-right md:pr-8"
+                      : "md:text-left md:pl-8"
+                  } mb-6 md:mb-0`}
+                >
                   <div className="rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10 bg-[#6698BC]">
                     <div className="flex items-center gap-4 mb-6 justify-between">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-[#003049]">{valor.año}</h3>
-                      <div className="p-3 rounded-xl bg-[#003049]">{valor.icono}</div>
+                      <h3 className="text-2xl sm:text-3xl font-bold text-[#003049]">
+                        {valor.año}
+                      </h3>
+                      <div className="p-3 rounded-xl bg-[#003049]">
+                        {valor.icono}
+                      </div>
                     </div>
                     <div className="h-px w-full mb-6 bg-[#003049]"></div>
-                    <p className="leading-relaxed text-base sm:text-lg text-[#003049]">{valor.evento}</p>
+                    <p className="leading-relaxed text-base sm:text-lg text-[#003049]">
+                      {valor.evento}
+                    </p>
                   </div>
                 </div>
                 <div className="relative flex items-center justify-center z-20 mb-6 md:mb-0">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl border-4 bg-[#6698BC] border-[#003049]">
-                    <span className="font-bold text-base sm:text-lg text-[#003049]">{index + 1}</span>
+                    <span className="font-bold text-base sm:text-lg text-[#003049]">
+                      {index + 1}
+                    </span>
                   </div>
                 </div>
                 <div className="w-full md:w-5/12"></div>
@@ -413,7 +460,9 @@ const Nosotros = () => {
               </h2>
               <div className="h-2 w-20 md:w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-6 md:mb-8 rounded-full"></div>
               <p className="text-[#003049] text-base sm:text-xl max-w-3xl mx-auto leading-relaxed">
-                Conoce a los profesionales dedicados que lideran nuestra institución con pasión, experiencia y compromiso hacia la excelencia educativa
+                Conoce a los profesionales dedicados que lideran nuestra
+                institución con pasión, experiencia y compromiso hacia la
+                excelencia educativa
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -433,10 +482,14 @@ const Nosotros = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div className="absolute inset-0 flex items-end p-2 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="text-white">
-                        <p className="text-xs sm:text-sm mb-1">{item.descripcion}</p>
+                        <p className="text-xs sm:text-sm mb-1">
+                          {item.descripcion}
+                        </p>
                         <div className="flex gap-1 items-center">
                           <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                          <span className="text-xs text-gray-300">Disponible</span>
+                          <span className="text-xs text-gray-300">
+                            Disponible
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -458,7 +511,11 @@ const Nosotros = () => {
       </div>
 
       {/* GALERÍA */}
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-10 sm:py-16 md:py-20" data-aos="fade-up" data-aos-delay="500">
+      <div
+        className="bg-gradient-to-br from-gray-50 to-blue-50 py-10 sm:py-16 md:py-20"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
           <div className="text-center mb-10 md:mb-16">
             <h1 className="text-gray-800 font-bold text-3xl sm:text-5xl md:text-6xl mb-4 md:mb-6 leading-tight">
@@ -468,7 +525,8 @@ const Nosotros = () => {
               </span>
             </h1>
             <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Estos son algunos de los momentos más especiales que hemos vivido en nuestra institución educativa
+              Estos son algunos de los momentos más especiales que hemos vivido
+              en nuestra institución educativa
             </p>
           </div>
           <CarruselCintaMultiple />
@@ -476,7 +534,11 @@ const Nosotros = () => {
       </div>
 
       {/* VIDEO */}
-      <div className="py-12 sm:py-16 md:py-24 bg-[#6698BC]" data-aos="fade-up" data-aos-delay="600">
+      <div
+        className="py-12 sm:py-16 md:py-24 bg-[#6698BC]"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
           <div className="text-center mb-8 md:mb-12">
             <div className="inline-block bg-gradient-to-r from-[#a5123b] to-[#e24585] rounded-2xl p-4 sm:p-8 shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl mb-6 sm:mb-8">
@@ -486,7 +548,8 @@ const Nosotros = () => {
               </h2>
             </div>
             <p className="text-white text-base sm:text-lg max-w-2xl mx-auto">
-              Escucha nuestro himno institucional que representa los valores y el espíritu de nuestra comunidad educativa
+              Escucha nuestro himno institucional que representa los valores y
+              el espíritu de nuestra comunidad educativa
             </p>
           </div>
           <div
@@ -502,28 +565,13 @@ const Nosotros = () => {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            >            
-            </iframe>
+            ></iframe>
           </div>
-        </div>  
-        </div>    
-<Footer />  
-{/* Botón flotante, SIEMPRE visible, tapa el footer */}
-<div className="sticky bottom-4 right-3 z-50 flex justify-end">
-  <a
-    href="https://www.google.com.pe/maps/@-13.4176273,-76.1279866,18.25z?entry=ttu"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-red-700 hover:bg-red-800 text-white rounded-full p-4 shadow-lg flex items-center gap-2 transition duration-300"
-    aria-label="Ver ubicación de Prisma en Google Maps"
-  >
-    <FaMapMarkerAlt className="text-0.5xl"/>
-    <span className="hidden md:inline font-semibold">
-    </span>
-  </a>
-</div>
-</div>
+        </div>
+      </div>
 
+      <Footer />
+    </div>
   );
 };
 
