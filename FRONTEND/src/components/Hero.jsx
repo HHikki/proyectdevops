@@ -11,8 +11,6 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-
-
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
 
@@ -48,7 +46,7 @@ const Hero = () => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-start bg-gradient-to-br from-[#003049] via-[#fdf0d5] to-[#780000] ">
+      <div className="relative w-full h-screen md:min-h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-between md:flex-row bg-gradient-to-br from-[#003049] via-[#fdf0d5] to-[#780000]">
         {/* Imagen de fondo desenfocada */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-85 blur-[2px] z-0"
@@ -60,13 +58,13 @@ const Hero = () => {
           className="absolute inset-0 z-0"
           style={{
             background:
-              "linear-gradient(to right,rgb(180, 53, 53), rgba(0,0,0,0.4), transparent)",
+              "linear-gradient(to right, rgb(180, 53, 53), rgba(0,0,0,0.4), transparent)",
           }}
         />
 
         {/* Contenido principal */}
         <div
-          className="relative z-10 pl-6 pr-6 md:pl-24 md:pr-12 max-w-3xl text-left"
+          className="relative z-10 p-6 md:pl-24 md:pr-12 flex-1 flex flex-col justify-center text-center md:text-left max-w-full md:max-w-3xl"
           data-aos="fade-up"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg text-white">
@@ -107,18 +105,18 @@ const Hero = () => {
 
         {/* Caja de datos */}
         <div
-          className="absolute bottom-20 right-6 z-10 animate-bounce-slow"
+          className="relative z-10 p-4 w-full md:w-auto flex justify-center md:absolute md:bottom-20 md:right-6"
           data-aos="fade-left"
         >
-          <div className="bg-[#003049] text-white px-6 py-6 rounded-2xl shadow-2xl hover:shadow-3xl w-fit max-w-xs space-y-3 text-base md:text-lg transition-all duration-300 hover:scale-105">
-            <div className="flex items-center gap-3 group">
-              <FaMapMarkerAlt className="text-xl group-hover:scale-110 transition-transform duration-200" />
+          <div className="bg-[#003049] text-white px-4 py-4 rounded-2xl shadow-2xl max-w-md w-full text-sm md:text-lg">
+            <div className="flex items-center gap-3">
+              <FaMapMarkerAlt />
               <span className="font-semibold">
                 El Edén, Provincia de Chincha
               </span>
             </div>
-            <div className="flex items-center gap-3 group">
-              <FaPhoneAlt className="text-xl group-hover:scale-110 transition-transform duration-200" />
+            <div className="flex items-center gap-3 mt-2">
+              <FaPhoneAlt />
               <span className="font-semibold">(056) 260671</span>
             </div>
           </div>
