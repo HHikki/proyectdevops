@@ -19,14 +19,13 @@ export default function Barra() {
 
   const { admin } = useContext(AuthContext);
 
-
   const handleLogout = () => {
     logout();
     navigate("/");
   };
   return (
     <aside
-      className="bg-[#1a2433] text-white w-56 min-h-screen flex flex-col py-6 px-4 sticky top-0 h-screen"
+      className="bg-[#1a2433] text-white w-56 h-screen fixed top-0 left-0 flex flex-col py-6 px-4 z-40"
       style={{
         scrollbarWidth: "none",
         msOverflowStyle: "none",

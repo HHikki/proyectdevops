@@ -9,23 +9,23 @@ const Comunicados = () => {
   const [comunicados, setComunicados] = useState([]);
   const [filteredComunicados, setFilteredComunicados] = useState([]);
   const { user, admin } = useContext(AuthContext);
-  console.log("user:",user)
+  console.log("user:", user);
   useEffect(() => {
     const fetchComunicados = async () => {
       const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
-              headers: { "x-api-key": API_KEY },
-            });
-            const data = await response.json();
-      
-            // Filtra según el tipo de usuario
-            let visibles = data;
-            if (!admin) {
-              visibles = data.filter((post) => post.userId === user.id);
-            }
-      
-            setComunicados(visibles);
-            setFilteredComunicados(visibles);
-          };
+        headers: { "x-api-key": API_KEY },
+      });
+      const data = await response.json();
+
+      // Filtra según el tipo de usuario
+      let visibles = data;
+      if (!admin) {
+        visibles = data.filter((post) => post.userId === user.id);
+      }
+
+      setComunicados(visibles);
+      setFilteredComunicados(visibles);
+    };
     fetchComunicados();
   }, [user]);
 
@@ -57,7 +57,7 @@ const Comunicados = () => {
   };
 
   return (
-    <div className="flex-1 p-6 mt-16">
+    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
       <HeaderPublicaciones
         tipo={"Comunicado"}
         descripcion={"Gestiona todos los comunicados en la plataforma"}

@@ -38,7 +38,7 @@ const Users = () => {
   };
 
   return (
-    <div className="flex-1 p-6 mt-16">
+    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
       <HeaderPublicaciones
         tipo="Usuarios"
         descripcion="Gestiona todos los usuarios registrados en la plataforma"
@@ -52,7 +52,7 @@ const Users = () => {
       >
         <FormularioUsuario onFinish={handleCrearUsuario} />
       </ModalGeneral>
-      
+
       <RegistroU reload={reload} />
     </div>
   );

@@ -59,7 +59,7 @@ const Eventos = () => {
   };
 
   return (
-    <div className="flex-1 p-6 mt-16">
+    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
       <HeaderPublicaciones
         tipo={"Evento"}
         descripcion={"Gestiona todos los eventos en la plataforma"}

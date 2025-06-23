@@ -6,7 +6,6 @@ import Barra from "../components/Barra";
 import Header from "../components/Header";
 import Stats from "../components/paneles/Stats";
 import PublicacionesRecientes from "../components/paneles/Publicacionreciente";
-import ActividadReciente from "../components/paneles/Actividadreciente";
 import AccionesRapidas from "../components/paneles/Accionesrapidas";
 import GestionContenido from "../components/paneles/Gestion";
 // import RegistroP from "../components/List/RegistroP";
@@ -15,6 +14,7 @@ import { API_BASE_URL, API_KEY } from "../../../config/env.jsx";
 export default function PanelA() {
   const { user, name, admin, loading } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
+  const [interesados, setInteresados] = useState([]);
   const token = localStorage.getItem("jwtToken");
 
   console.log(">>name:", name, "user:", user, "admin:", admin);
@@ -26,8 +26,6 @@ export default function PanelA() {
         const url = admin
           ? `${API_BASE_URL}/prisma/post/`
           : `${API_BASE_URL}/prisma/post/${user}`;
-
-        console.log("URL de fetch:", url);
 
         const response = await fetch(url, {
           headers: {
@@ -42,8 +40,6 @@ export default function PanelA() {
         }
 
         const data = await response.json();
-        console.log("Datos obtenidos:", data);
-
         setPosts([
           {
             type: 1,
@@ -63,7 +59,29 @@ export default function PanelA() {
       }
     };
 
+    const fetchInteresados = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await fetch(`${API_BASE_URL}/prisma/getform`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Error al obtener los interesados");
+        }
+        const data = await response.json();
+        console.log("Interesados:", data);
+        setInteresados(data);
+      } catch (error) {
+        console.error("Error en fetchInteresados:", error.message);
+      }
+    };
+
     fetchPosts();
+    fetchInteresados();
   }, [token, admin, user, loading]);
 
   if (loading) {
@@ -72,13 +90,15 @@ export default function PanelA() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <div className="flex-1 flex flex-col mt-16 ml-4">
+      <div className="flex-1 flex flex-col mt-16 ml-60 transition-all duration-300">
         <Header user={name} />
-        <Stats posts={posts.map((item) => item.count)} />
+        <Stats
+          posts={posts.map((item) => item.count)}
+          interesados={interesados.length}
+        />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
           <div className="lg:col-span-2 flex flex-col gap-6">
             <PublicacionesRecientes />
-            <ActividadReciente />
           </div>
           <div className="flex flex-col gap-6">
             <AccionesRapidas />

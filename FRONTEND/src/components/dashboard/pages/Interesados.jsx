@@ -121,7 +121,7 @@ export const Interesados = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col items-center p-4">
+    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
       <h2 className="text-xl font-bold mb-4">Interesados</h2>
       {/* Contenedor con overflow para manejar tablas anchas en dispositivos pequeños */}
       <div className="w-full overflow-x-auto">
