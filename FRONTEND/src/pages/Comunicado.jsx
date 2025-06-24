@@ -332,6 +332,7 @@ export default function Comunicado() {
           <h2
             className="text-3xl md:text-4xl font-bold text-center mb-12 tracking-wide"
             data-aos="zoom-in-up"
+            data-aos-delay="100"
           >
             NORMAS INSTITUCIONALES
           </h2>
@@ -345,7 +346,7 @@ export default function Comunicado() {
                   className="bg-white text-black rounded-2xl shadow-md p-6 flex flex-col items-center text-center
             transition transform hover:scale-105 hover:shadow-2xl hover:border-2 hover:border-[#445da7] w-[300px]"
                   data-aos={i % 2 === 0 ? "fade-right" : "fade-left"}
-                  data-aos-delay={i * 150}
+                  data-aos-delay={i * 200}
                 >
                   <div className="bg-blue-100 p-4 rounded-full mb-4">
                     <FiBook size={32} className="text-[#445da7]" />

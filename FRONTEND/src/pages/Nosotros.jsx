@@ -315,17 +315,15 @@ const Nosotros = () => {
 
   return (
     <div data-aos="fade-in" data-aos-duration="1200">
-
-
       {/* HERO SECTION */}
-<div
-  className="relative w-full h-screen bg-cover bg-center flex items-center"
-  style={{ backgroundImage: `url(${img_map})` }}  /* tu imagen de mapa */
-  data-aos="fade-in"
-  data-aos-duration="1000"
->
-  {/* ---------- CSS in-line ---------- */}
-  <style>{`
+      <div
+        className="relative w-full h-screen bg-cover bg-center flex items-center"
+        style={{ backgroundImage: `url(${img_map})` }} /* tu imagen de mapa */
+        data-aos="fade-in"
+        data-aos-duration="1000"
+      >
+        {/* ---------- CSS in-line ---------- */}
+        <style>{`
     /* luciérnagas */
     @keyframes glow{0%,100%{box-shadow:0 0 8px #fff,0 0 24px #80caff}50%{box-shadow:0 0 24px #fff,0 0 48px #33d9ff}}
     .glow-light{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;opacity:.8;animation:glow 2s ease-in-out infinite;z-index:5}
@@ -341,100 +339,115 @@ const Nosotros = () => {
     }
   `}</style>
 
-  {/* luciérnagas */}
-  <div className="absolute inset-0 pointer-events-none">
-    <div className="glow-light" style={{ top: '15%', left: '20%' }} />
-    <div className="glow-light" style={{ top: '35%', left: '60%' }} />
-    <div className="glow-light" style={{ top: '25%', left: '75%' }} />
-    <div className="glow-light" style={{ top: '55%', left: '40%' }} />
-    <div className="glow-light" style={{ top: '45%', left: '85%' }} />
-  </div>
+        {/* luciérnagas */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="glow-light" style={{ top: "15%", left: "20%" }} />
+          <div className="glow-light" style={{ top: "35%", left: "60%" }} />
+          <div className="glow-light" style={{ top: "25%", left: "75%" }} />
+          <div className="glow-light" style={{ top: "55%", left: "40%" }} />
+          <div className="glow-light" style={{ top: "45%", left: "85%" }} />
+        </div>
 
-  {/* degradado azul */}
-  <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
+        {/* degradado azul */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
 
-  {/* ---------- CONTENIDO ---------- */}
-  <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-start justify-between px-8 lg:px-24 gap-12">
+        {/* ---------- CONTENIDO ---------- */}
+        <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-start justify-between px-8 lg:px-24 gap-12">
+          {/* título */}
+          <div className="relative mt-25" data-aos="fade-right">
+            <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl text-center lg:text-left">
+              Ven&nbsp;conócenos
+            </h1>
+            <span className="absolute inset-0 rounded-lg bg-white/10 blur-sm -z-10" />
+          </div>
 
-    {/* título */}
-    <div className="relative" data-aos="fade-right">
-      <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl text-center lg:text-left">
-        Ven&nbsp;conócenos
-      </h1>
-      <span className="absolute inset-0 rounded-lg bg-white/10 blur-sm -z-10" />
-    </div>
-
-    {/* GRID 2×2 tarjetas */}
-    <div
-      className="grid grid-cols-2 gap-6 lg:gap-10 lg:ml-auto"
-      data-aos="zoom-in-up"
-      data-aos-delay="150"
-    >
-      {[
-        {
-          n: '400+',
-          lbl: 'Estudiantes',
-          path: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'
-        },
-        {
-          n: '40+',
-          lbl: 'Docentes',
-          path: 'M12 14l9-5-9-5-9 5 9 5zm0 0v6'
-        },
-        {
-          n: '10+',
-          lbl: 'Años de Experiencia',
-          path: 'M12 8v4l3 3M12 3a9 9 0 100 18 9 9 0 000-18z'
-        },
-        {
-          n: '10+',
-          lbl: 'Reconocimientos',
-          path: 'M8 21h8M12 17a5 5 0 005-5V9a9 9 0 10-10 0v3a5 5 0 005 5z'
-        },
-      ].map(({ n, lbl, path }, idx) => (
-        /* contorno neón */
-        <div key={idx} className="relative card-wrapper rounded-xl p-[2px]">
-          {/* tarjeta opaca con hover */}
+          {/* GRID 2×2 tarjetas */}
           <div
-            className="group relative flex flex-col items-center justify-center
+            className="grid grid-cols-2 gap-6 lg:gap-10 lg:ml-auto mr-30"
+            data-aos="zoom-in-up"
+            data-aos-delay="150"
+          >
+            {[
+              {
+                n: "400+",
+                lbl: "Estudiantes",
+                path: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
+              },
+              {
+                n: "40+",
+                lbl: "Docentes",
+                path: "M12 14l9-5-9-5-9 5 9 5zm0 0v6",
+              },
+              {
+                n: "10+",
+                lbl: "Años de Experiencia",
+                path: "M12 8v4l3 3M12 3a9 9 0 100 18 9 9 0 000-18z",
+              },
+              {
+                n: "10+",
+                lbl: "Reconocimientos",
+                path: "M8 21h8M12 17a5 5 0 005-5V9a9 9 0 10-10 0v3a5 5 0 005 5z",
+              },
+            ].map(({ n, lbl, path }, idx) => (
+              /* contorno neón */
+              <div
+                key={idx}
+                className="relative card-wrapper rounded-xl p-[2px]"
+              >
+                {/* tarjeta opaca con hover */}
+                <div
+                  className="group relative flex flex-col items-center justify-center
                         w-32 h-32 sm:w-36 sm:h-36
                         bg-[#780000] text-white rounded-[10px] shadow-lg
                         transition-transform duration-500
                         hover:scale-105 hover:rotate-[6deg]"
-          >
-            {/* destello */}
-            <span className="absolute -top-1 -left-1 w-0.5 h-0.5 bg-transparent
-                             shadow-[0_0_8px_4px_rgba(255,255,255,.45)] animate-ping" />
+                >
+                  {/* destello */}
+                  <span
+                    className="absolute -top-1 -left-1 w-0.5 h-0.5 bg-transparent
+                             shadow-[0_0_8px_4px_rgba(255,255,255,.45)] animate-ping"
+                  />
 
-            {/* icono */}
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 className="w-6 h-6 mb-1 drop-shadow-[0_0_4px_rgb(255,255,255)]"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={path} />
-            </svg>
+                  {/* icono */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 mb-1 drop-shadow-[0_0_4px_rgb(255,255,255)]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={path}
+                    />
+                  </svg>
 
-            <p className="text-2xl font-extrabold drop-shadow-[0_0_4px_rgb(255,255,255)]">{n}</p>
-            <p className="text-[0.7rem] sm:text-xs text-center">{lbl}</p>
+                  <p className="text-2xl font-extrabold drop-shadow-[0_0_4px_rgb(255,255,255)]">
+                    {n}
+                  </p>
+                  <p className="text-[0.7rem] sm:text-xs text-center">{lbl}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+      </div>
 
-     {/* HISTORIA / VALORES “PROFESIONAL+” CON TÍTULO ARREGLADO */}
-<div
-  className="relative overflow-hidden min-h-[60vh] py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#002f4b] to-[#003558] perspective-1000"
-  data-aos="fade-up"
-  data-aos-delay="300"
->
-  {/* Fondo patrones y blobs (igual que antes) */}
-  <div className="absolute inset-0 bg-[url('/pattern-diagonal.svg')] bg-center bg-repeat opacity-10 pointer-events-none" />
-  <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#5E7FA1]/10 rounded-full animate-blob-slow opacity-30 pointer-events-none" />
-  <div className="absolute bottom-1/6 right-1/3 w-[500px] h-[500px] bg-[#44789B]/10 rounded-full animate-blob-fast opacity-20 pointer-events-none" />
+      {/* HISTORIA / VALORES “PROFESIONAL+” CON TÍTULO ARREGLADO */}
+      <div
+        className="relative overflow-hidden min-h-[60vh] py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#002f4b] to-[#003558] perspective-1000"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        {/* Fondo patrones y blobs (igual que antes) */}
+        <div className="absolute inset-0 bg-[url('/pattern-diagonal.svg')] bg-center bg-repeat opacity-10 pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#5E7FA1]/10 rounded-full animate-blob-slow opacity-30 pointer-events-none" />
+        <div className="absolute bottom-1/6 right-1/3 w-[500px] h-[500px] bg-[#44789B]/10 rounded-full animate-blob-fast opacity-20 pointer-events-none" />
 
-  {/* Keyframes y utilidades extra (idéntico) */}
-  <style>{`
+        {/* Keyframes y utilidades extra (idéntico) */}
+        <style>{`
     @keyframes spin-slow { to { transform: rotate(360deg); } }
     @keyframes blob-slow { 0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.1)} }
     @keyframes blob-fast { 0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.2)} }
@@ -456,83 +469,104 @@ const Nosotros = () => {
     }
   `}</style>
 
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-    {/* — TÍTULO con las dos líneas separadas — */}
-    <div className="text-center mb-12 md:mb-20 group">
-      <h1 className="inline-block font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white relative overflow-hidden drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
-        {/* Primera línea con shine */}
-        <span className="block relative">
-          Nuestra Historia,
-          <span className="absolute top-0 left-[-75%] w-1/2 h-full bg-white/20 mix-blend-screen skew-x-[-20deg]
-                           transition-transform duration-1000 group-hover:translate-x-[200%] z-0" />
-        </span>
-        {/* Segunda línea completamente visible */}
-        <span className="block relative z-10 text-[#88AECF] drop-shadow-[0_0_6px_rgba(0,0,0,0.5)]">
-          Identidad y Visión
-        </span>
-      </h1>
-      <div className="mt-4 h-1 w-32 mx-auto bg-gradient-to-r from-[#88AECF] to-[#6698BC] rounded-full animate-pulse-slow" />
-      <p className="mt-6 text-base sm:text-lg text-white/80 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]">
-        Conoce los pilares fundamentales que han guiado nuestro camino hacia la excelencia educativa a lo largo de los años
-      </p>
-    </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+          {/* — TÍTULO con las dos líneas separadas — */}
+          <div className="text-center mb-12 md:mb-20 group">
+            <h1 className="inline-block font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white relative overflow-hidden drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+              {/* Primera línea con shine */}
+              <span className="block relative">
+                Nuestra Historia,
+                <span
+                  className="absolute top-0 left-[-75%] w-1/2 h-full bg-white/20 mix-blend-screen skew-x-[-20deg]
+                           transition-transform duration-1000 group-hover:translate-x-[200%] z-0"
+                />
+              </span>
+              {/* Segunda línea completamente visible */}
+              <span className="block relative z-10 text-[#88AECF] drop-shadow-[0_0_6px_rgba(0,0,0,0.5)]">
+                Identidad y Visión
+              </span>
+            </h1>
+            <div className="mt-4 h-1 w-32 mx-auto bg-gradient-to-r from-[#88AECF] to-[#6698BC] rounded-full animate-pulse-slow" />
+            <p className="mt-6 text-base sm:text-lg text-white/80 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]">
+              Conoce los pilares fundamentales que han guiado nuestro camino
+              hacia la excelencia educativa a lo largo de los años
+            </p>
+          </div>
 
-    <div className="relative mx-auto w-full max-w-6xl">
-      {/* Línea central */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#88AECF] to-[#6698BC] opacity-70
-                      animate-pulse-slow drop-shadow-[0_0_10px_#88AECF]" />
+          <div className="relative mx-auto w-full max-w-6xl">
+            {/* Línea central */}
+            <div
+              className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#88AECF] to-[#6698BC] opacity-70
+                      animate-pulse-slow drop-shadow-[0_0_10px_#88AECF]"
+            />
 
-      {valoresV.map((valor, i) => (
-        <div
-          key={i}
-          className={`group flex flex-col md:flex-row items-center mb-16 perspective-1000 ${
-            i % 2 === 0 ? 'md:flex-row-reverse' : ''
-          }`}
-          data-aos={i % 2 === 0 ? 'fade-left' : 'fade-right'}
-          data-aos-delay={i * 200}
-        >
-          {/* Tarjeta 3D con ripple, glow y tilt */}
-          <div className={`w-full md:w-5/12 ${i % 2 === 0 ? 'md:pl-12' : 'md:pr-12'} mb-8 md:mb-0`}>
-            <div className="relative rounded-3xl p-8 bg-gradient-to-br from-[#5E7FA1] to-[#44789B]
+            {valoresV.map((valor, i) => (
+              <div
+                key={i}
+                className={`group flex flex-col md:flex-row items-center mb-16 perspective-1000 ${
+                  i % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
+                data-aos={i % 2 === 0 ? "fade-left" : "fade-right"}
+                data-aos-delay={i * 200}
+              >
+                {/* Tarjeta 3D con ripple, glow y tilt */}
+                <div
+                  className={`w-full md:w-5/12 ${
+                    i % 2 === 0 ? "md:pl-12" : "md:pr-12"
+                  } mb-8 md:mb-0`}
+                >
+                  <div
+                    className="relative rounded-3xl p-8 bg-gradient-to-br from-[#5E7FA1] to-[#44789B]
                             shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 ripple-effect
                             transform transition-all duration-500
-                            group-hover:-translate-y-6 group-hover:rotate-y-8 group-hover:rotate-x-4 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)]">
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#6698BC]/20 rounded-full animate-spin-slow pointer-events-none" />
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="relative text-2xl sm:text-3xl font-bold text-white/90
+                            group-hover:-translate-y-6 group-hover:rotate-y-8 group-hover:rotate-x-4 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
+                  >
+                    <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#6698BC]/20 rounded-full animate-spin-slow pointer-events-none" />
+                    <div className="flex items-center justify-between mb-6">
+                      <h3
+                        className="relative text-2xl sm:text-3xl font-bold text-white/90
                                before:absolute before:-bottom-1 before:left-0 before:h-1 before:w-0
                                before:bg-gradient-to-r from-white to-[#88AECF]
-                               before:transition-all before:duration-500 group-hover:before:w-full">
-                  {valor.año}
-                </h3>
-                <div className="flex items-center justify-center w-16 h-16 bg-white/20 rounded-full
+                               before:transition-all before:duration-500 group-hover:before:w-full"
+                      >
+                        {valor.año}
+                      </h3>
+                      <div
+                        className="flex items-center justify-center w-16 h-16 bg-white/20 rounded-full
                                 transition-all duration-500 group-hover:scale-150 group-hover:rotate-12
-                                drop-shadow-[0_0_20px_#fff] group-hover:drop-shadow-[0_0_40px_#fff] animate-icon-bounce">
-                  {valor.icono}
+                                drop-shadow-[0_0_20px_#fff] group-hover:drop-shadow-[0_0_40px_#fff] animate-icon-bounce"
+                      >
+                        {valor.icono}
+                      </div>
+                    </div>
+                    <div className="h-px w-full mb-6 bg-white/20" />
+                    <p
+                      className="text-base sm:text-lg text-white/80 leading-relaxed
+                            transition-colors duration-300 group-hover:text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]"
+                    >
+                      {valor.evento}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="h-px w-full mb-6 bg-white/20" />
-              <p className="text-base sm:text-lg text-white/80 leading-relaxed
-                            transition-colors duration-300 group-hover:text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]">
-                {valor.evento}
-              </p>
-            </div>
-          </div>
 
-          {/* Punto numerado con pulso, glow y pop */}
-          <div className="relative flex items-center justify-center z-20 mb-8 md:mb-0">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#88AECF] rounded-full flex items-center justify-center
+                {/* Punto numerado con pulso, glow y pop */}
+                <div className="relative flex items-center justify-center z-20 mb-8 md:mb-0">
+                  <div
+                    className="w-16 h-16 sm:w-20 sm:h-20 bg-[#88AECF] rounded-full flex items-center justify-center
                             ring-4 ring-white/50 shadow-[0_0_20px_#88AECF] animate-pulse-slow
-                            transition-all duration-500 group-hover:scale-150 group-hover:shadow-[0_0_40px_#88AECF]">
-              <span className="font-extrabold text-white text-lg">{i + 1}</span>
-            </div>
+                            transition-all duration-500 group-hover:scale-150 group-hover:shadow-[0_0_40px_#88AECF]"
+                  >
+                    <span className="font-extrabold text-white text-lg">
+                      {i + 1}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-full md:w-5/12" />
+              </div>
+            ))}
           </div>
-          <div className="w-full md:w-5/12" />
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+      </div>
 
       {/* DIRECTIVOS */}
       <div

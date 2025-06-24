@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Phone, User, FileText, Send, CheckCircle } from "lucide-react";
-import Girl from "../assets/girl.png";
+import Girl from "../assets/girl1.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { API_KEY, API_BASE_URL } from "../../src/config/env.jsx";
@@ -43,8 +43,8 @@ export default function Contact() {
     // Obtener los datos correctamente desde el estado, no desde FormData
     const { nombre, dni, telefono, correo } = formData;
     const grado = "Consultar";
-    console.log(nombre,dni,telefono,correo,grado);
-    
+    console.log(nombre, dni, telefono, correo, grado);
+
     if (!nombre || !dni || !telefono || !correo) {
       alert("Por favor, completa todos los campos");
       return;
@@ -105,7 +105,7 @@ export default function Contact() {
           <img
             src={Girl}
             alt="Niña usando un teléfono"
-            className="w-72 md:w-80 object-contain"
+            className="w-30 md:w-70 object-contain"
           />
         </div>
       </div>
