@@ -1,57 +1,102 @@
-import { jest, describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-// Mock de variables de entorno de Vite para Jest
+/* eslint-env jest */
+/* global jest */ 
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import Comunicados from "../pages/Comunicado.jsx";
+import fetchMock from "jest-fetch-mock";
+fetchMock.enableMocks();
+
+import { describe, beforeEach, test, expect } from "@jest/globals";
+
+// Mock de AOS
+jest.mock("aos", () => ({ init: jest.fn() }));
+
 jest.mock("../config/env.jsx", () => ({
-  API_KEY: "dummy-key",
-  API_BASE_URL: "http://localhost:3000/api",
+  API_KEY: "fake-key",
+  API_BASE_URL: "http://localhost:1234",
 }));
 
-import { render, screen, waitFor } from "@testing-library/react";
-import Comunicado from "../pages/Comunicado";
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
+// Mock de componentes externos
+jest.mock("../components/Crush", () => () => <div data-testid="crush" />);
+jest.mock("../components/Calendar", () => () => <div data-testid="calendar" />);
+jest.mock("../components/Footer", () => ({
+  Footer: () => <div data-testid="footer" />,
+}));
 
-// Usar Jest para los hooks globales
-describe("Comunicado Page", () => {
+describe("Comunicado Component", () => {
   beforeEach(() => {
-    window.fetch = jest.fn();
-  });
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test("renders loading state initially", () => {
-    render(
-      <MemoryRouter>
-        <Comunicado />
-      </MemoryRouter>
-    );
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    fetchMock.resetMocks();
+    document.getElementById = jest
+      .fn()
+      .mockReturnValue({ scrollIntoView: jest.fn() });
   });
 
-  test("renders posts after loading", async () => {
-    window.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [{ id: 1, title: "Test Comunicado" }],
-    });
-    render(
-      <MemoryRouter>
-        <Comunicado />
-      </MemoryRouter>
-    );
+  test("muestra spinner mientras carga eventos", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+
+    render(<Comunicados />);
+    expect(screen.getByText(/Cargando eventos/i)).toBeInTheDocument();
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+  });
+
+  test("renderiza eventos y comunicados correctamente", async () => {
+    const fakePosts = [
+      {
+        id: "1",
+        title: "Evento X",
+        start_at: "2025-06-10",
+        end_at: "2025-06-12",
+        images: [],
+      },
+    ];
+    const fakeComu = [
+      {
+        id: "A",
+        title: "Comunicado Uno",
+        created_at: "2025-06-08",
+        content: "Contenido...",
+      },
+    ];
+
+    fetchMock
+      .mockResponseOnce(JSON.stringify(fakePosts))
+      .mockResponseOnce(JSON.stringify(fakeComu));
+
+    render(<Comunicados />);
+
+    expect(screen.getByText(/Cargando eventos/i)).toBeInTheDocument();
+
     await waitFor(() => {
-      expect(screen.getByText(/Test Comunicado/i)).toBeInTheDocument();
+      expect(screen.getByText("Evento X")).toBeInTheDocument();
+      expect(screen.getByText("Comunicado Uno")).toBeInTheDocument();
+      expect(screen.getByTestId("calendar")).toBeInTheDocument();
+      expect(screen.getByTestId("footer")).toBeInTheDocument();
     });
   });
 
-  test("handles error state", async () => {
-    window.fetch.mockRejectedValueOnce(new Error("API error"));
-    render(
-      <MemoryRouter>
-        <Comunicado />
-      </MemoryRouter>
+  test("muestra mensaje de error si falla fetch de eventos", async () => {
+    fetchMock.mockRejectOnce(new Error("fail eventos"));
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+
+    render(<Comunicados />);
+    await waitFor(() =>
+      expect(screen.getByText(/fail eventos/i)).toBeInTheDocument()
     );
-    await waitFor(() => {
-      expect(screen.getByText(/error/i)).toBeInTheDocument();
+  });
+
+  test("el botón muestra el calendario al hacer click", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+
+    render(<Comunicados />);
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+
+    const btn = screen.getByRole("button", {
+      name: /Ver Calendario Completo/i,
     });
+    fireEvent.click(btn);
+    await waitFor(() =>
+      expect(document.getElementById).toHaveBeenCalledWith("calendar-section")
+    );
   });
 });
