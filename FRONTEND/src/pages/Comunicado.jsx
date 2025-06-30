@@ -9,9 +9,6 @@ import { API_KEY, API_BASE_URL } from "../config/env.jsx";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// Puedes usar animate.css si lo tienes, o simplemente Tailwind animaciones
-// import "animate.css"; // Si quieres usar animate__fadeInUp, etc.
-
 export default function Comunicado() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +48,6 @@ export default function Comunicado() {
         if (!response.ok) throw new Error("Error al cargar los comunicados");
         const data = await response.json();
         setComunicados(data);
-
         console.log("COMU>>>", data);
       } catch (err) {
         setError(err.message);
@@ -73,7 +69,17 @@ export default function Comunicado() {
   return (
     <div>
       {/* Hero */}
-      <Crush pict={pict} />
+      <Crush
+        pict={pict}
+        onVerEventos={() => {
+          const el = document.getElementById("proximos-eventos");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+        onVerComunicados={() => {
+          const el = document.getElementById("comunicados");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+      />
 
       {/* ─────────────  PRÓXIMOS EVENTOS  ───────────── */}
       <section
@@ -94,7 +100,7 @@ export default function Comunicado() {
           </div>
 
           {/* Contenido */}
-          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {loading ? (
               <div className="col-span-full text-center py-16">
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#6698BC] border-t-transparent mx-auto mb-4"></div>
@@ -119,9 +125,10 @@ export default function Comunicado() {
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#6698BC]/10 to-[#003049]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
-                  <div className="flex flex-col md:flex-row h-full relative z-10">
+                  {/* Ajuste mejorado para tablets */}
+                  <div className="flex flex-col lg:flex-row h-full relative z-10">
                     {/* Imagen */}
-                    <div className="md:w-2/5 w-full h-64 md:h-auto overflow-hidden relative">
+                    <div className="lg:w-2/5 w-full h-48 lg:h-auto overflow-hidden relative">
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
                       <img
                         src={post.images?.[0]?.image_url || pict}
@@ -131,13 +138,13 @@ export default function Comunicado() {
                     </div>
 
                     {/* Contenido */}
-                    <div className="md:w-3/5 w-full p-8 flex flex-col justify-between bg-gradient-to-br from-[#6698BC] to-[#5a87a8]">
+                    <div className="lg:w-3/5 w-full p-6 flex flex-col justify-between bg-gradient-to-br from-[#6698BC] to-[#5a87a8]">
                       <div>
-                        <h3 className="text-xl lg:text-2xl font-bold text-white group-hover:text-[#f0e4d0] transition-colors duration-300 mb-4">
+                        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white group-hover:text-[#f0e4d0] transition-colors duration-300 mb-3">
                           {post.title}
                         </h3>
-                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-sm text-white">
-                          <div className="flex items-center mb-2">
+                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 border border-white/20 text-sm text-white space-y-1">
+                          <div className="flex items-center">
                             <span className="mr-2">📅</span>
                             <strong className="mr-2">Inicio:</strong>
                             <span>{formatDate(post.start_at)}</span>
@@ -148,22 +155,6 @@ export default function Comunicado() {
                             <span>{formatDate(post.end_at)}</span>
                           </div>
                         </div>
-                      </div>
-                      <div className="mt-6 text-white/80 group-hover:text-white flex items-center text-sm font-medium">
-                        <span className="mr-2">Ver detalles</span>
-                        <svg
-                          className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
                       </div>
                     </div>
                   </div>
@@ -191,23 +182,9 @@ export default function Comunicado() {
               <span className="z-10 flex items-center relative">
                 <span className="mr-3">📅</span>
                 Ver Calendario Completo
-                <svg
-                  className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
+                {/* ...icono... */}
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-white/20 rounded-full animate-ping"></div>
-              <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-white/30 rounded-full animate-pulse"></div>
+              {/* ...decoración... */}
             </button>
             <p className="mt-4 text-[#003049]/70 text-sm font-medium">
               Explora todos los eventos en nuestro calendario interactivo
@@ -217,7 +194,10 @@ export default function Comunicado() {
       </section>
 
       {/* ─────────────  COMUNICADOS (FULLY RESPONSIVE + AOS)  ───────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a2238] via-[#26335D] to-[#1e2a52] text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <section
+        className="relative overflow-hidden bg-gradient-to-br from-[#1a2238] via-[#26335D] to-[#1e2a52] text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+        id="comunicados"
+      >
         {/* Fondos decorativos animados */}
         <div className="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-gradient-to-bl from-cyan-400/20 to-blue-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-gradient-to-tr from-indigo-500/15 to-purple-400/10 rounded-full blur-2xl animate-pulse delay-1000" />
@@ -238,7 +218,7 @@ export default function Comunicado() {
           </div>
 
           {/* Grid de comunicados */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {comunicados.length === 0 ? (
               <div
                 className="col-span-full text-center py-12"
@@ -261,14 +241,14 @@ export default function Comunicado() {
                 <div
                   key={post.id}
                   className="group relative bg-white/90 backdrop-blur-md text-gray-900 rounded-2xl overflow-hidden
-                     transform transition duration-500 ease-out
-                     hover:-translate-y-2 hover:scale-105 hover:shadow-2xl
-                     border border-white/20 flex flex-col"
+              transform transition duration-500 ease-out
+              hover:-translate-y-2 hover:scale-105 hover:shadow-2xl
+              border border-white/20 flex flex-col"
                   data-aos="fade-up"
                   data-aos-delay={idx * 100}
                 >
                   {/* Imagen */}
-                  <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
+                  <div className="relative w-full h-40 sm:h-48 md:h-52 overflow-hidden">
                     <img
                       src={post.images?.[0]?.image_url || pict}
                       alt={post.title}
@@ -284,7 +264,7 @@ export default function Comunicado() {
                   </div>
 
                   {/* Contenido */}
-                  <div className="p-4 sm:p-6 flex-1 flex flex-col">
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col">
                     <h3 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-[#26335D] transition-colors">
                       {post.title}
                     </h3>
@@ -296,7 +276,7 @@ export default function Comunicado() {
                         </span>
                       </div>
                     </div>
-                    <div className="prose prose-sm max-w-none text-gray-800 mb-4">
+                    <div className="prose prose-sm max-w-none text-gray-800 mb-4 max-h-32 overflow-hidden">
                       <p className="leading-relaxed text-sm sm:text-base break-words">
                         {post.content}
                       </p>

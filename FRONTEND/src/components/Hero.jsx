@@ -30,9 +30,7 @@ const Hero = () => {
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        closeModal();
-      }
+      if (e.key === "Escape") closeModal();
     };
 
     if (showModal) {
@@ -46,14 +44,14 @@ const Hero = () => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="relative w-full h-screen md:min-h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-between md:flex-row bg-gradient-to-br from-[#003049] via-[#fdf0d5] to-[#780000]">
+      <div className="relative w-full h-[100vh] md:min-h-screen bg-gradient-to-br from-[#003049] via-[#fdf0d5] to-[#780000] flex flex-col md:flex-row justify-between">
         {/* Imagen de fondo desenfocada */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-85 blur-[2px] z-0"
+          className="absolute inset-0 bg-cover bg-center opacity-80 blur-[2px] z-0"
           style={{ backgroundImage: `url(${logo})` }}
-        ></div>
+        />
 
-        {/* Degradado rojo suave */}
+        {/* Degradado adicional */}
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -64,14 +62,14 @@ const Hero = () => {
 
         {/* Contenido principal */}
         <div
-          className="relative z-10 p-6 md:pl-24 md:pr-12 flex-1 flex flex-col justify-center text-center md:text-left max-w-full md:max-w-3xl"
+          className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-24 py-10 flex-1 flex flex-col justify-center text-center md:text-left max-w-full md:max-w-3xl"
           data-aos="fade-up"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg leading-tight">
             Bienvenidos al Colegio Prisma
           </h1>
 
-          <div className="mt-4 text-lg sm:text-xl font-medium drop-shadow text-white h-8">
+          <div className="mt-4 text-base sm:text-lg md:text-xl font-medium text-white drop-shadow min-h-[2rem]">
             <Typewriter
               options={{
                 strings: [
@@ -89,14 +87,13 @@ const Hero = () => {
             />
           </div>
 
-          {/* Botón Tour Virtual */}
           <div className="mt-8" data-aos="fade-up" data-aos-delay="500">
             <button
               onClick={openModal}
-              className="group px-8 py-4 bg-[#003049] hover:bg-[#004066] text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-bounce-slow"
+              className="group px-6 sm:px-8 py-3 sm:py-4 bg-[#003049] hover:bg-[#004066] text-white font-semibold text-base sm:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-bounce-slow"
             >
-              <span className="flex items-center justify-center gap-3">
-                <FaPlay className="text-lg group-hover:scale-110 transition-transform duration-200" />
+              <span className="flex items-center justify-center gap-2 sm:gap-3">
+                <FaPlay className="text-base sm:text-lg group-hover:scale-110 transition-transform duration-200" />
                 Tour Virtual
               </span>
             </button>
@@ -108,7 +105,7 @@ const Hero = () => {
           className="relative z-10 p-4 w-full md:w-auto flex justify-center md:absolute md:bottom-20 md:right-6"
           data-aos="fade-left"
         >
-          <div className="bg-[#003049] text-white px-4 py-4 rounded-2xl shadow-2xl max-w-md w-full text-sm md:text-lg">
+          <div className="bg-[#003049] text-white px-4 py-4 rounded-2xl shadow-2xl max-w-md w-full text-sm sm:text-base md:text-lg">
             <div className="flex items-center gap-3">
               <FaMapMarkerAlt />
               <span className="font-semibold">
@@ -154,7 +151,7 @@ const Hero = () => {
           ></div>
           <div className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-fadeIn">
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-center text-gray-800">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center w-full">
                 Tour Virtual - Colegio Prisma
               </h2>
               <button
@@ -189,7 +186,7 @@ const Hero = () => {
         </div>
       )}
 
-      {/* Animaciones personalizadas */}
+      {/* Estilos animados */}
       <style jsx>{`
         @keyframes fadeIn {
           from {

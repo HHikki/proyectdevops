@@ -38,13 +38,17 @@ const Users = () => {
   };
 
   return (
-    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
+    <div
+      className="flex-1 p-4 sm:p-6 mt-16 sm:ml-56 transition-all duration-300"
+      style={{ overflowX: "hidden" }}
+    >
       <HeaderPublicaciones
         tipo="Usuarios"
         descripcion="Gestiona todos los usuarios registrados en la plataforma"
         textoBoton="+ Nuevo Usuario"
         onNuevaPublicacion={handleNuevaUsuario}
       />
+
       <ModalGeneral
         visible={modalVisible}
         onClose={handleCloseModal}
@@ -53,7 +57,18 @@ const Users = () => {
         <FormularioUsuario onFinish={handleCrearUsuario} />
       </ModalGeneral>
 
-      <RegistroU reload={reload} />
+      {/* Scroll horizontal en móviles */}
+      <div
+        style={{
+          width: "100%",
+          overflowX: "auto",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        <div style={{ width: "900px" }}>
+          <RegistroU reload={reload} />
+        </div>
+      </div>
     </div>
   );
 };

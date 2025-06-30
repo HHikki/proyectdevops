@@ -24,7 +24,7 @@ const WelcomeVideo = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen py-20 px-4 bg-[#f0e4d0] overflow-hidden">
+    <section className="relative py-16 md:py-20 px-4 bg-[#f0e4d0] overflow-hidden">
       {/* Fondo decorativo animado */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-10 left-1/4 w-72 h-72 bg-pink-400/20 rounded-full blur-3xl animate-float-slow" />
@@ -71,7 +71,7 @@ const WelcomeVideo = () => {
 
         {/* VIDEO PRINCIPAL */}
         <div
-          className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition duration-500 border-2 border-[#a69fff]/20 bg-white/10 backdrop-blur-md mb-16"
+          className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition duration-500 border-2 border-[#a69fff]/20 bg-white/10 backdrop-blur-md mb-10 md:mb-16"
           data-aos="zoom-in"
         >
           <iframe
@@ -86,7 +86,7 @@ const WelcomeVideo = () => {
 
         {/* NUEVOS VIDEOS EN FILA */}
         <div
-          className="w-full grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
           data-aos="fade-up"
         >
           {extraVideos.map((video, i) => (

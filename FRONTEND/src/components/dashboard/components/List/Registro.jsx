@@ -6,7 +6,7 @@ import Editpost from "../paneles/Editinput.jsx";
 import { API_KEY, API_BASE_URL } from "../../../../config/env.jsx";
 import { AuthContext } from "../../../../context/AuthContext.jsx";
 
-const Registro = ({ layoutMode = 0, tipo , posts = [], onDelete, onEdit }) => {
+const Registro = ({ layoutMode = 0, tipo, posts = [], onDelete, onEdit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const { user, admin } = useContext(AuthContext);
@@ -79,8 +79,6 @@ const Registro = ({ layoutMode = 0, tipo , posts = [], onDelete, onEdit }) => {
     }
   };
 
-
-
   // Función para confirmar eliminación
   const handleConfirm = async () => {
     if (!selectedKey) return;
@@ -122,7 +120,6 @@ const Registro = ({ layoutMode = 0, tipo , posts = [], onDelete, onEdit }) => {
     setEditOpen(false);
     setSelectedKey(null);
   };
-  
 
   const procesarFechas = (fechaString) => {
     if (!fechaString) return "Fecha no disponible";
@@ -230,44 +227,49 @@ const Registro = ({ layoutMode = 0, tipo , posts = [], onDelete, onEdit }) => {
         ];
 
   return (
-    <div className="p-4 bg-white rounded-md shadow-md">
-      <Table
-        columns={columns}
-        dataSource={processedData}
-        pagination={false}
-        loading={loading}
-        locale={{
-          emptyText: loading ? "Cargando..." : "No hay datos disponibles",
-        }}
-        className="w-full"
-      />
+    <div className="w-full">
+      {/* ✅ Contenedor que permite scroll horizontal en móviles */}
+      <div className="overflow-x-auto">
+        <div className="bg-white rounded-md shadow-md min-w-[768px] md:min-w-0 p-4">
+          <Table
+            columns={columns}
+            dataSource={processedData}
+            pagination={false}
+            loading={loading}
+            scroll={{ x: "max-content" }} // ✅ Permite scroll horizontal si es necesario
+            locale={{
+              emptyText: loading ? "Cargando..." : "No hay datos disponibles",
+            }}
+            className="w-full"
+          />
 
-      {/* Modal de confirmación para eliminar */}
-      {selectedKey && (
-        <Modal
-          id={selectedKey.titulo}
-          isOpen={modalOpen}
-          onClose={() => {
-            setModalOpen(false);
-            setSelectedKey(null);
-          }}
-          onConfirm={handleConfirm}
-        />
-      )}
+          {/* Modales */}
+          {selectedKey && (
+            <Modal
+              id={selectedKey.titulo}
+              isOpen={modalOpen}
+              onClose={() => {
+                setModalOpen(false);
+                setSelectedKey(null);
+              }}
+              onConfirm={handleConfirm}
+            />
+          )}
 
-      {/* Modal de edición */}
-      {selectedKey && (
-        <Editpost
-          id={selectedKey.id}
-          isOpen={editOpen}
-          onClose={() => {
-            setEditOpen(false);
-            setSelectedKey(null);
-          }}
-          onSubmit={handleEditSubmit}
-          Tipo={tipo}
-        />
-      )}
+          {selectedKey && (
+            <Editpost
+              id={selectedKey.id}
+              isOpen={editOpen}
+              onClose={() => {
+                setEditOpen(false);
+                setSelectedKey(null);
+              }}
+              onSubmit={handleEditSubmit}
+              Tipo={tipo}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

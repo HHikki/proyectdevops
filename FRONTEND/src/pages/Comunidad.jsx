@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Crush1 from "../components/Crush1";
 import alumnosImg from "../assets/calendar2.jpg";
-import { useEffect } from "react";
 import docentesImg from "../assets/calendar3.jpg";
 import padre1 from "../assets/padre1.jpg";
 import padre2 from "../assets/padre2.jpg";
 import madre1 from "../assets/madre1.jpg";
 import madre2 from "../assets/madre2.jpg";
 import galeria1 from "../assets/galeria1.jpg";
-import { Footer } from "../components/Footer";
 import galeria2 from "../assets/galeria2.jpg";
 import galeria3 from "../assets/galeria3.jpg";
 import galeria4 from "../assets/galeria4.jpg";
 import galeria5 from "../assets/galeria5.jpg";
 import galeria6 from "../assets/galeria6.jpg";
 import pict from "../assets/comunidad1.png";
+import { Footer } from "../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -24,6 +23,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
 const galeria = [
   { src: galeria1, categoria: "actividades" },
   { src: galeria2, categoria: "eventos" },
@@ -36,14 +36,11 @@ const categorias = ["all", "actividades", "eventos", "talleres"];
 
 const Comunidad = () => {
   const [categoriaActiva, setCategoriaActiva] = useState("all");
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  const galeriaFiltrada =
-    categoriaActiva === "all"
-      ? galeria
-      : galeria.filter((item) => item.categoria === categoriaActiva);
   const testimonios = [
     {
       img: madre1,
@@ -69,12 +66,16 @@ const Comunidad = () => {
     {
       img: padre1,
       texto:
-        "Me sorprendió cómo lograron que mi hijo supere su timidez. Hoy participa con confianza en exposiciones y actividades. ¡Gracias, Prisma!.",
+        "Me sorprendió cómo lograron que mi hijo supere su timidez. Hoy participa con confianza en exposiciones y actividades. ¡Gracias, Prisma!",
       nombre: "Ricardo Torres",
       rol: "Padre orgulloso",
     },
-    // Puedes agregar más testimonios aquí
   ];
+
+  const galeriaFiltrada =
+    categoriaActiva === "all"
+      ? galeria
+      : galeria.filter((item) => item.categoria === categoriaActiva);
 
   return (
     <div className="bg-white">
@@ -85,9 +86,40 @@ const Comunidad = () => {
         className="bg-[#0c1a2c] text-white py-20 px-6 sm:px-10 lg:px-20"
         data-aos="fade-up"
       >
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
-          {/* Texto descriptivo */}
-          <div className="flex-1" data-aos="fade-right">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+          {/* Imagen y badge institucional */}
+          <div className="space-y-6" data-aos="fade-left" data-aos-delay="200">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-violet-500 to-blue-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-300"></div>
+              <div className="relative">
+                <img
+                  src={alumnosImg}
+                  alt="Estudiantes de I.E.P. Ganador"
+                  className="w-full h-[400px] sm:h-[450px] md:h-[500px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.04] group-hover:brightness-110 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-xl"></div>
+              </div>
+            </div>
+            <div
+              className="text-center space-y-3"
+              data-aos="zoom-in"
+              data-aos-delay="300"
+            >
+              <div className="inline-flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-600/50 shadow-md">
+                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-violet-400 rounded-full"></div>
+                <span className="text-slate-300 text-sm font-semibold tracking-wider uppercase">
+                  I.E.P. GANADOR
+                </span>
+                <div className="w-3 h-3 bg-gradient-to-r from-violet-400 to-blue-400 rounded-full"></div>
+              </div>
+              <p className="text-xs text-slate-400 font-medium">
+                Formando líderes del mañana
+              </p>
+            </div>
+          </div>
+
+          {/* Texto descriptivo y lista */}
+          <div data-aos="fade-right">
             <div className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-400/30 mb-6">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-blue-200 text-sm font-medium tracking-wide">
@@ -102,8 +134,7 @@ const Comunidad = () => {
               nuestros alumnos.
             </p>
 
-            {/* Lista de características */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6">
               {[
                 "Investigan de manera rigurosa y buscan la verdad desde una perspectiva holística.",
                 "Tienen un profundo arraigo y amor por su país, su familia, su colegio y el mundo.",
@@ -124,41 +155,6 @@ const Comunidad = () => {
                   <p className="text-base leading-snug">{text}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Imagen y badge institucional */}
-          <div
-            className="w-full xl:w-[400px] flex-shrink-0 space-y-6"
-            data-aos="fade-left"
-            data-aos-delay="200"
-          >
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-violet-500 to-blue-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-300"></div>
-              <div className="relative">
-                <img
-                  src={alumnosImg}
-                  alt="Estudiantes de I.E.P. Ganador"
-                  className="w-full h-[500px] object-cover rounded-xl shadow-2xl group-hover:scale-[1.04] group-hover:brightness-110 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-xl"></div>
-              </div>
-            </div>
-            <div
-              className="text-center space-y-3"
-              data-aos="zoom-in"
-              data-aos-delay="300"
-            >
-              <div className="inline-flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-600/50 shadow-md">
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-violet-400 rounded-full"></div>
-                <span className="text-slate-300 text-sm font-semibold tracking-wider uppercase">
-                  I.E.P. GANADOR
-                </span>
-                <div className="w-3 h-3 bg-gradient-to-r from-violet-400 to-blue-400 rounded-full"></div>
-              </div>
-              <p className="text-xs text-slate-400 font-medium">
-                Formando líderes del mañana
-              </p>
             </div>
           </div>
         </div>
@@ -310,34 +306,34 @@ const Comunidad = () => {
       </section>
 
       {/* SECCIÓN TESTIMONIOS */}
-      {/* SECCIÓN TESTIMONIOS */}
-      <section className="bg-[#6698BC] text-[#003049] py-12 px-4 sm:px-8 lg:px-24 relative">
-        <h2
-          className="text-4xl md:text-5xl font-bold text-center mb-6 leading-tight"
-          data-aos="fade-down"
-        >
-          Testimonios de Padres de Familia
-        </h2>
-
-        <p
-          className="text-center text-white mb-16 max-w-2xl mx-auto text-lg"
-          data-aos="fade-up"
-          data-aos-delay="150"
-        >
-          Reconocemos y valoramos el rol fundamental que cumplen los padres en
-          el desarrollo integral de nuestros estudiantes.
-        </p>
+      <section className="bg-[#6698BC] text-[#003049] py-28 px-6 sm:px-10 lg:px-24 relative overflow-visible">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-4 leading-tight"
+            data-aos="fade-down"
+          >
+            Testimonios de Padres de Familia
+          </h2>
+          <p
+            className="text-white max-w-3xl mx-auto text-lg"
+            data-aos="fade-up"
+            data-aos-delay="150"
+          >
+            Reconocemos y valoramos el rol fundamental que cumplen los padres en
+            el desarrollo integral de nuestros estudiantes.
+          </p>
+        </div>
 
         {/* Botones personalizados */}
         <div
-          className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 transition"
+          className="swiper-button-prev-custom absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center cursor-pointer hover:scale-110 transition"
           data-aos="fade-right"
           data-aos-delay="200"
         >
           <ChevronLeft className="text-[#003049] w-5 h-5" />
         </div>
         <div
-          className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 transition"
+          className="swiper-button-next-custom absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center cursor-pointer hover:scale-110 transition"
           data-aos="fade-left"
           data-aos-delay="200"
         >
@@ -345,9 +341,9 @@ const Comunidad = () => {
         </div>
 
         <Swiper
-          spaceBetween={-5}
+          spaceBetween={20}
           loop={true}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 6000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           navigation={{
             nextEl: ".swiper-button-next-custom",
@@ -355,51 +351,45 @@ const Comunidad = () => {
           }}
           breakpoints={{
             320: { slidesPerView: 1 },
-            640: { slidesPerView: 1.5 },
+            640: { slidesPerView: 1.3 },
             768: { slidesPerView: 2 },
-            900: { slidesPerView: 2.5 },
-            1100: { slidesPerView: 3 },
+            1024: { slidesPerView: 3 },
           }}
           modules={[Navigation, Pagination, Autoplay]}
-          className="max-w-7xl mx-auto"
+          className="max-w-7xl mx-auto px-4 overflow-visible"
         >
           {testimonios.map((padre, index) => (
-            <SwiperSlide key={index} className="flex justify-center">
+            <SwiperSlide key={index} className="overflow-visible">
               <div
-                className="bg-white/95 text-[#333] w-full max-w-[380px] h-[220px] rounded-xl shadow-xl p-6 flex items-center space-x-5 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                className="relative bg-white text-[#333] w-full max-w-[360px] rounded-2xl shadow-xl pt-20 pb-6 px-6 mx-auto flex flex-col items-center text-center hover:shadow-2xl hover:scale-[1.03] transition-all duration-300"
                 data-aos="zoom-in-up"
                 data-aos-delay={index * 100}
               >
-                {/* Imagen */}
-                <div className="flex-shrink-0">
+                {/* Imagen flotante sobre la tarjeta */}
+                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 z-10">
                   <img
                     src={padre.img}
                     alt={padre.nombre}
-                    className="w-20 h-20 rounded-full object-cover border-3 border-[#f0e4d0] shadow-md"
+                    className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg bg-white"
                   />
                 </div>
 
-                {/* Contenido */}
-                <div className="flex-1 flex flex-col justify-between h-full py-2">
-                  <p className="text-base italic text-[#444] mb-4 line-clamp-3 leading-relaxed">
-                    "{padre.texto}"
+                <p className="text-base italic text-[#444] mt-6 mb-4 leading-relaxed line-clamp-4">
+                  "{padre.texto}"
+                </p>
+                <div className="text-yellow-500 text-lg mb-2">★★★★★</div>
+                <div>
+                  <p className="font-semibold text-lg text-[#003049]">
+                    {padre.nombre}
                   </p>
-                  <div className="space-y-2">
-                    <div className="text-yellow-500 text-lg">★★★★★</div>
-                    <div>
-                      <p className="font-semibold text-lg text-[#003049]">
-                        {padre.nombre}
-                      </p>
-                      <p className="text-base text-[#666]">{padre.rol}</p>
-                    </div>
-                  </div>
+                  <p className="text-sm text-[#666]">{padre.rol}</p>
                 </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Estilo paginación */}
+        {/* Estilo paginación Swiper */}
         <style jsx>{`
           .swiper-pagination-bullet {
             background: #ffffff !important;
@@ -413,22 +403,25 @@ const Comunidad = () => {
       </section>
 
       {/* SECCIÓN GALERÍA */}
-      <section className="bg-[#f0e4d0] text-white py-12 px-4 sm:px-8 lg:px-24">
-        <h2 className="text-4xl font-bold text-center mb-8" data-aos="fade-up">
+      <section className="bg-[#f0e4d0] text-[#003049] py-20 px-4 sm:px-10 lg:px-24">
+        <h2
+          className="text-4xl md:text-5xl font-bold text-center mb-12"
+          data-aos="fade-up"
+        >
           Galería
         </h2>
 
         {/* Botones de filtro */}
-        <div className="flex justify-center gap-4 flex-wrap mb-12">
+        <div className="flex justify-center gap-4 flex-wrap mb-14">
           {categorias.map((cat, idx) => (
             <button
               key={cat}
               onClick={() => setCategoriaActiva(cat)}
-              className={`px-5 py-2 rounded-full font-medium transition-all duration-300
+              className={`px-6 py-2 rounded-full font-semibold tracking-wide text-base transition-all duration-300
           ${
             categoriaActiva === cat
               ? "bg-white text-[#445da7] shadow-lg scale-105"
-              : "bg-[#780000] hover:bg-[#6b85da]"
+              : "bg-[#780000] text-white hover:bg-[#6b85da]"
           }
         `}
               data-aos="fade-up"
@@ -439,25 +432,27 @@ const Comunidad = () => {
           ))}
         </div>
 
-        {/* Galería */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Galería de imágenes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {galeriaFiltrada.map((item, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl shadow-lg group relative"
+              className="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
               data-aos="zoom-in-up"
-              data-aos-delay={i * 60}
+              data-aos-delay={i * 80}
             >
               <img
                 src={item.src}
                 alt={`Galería ${i + 1}`}
-                className="w-full h-50 object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+                className="w-full h-[250px] sm:h-[280px] md:h-[300px] object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-105"
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-300"></div>
 
-              {/* Efecto de brillo */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="w-1/2 h-full bg-gradient-to-l from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-2xl"></div>
+              {/* Capa oscura al pasar mouse */}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-300 rounded-2xl"></div>
+
+              {/* Efecto de brillo en movimiento */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+                <div className="w-1/3 h-full bg-gradient-to-l from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl animate-pulse"></div>
               </div>
             </div>
           ))}

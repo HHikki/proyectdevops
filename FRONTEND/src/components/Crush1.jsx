@@ -148,7 +148,6 @@ const Crush1 = ({ pict }) => {
       className="relative min-h-screen overflow-hidden"
       onMouseMove={handleMouseMove}
     >
-      {/* Imagen de fondo con efecto parallax */}
       <div
         className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out"
         style={{
@@ -164,10 +163,8 @@ const Crush1 = ({ pict }) => {
         />
       </div>
 
-      {/* Overlay con gradiente dinámico más sutil */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-blue-900/40 to-purple-900/50"></div>
 
-      {/* Efectos de luz dinámicos */}
       <div
         className="absolute w-80 h-80 bg-blue-500/20 rounded-full blur-3xl transition-all duration-1000"
         style={{
@@ -185,7 +182,6 @@ const Crush1 = ({ pict }) => {
         }}
       />
 
-      {/* Partículas flotantes */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div
@@ -203,10 +199,8 @@ const Crush1 = ({ pict }) => {
         ))}
       </div>
 
-      {/* Contenido principal */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header de la sección */}
-        <div className="pt-20 pb-8 text-center">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center">
+        <div className="pt-20 pb-8 text-center md:pt-28 lg:pt-40">
           <div
             className={`transition-all duration-1000 transform ${
               isVisible
@@ -227,9 +221,8 @@ const Crush1 = ({ pict }) => {
           </div>
         </div>
 
-        {/* Tabs de navegación */}
-        <div className="flex justify-center mb-8">
-          <div className="flex bg-white/10 backdrop-blur-lg rounded-2xl p-2 border border-white/20">
+        <div className="flex justify-center mb-8 px-4">
+          <div className="flex flex-wrap justify-center gap-2 bg-white/10 backdrop-blur-lg rounded-2xl p-2 border border-white/20">
             {communityTabs.map((tab) => (
               <button
                 key={tab.id}
@@ -247,10 +240,8 @@ const Crush1 = ({ pict }) => {
           </div>
         </div>
 
-        {/* Contenido dinámico */}
-        <div className="flex-1 px-6">
+        <div className="flex-1 px-4 sm:px-6 md:px-10">
           <div className="max-w-6xl mx-auto">
-            {/* Header de la sección activa */}
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
                 {currentData.title}
@@ -263,8 +254,7 @@ const Crush1 = ({ pict }) => {
               </p>
             </div>
 
-            {/* Grid de tarjetas transparentes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {currentData.cards.map((card, index) => (
                 <div
                   key={index}
@@ -278,7 +268,6 @@ const Crush1 = ({ pict }) => {
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   <div className="relative p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden">
-                    {/* Efecto de hover más sutil */}
                     <div
                       className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-500 ${
                         activeTab === 0
@@ -323,7 +312,6 @@ const Crush1 = ({ pict }) => {
                       </div>
                     </div>
 
-                    {/* Partículas en hover */}
                     {hoveredCard === index && (
                       <div className="absolute inset-0 pointer-events-none">
                         {[...Array(5)].map((_, i) => (
@@ -347,7 +335,6 @@ const Crush1 = ({ pict }) => {
         </div>
       </div>
 
-      {/* Estilos CSS personalizados */}
       <style jsx>{`
         @keyframes float-0 {
           0%,
@@ -394,7 +381,6 @@ const Crush1 = ({ pict }) => {
             background-position: 200% center;
           }
         }
-
         .animate-float-0 {
           animation: float-0 5s ease-in-out infinite;
         }

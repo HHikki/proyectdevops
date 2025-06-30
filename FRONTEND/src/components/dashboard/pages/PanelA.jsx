@@ -1,14 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../context/AuthContext.jsx";
-import { Button } from "../components/UI";
-
 import Barra from "../components/Barra";
 import Header from "../components/Header";
 import Stats from "../components/paneles/Stats";
 import PublicacionesRecientes from "../components/paneles/Publicacionreciente";
 import AccionesRapidas from "../components/paneles/Accionesrapidas";
 import GestionContenido from "../components/paneles/Gestion";
-// import RegistroP from "../components/List/RegistroP";
 import { API_BASE_URL, API_KEY } from "../../../config/env.jsx";
 
 export default function PanelA() {
@@ -17,9 +14,8 @@ export default function PanelA() {
   const [interesados, setInteresados] = useState([]);
   const token = localStorage.getItem("jwtToken");
 
-  console.log(">>name:", name, "user:", user, "admin:", admin);
   useEffect(() => {
-    if (loading) return; // Esperar a que el contexto esté completamente cargado
+    if (loading) return;
 
     const fetchPosts = async () => {
       try {
@@ -35,9 +31,7 @@ export default function PanelA() {
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Error al obtener los posts");
-        }
+        if (!response.ok) throw new Error("Error al obtener los posts");
 
         const data = await response.json();
         setPosts([
@@ -61,7 +55,6 @@ export default function PanelA() {
 
     const fetchInteresados = async () => {
       try {
-        const token = localStorage.getItem("jwtToken");
         const response = await fetch(`${API_BASE_URL}/prisma/getform`, {
           headers: {
             "Content-Type": "application/json",
@@ -69,11 +62,10 @@ export default function PanelA() {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (!response.ok) {
-          throw new Error("Error al obtener los interesados");
-        }
+
+        if (!response.ok) throw new Error("Error al obtener los interesados");
+
         const data = await response.json();
-        console.log("Interesados:", data);
         setInteresados(data);
       } catch (error) {
         console.error("Error en fetchInteresados:", error.message);
@@ -85,25 +77,36 @@ export default function PanelA() {
   }, [token, admin, user, loading]);
 
   if (loading) {
-    return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras el contexto se inicializa
+    return <div className="p-6 text-center">Cargando...</div>;
   }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <div className="flex-1 flex flex-col mt-16 ml-60 transition-all duration-300">
+      {/* Barra lateral en escritorio */}
+      <div className="hidden md:block">
+        <Barra />
+      </div>
+
+      {/* Panel principal */}
+      <div className="flex-1 flex flex-col mt-16 px-4 sm:px-6 lg:px-8 transition-all duration-300 md:ml-60">
         <Header user={name} />
+
         <Stats
           posts={posts.map((item) => item.count)}
           interesados={interesados.length}
         />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
-          <div className="lg:col-span-2 flex flex-col gap-6">
+
+        {/* Layout responsive mejorado */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+          {/* Columna principal */}
+          <div className="xl:col-span-2 flex flex-col gap-6 order-2 xl:order-1">
             <PublicacionesRecientes />
           </div>
-          <div className="flex flex-col gap-6">
+
+          {/* Columna secundaria */}
+          <div className="flex flex-col gap-6 order-1 xl:order-2">
             <AccionesRapidas />
             <GestionContenido />
-            {/* <RegistroP /> */}
           </div>
         </div>
       </div>

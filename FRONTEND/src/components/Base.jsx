@@ -40,7 +40,6 @@ export default function EducationalPillars() {
   useEffect(() => {
     AOS.init({ duration: 1000, offset: 100 });
 
-    /* inyectamos keyframes para brillo */
     const style = document.createElement("style");
     style.innerHTML = `
       @keyframes iconGlow {
@@ -73,13 +72,14 @@ export default function EducationalPillars() {
         Educamos con propósito, valores y excelencia.
       </p>
 
-      {/* tarjetas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-10 px-4">
+      {/* tarjetas responsivas */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 mb-10">
         {pillars.map((p, i) => (
           <div
             key={p.title}
             className={`
-              group relative p-10 md:p-12 flex flex-col items-center gap-6
+              group relative p-6 sm:p-8 md:p-10 lg:p-12 
+              w-full max-w-xs mx-auto flex flex-col items-center gap-4
               transition-all duration-300 transform
               hover:scale-105 hover:shadow-2xl
               text-white
@@ -89,7 +89,9 @@ export default function EducationalPillars() {
               borderRadius: "1.2rem",
               boxShadow: "0 4px 20px #00304918",
             }}
-            data-aos={i === 0 ? "fade-left" : i === 1 ? "fade-up" : "fade-right"}
+            data-aos={
+              i === 0 ? "fade-left" : i === 1 ? "fade-up" : "fade-right"
+            }
             data-aos-delay={i * 200}
           >
             {/* esquinas decorativas */}
@@ -99,10 +101,9 @@ export default function EducationalPillars() {
             {/* icono con brillo */}
             <div
               className="
-                icon-wrap w-16 h-16 rounded-full bg-white/80 flex items-center
-                justify-center shadow-md transition-transform
+                icon-wrap w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/80 
+                flex items-center justify-center shadow-md transition-transform
               "
-              /* animación glow al hover de la tarjeta */
               style={{ animation: "iconGlow 0.8s ease-in-out forwards paused" }}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.animationPlayState = "running")
@@ -111,39 +112,42 @@ export default function EducationalPillars() {
                 (e.currentTarget.style.animationPlayState = "paused")
               }
             >
-              <p.Icon size={28} className={p.iconColor} />
+              <p.Icon size={24} className={p.iconColor} />
             </div>
 
-            {/* título + desc */}
-            <h3 className="text-2xl font-bold tracking-wide">{p.title}</h3>
-            <p className="text-base leading-relaxed">{p.description}</p>
+            {/* título + descripción */}
+            <h3 className="text-lg sm:text-xl font-bold tracking-wide">
+              {p.title}
+            </h3>
+            <p className="text-sm sm:text-base leading-relaxed text-center">
+              {p.description}
+            </p>
           </div>
         ))}
       </div>
 
       {/* ——— CINTA DESLIZANTE ——— */}
-<div className="w-full bg-[#0F172A] overflow-hidden">
-  {/* style in-place: keyframes + aplicación */}
-  <style>{`
-    @keyframes marqueeLeft {
-      0%   { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-  `}</style>
+      <div className="w-full bg-[#0F172A] overflow-hidden">
+        <style>{`
+          @keyframes marqueeLeft {
+            0%   { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+          }
+        `}</style>
 
-  <div
-    className="
-      whitespace-nowrap text-2xl font-extrabold
-      text-transparent bg-clip-text
-      bg-gradient-to-r from-sky-400 via-red-500 to-blue-600
-      py-4
-    "
-    style={{ animation: "marqueeLeft 20s linear infinite" }}
-  >
-    ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! · ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! ·
-  </div>
-</div>
-
+        <div
+          className="
+            whitespace-nowrap text-xl sm:text-2xl font-extrabold
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-sky-400 via-red-500 to-blue-600
+            py-4
+          "
+          style={{ animation: "marqueeLeft 20s linear infinite" }}
+        >
+          ESTUDIO · DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! · ESTUDIO ·
+          DISCIPLINA · SUPERACIÓN · ¡FUERZA PRISMA! ·
+        </div>
+      </div>
     </section>
   );
 }

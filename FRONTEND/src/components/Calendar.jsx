@@ -145,7 +145,10 @@ export default function CalendarWithEvents() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fdf6f4] via-[#f6f6f6] to-[#f4f9fb] py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="bg-gradient-to-br from-[#fdf6f4] via-[#f6f6f6] to-[#f4f9fb] py-12 px-4 sm:px-6 lg:px-8"
+      id="calendar-section"
+    >
       {/* Header mejorado */}
       <div className="text-center mb-12">
         <div className="inline-block">
@@ -160,7 +163,7 @@ export default function CalendarWithEvents() {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Calendario a la izquierda */}
           <div className="flex justify-center">
             <div className="bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-white/50 hover:shadow-3xl transition-all duration-500">

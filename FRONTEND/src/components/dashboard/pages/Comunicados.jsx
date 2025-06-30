@@ -9,7 +9,7 @@ const Comunicados = () => {
   const [comunicados, setComunicados] = useState([]);
   const [filteredComunicados, setFilteredComunicados] = useState([]);
   const { user, admin } = useContext(AuthContext);
-  console.log("user:", user);
+
   useEffect(() => {
     const fetchComunicados = async () => {
       const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
@@ -17,7 +17,6 @@ const Comunicados = () => {
       });
       const data = await response.json();
 
-      // Filtra según el tipo de usuario
       let visibles = data;
       if (!admin) {
         visibles = data.filter((post) => post.userId === user.id);
@@ -29,7 +28,6 @@ const Comunicados = () => {
     fetchComunicados();
   }, [user]);
 
-  // Refrescar comunicados desde la API
   const refreshComunicados = async () => {
     const response = await fetch(`${API_BASE_URL}/prisma/post/page`, {
       headers: { "x-api-key": API_KEY },
@@ -57,24 +55,39 @@ const Comunicados = () => {
   };
 
   return (
-    <div className="flex-1 p-6 mt-16 ml-56 transition-all duration-300">
+    <div
+      className="flex-1 p-4 sm:p-6 mt-16 sm:ml-56 transition-all duration-300"
+      style={{ overflowX: "hidden" }}
+    >
       <HeaderPublicaciones
         tipo={"Comunicado"}
         descripcion={"Gestiona todos los comunicados en la plataforma"}
         textoBoton={"+ Nuevo Comunicado"}
         onNuevaPublicacion={refreshComunicados}
       />
+
       <div className="mb-4">
         <SearchP placeholder="Buscar comunicados..." onSearch={handleSearch} />
       </div>
 
-      <Registro
-        layoutMode={3}
-        tipo={"Comunicado"}
-        posts={filteredComunicados}
-        onDelete={refreshComunicados}
-        onEdit={refreshComunicados}
-      />
+      {/* Scroll horizontal para móviles */}
+      <div
+        style={{
+          width: "100%",
+          overflowX: "auto",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        <div style={{ width: "900px" }}>
+          <Registro
+            layoutMode={3}
+            tipo={"Comunicado"}
+            posts={filteredComunicados}
+            onDelete={refreshComunicados}
+            onEdit={refreshComunicados}
+          />
+        </div>
+      </div>
     </div>
   );
 };

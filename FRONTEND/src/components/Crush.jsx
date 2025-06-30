@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Sparkles, Heart, Users } from "lucide-react";
 
-const Crush = ({ pict }) => {
+const Crush = ({ pict, onVerEventos, onVerComunicados }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -156,50 +156,52 @@ const Crush = ({ pict }) => {
             </p>
           </div>
 
-        {/* Botones de acción modernos (ancho aún más reducido) */}
-<div
-  className={`w-full flex justify-center md:justify-start transition-all duration-1000 ${
-    isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-  }`}
-  style={{ transitionDelay: "0.8s" }}
->
-  {/* Contenedor con ancho máximo muy pequeño */}
-  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-[240px]">
-    {/* Botón “Ver eventos” */}
-    <button
-      className="w-full sm:w-auto flex-none relative px-4 py-2
-                 bg-gradient-to-r from-yellow-400 to-orange-500 text-blue-900
-                 rounded-xl font-bold text-sm overflow-hidden
-                 shadow-lg hover:shadow-yellow-400/25 transition-all duration-500
-                 transform hover:scale-105 hover:-translate-y-1"
-    >
-      <span className="relative z-10 flex items-center justify-center gap-1">
-        Ver eventos <Sparkles className="w-4 h-4 group-hover:animate-spin" />
-      </span>
-      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-    </button>
+          {/* Botones de acción modernos (ancho aún más reducido) */}
+          <div
+            className={`w-full flex justify-center md:justify-start transition-all duration-1000 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-6 opacity-0"
+            }`}
+            style={{ transitionDelay: "0.8s" }}
+          >
+            {/* Contenedor con ancho máximo muy pequeño */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-[240px]">
+              {/* Botón “Ver eventos” */}
 
-    {/* Botón “Comunicados” */}
-    <button
-      className="w-full sm:w-auto flex-none relative px-4 py-2
-                 bg-white/10 backdrop-blur-lg text-white rounded-xl
-                 font-bold text-sm border-2 border-white/30
-                 overflow-hidden shadow-lg hover:shadow-white/20
-                 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1"
-    >
-      <span className="relative z-10 flex items-center justify-center gap-1">
-        Comunicados <Heart className="w-4 h-4 group-hover:animate-pulse" />
-      </span>
-      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    </button>
-  </div>
-</div>
+              <button
+                className="w-full sm:w-auto flex-none relative px-4 py-2
+    bg-gradient-to-r from-yellow-400 to-orange-500 text-blue-900
+    rounded-xl font-bold text-sm overflow-hidden
+    shadow-lg hover:shadow-yellow-400/25 transition-all duration-500
+    transform hover:scale-105 hover:-translate-y-1"
+                onClick={onVerEventos} // <--- CORREGIDO
+              >
+                <span className="relative z-10 flex items-center justify-center gap-1">
+                  Ver eventos{" "}
+                  <Sparkles className="w-4 h-4 group-hover:animate-spin" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+              </button>
 
-
-
-
-
+              {/* Botón “Comunicados” */}
+              <button
+                className="w-full sm:w-auto flex-none relative px-4 py-2
+    bg-white/10 backdrop-blur-lg text-white rounded-xl
+    font-bold text-sm border-2 border-white/30
+    overflow-hidden shadow-lg hover:shadow-white/20
+    transition-all duration-500 transform hover:scale-105 hover:-translate-y-1"
+                onClick={onVerComunicados} // <--- NUEVO
+              >
+                <span className="relative z-10 flex items-center justify-center gap-1">
+                  Comunicados{" "}
+                  <Heart className="w-4 h-4 group-hover:animate-pulse" />
+                </span>
+                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

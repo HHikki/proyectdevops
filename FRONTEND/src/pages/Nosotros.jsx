@@ -176,6 +176,26 @@ const EstadisticasAnimadas = () => {
     awards: 0,
   });
 
+  const ref = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     if (!isVisible) return;
 
@@ -208,41 +228,34 @@ const EstadisticasAnimadas = () => {
     return () => clearInterval(timer);
   }, [isVisible]);
 
+  const stats = [
+    { icon: FaUsers, count: counts.students, label: "Estudiantes" },
+    { icon: FaGraduationCap, count: counts.teachers, label: "Docentes" },
+    { icon: FaHistory, count: counts.years, label: "Años de Experiencia" },
+    { icon: FaTrophy, count: counts.awards, label: "Reconocimientos" },
+  ];
+
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 py-8"
-      ref={(el) => {
-        if (el && !isVisible) {
-          const observer = new window.IntersectionObserver(
-            ([entry]) => {
-              if (entry.isIntersecting) setIsVisible(true);
-            },
-            { threshold: 0.5 }
-          );
-          observer.observe(el);
-          return () => observer.disconnect();
-        }
-      }}
+      ref={ref}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-10 px-4 sm:px-6 lg:px-20"
       data-aos="fade-up"
       data-aos-delay="100"
     >
-      {[
-        { icon: FaUsers, count: counts.students, label: "Estudiantes" },
-        { icon: FaGraduationCap, count: counts.teachers, label: "Docentes" },
-        { icon: FaHistory, count: counts.years, label: "Años de Experiencia" },
-        { icon: FaTrophy, count: counts.awards, label: "Reconocimientos" },
-      ].map((stat, index) => (
+      {stats.map((stat, index) => (
         <div
           key={index}
-          className="text-center group rounded-xl shadow-xl p-4 sm:p-8 bg-[#780000]"
+          className="text-center group rounded-xl shadow-xl p-6 sm:p-8 bg-[#780000] hover:shadow-2xl transition"
         >
-          <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 text-white">
+          <div className="text-4xl sm:text-5xl mb-4 text-white group-hover:scale-110 transition-transform duration-300">
             <stat.icon className="mx-auto" />
           </div>
           <div className="text-2xl sm:text-4xl font-bold text-white mb-2 group-hover:text-[#e24585] transition-colors duration-300">
             {stat.count}+
           </div>
-          <div className="text-white font-medium">{stat.label}</div>
+          <div className="text-white text-sm sm:text-base font-medium">
+            {stat.label}
+          </div>
         </div>
       ))}
     </div>
@@ -294,21 +307,21 @@ const Nosotros = () => {
       imagen: Image1,
     },
     {
+      nombre: "Roxana Torres",
+      cargo: "PSICÓLOGA EDUCATIVA",
+      descripcion: "Experta en desarrollo integral",
+      imagen: Image2,
+    },
+    {
       nombre: "Julian Jameson",
       cargo: "SUBDIRECTOR ACADÉMICO",
       descripcion: "Especialista en innovación educativa",
-      imagen: Image2,
+      imagen: Image3,
     },
     {
       nombre: "Juan Lhi",
       cargo: "COORDINADOR ESTUDIANTIL",
       descripcion: "Comprometido con el bienestar estudiantil",
-      imagen: Image3,
-    },
-    {
-      nombre: "Roxana Median",
-      cargo: "PSICÓLOGA EDUCATIVA",
-      descripcion: "Experta en desarrollo integral",
       imagen: Image4,
     },
   ];
@@ -317,25 +330,41 @@ const Nosotros = () => {
     <div data-aos="fade-in" data-aos-duration="1200">
       {/* HERO SECTION */}
       <div
-        className="relative w-full h-screen bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url(${img_map})` }} /* tu imagen de mapa */
+        className="relative w-full h-[80vh] sm:h-screen bg-cover bg-center flex items-center"
+        style={{ backgroundImage: `url(${img_map})` }}
         data-aos="fade-in"
         data-aos-duration="1000"
       >
         {/* ---------- CSS in-line ---------- */}
         <style>{`
-    /* luciérnagas */
-    @keyframes glow{0%,100%{box-shadow:0 0 8px #fff,0 0 24px #80caff}50%{box-shadow:0 0 24px #fff,0 0 48px #33d9ff}}
-    .glow-light{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;opacity:.8;animation:glow 2s ease-in-out infinite;z-index:5}
+    @keyframes glow {
+      0%,100% { box-shadow: 0 0 8px #fff, 0 0 24px #80caff }
+      50% { box-shadow: 0 0 24px #fff, 0 0 48px #33d9ff }
+    }
+    .glow-light {
+      position: absolute;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.8;
+      animation: glow 2s ease-in-out infinite;
+      z-index: 5;
+    }
 
-    /* contorno neón giratorio */
-    @keyframes spin-slow{to{transform:rotate(360deg)}}
-    .card-wrapper::before{
-      content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;
-      background:conic-gradient(#ffd700,#ff7300,#ff0000,#ff7300,#ffd700);
-      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-      -webkit-mask-composite:xor;mask-composite:exclude;
-      animation:spin-slow 20s linear infinite;
+    @keyframes spin-slow {
+      to { transform: rotate(360deg) }
+    }
+    .card-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 2px;
+      background: conic-gradient(#ffd700,#ff7300,#ff0000,#ff7300,#ffd700);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spin-slow 20s linear infinite;
     }
   `}</style>
 
@@ -352,18 +381,21 @@ const Nosotros = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent z-0" />
 
         {/* ---------- CONTENIDO ---------- */}
-        <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-start justify-between px-8 lg:px-24 gap-12">
+        <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 sm:px-8 lg:px-24 gap-10 text-center lg:text-left">
           {/* título */}
-          <div className="relative mt-25" data-aos="fade-right">
-            <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl text-center lg:text-left">
+          <div
+            className="relative mt-10 sm:mt-12 lg:mt-0"
+            data-aos="fade-right"
+          >
+            <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl">
               Ven&nbsp;conócenos
             </h1>
             <span className="absolute inset-0 rounded-lg bg-white/10 blur-sm -z-10" />
           </div>
 
-          {/* GRID 2×2 tarjetas */}
+          {/* GRID tarjetas */}
           <div
-            className="grid grid-cols-2 gap-6 lg:gap-10 lg:ml-auto mr-30"
+            className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10"
             data-aos="zoom-in-up"
             data-aos-delay="150"
           >
@@ -389,26 +421,20 @@ const Nosotros = () => {
                 path: "M8 21h8M12 17a5 5 0 005-5V9a9 9 0 10-10 0v3a5 5 0 005 5z",
               },
             ].map(({ n, lbl, path }, idx) => (
-              /* contorno neón */
               <div
                 key={idx}
                 className="relative card-wrapper rounded-xl p-[2px]"
               >
-                {/* tarjeta opaca con hover */}
                 <div
                   className="group relative flex flex-col items-center justify-center
-                        w-32 h-32 sm:w-36 sm:h-36
-                        bg-[#780000] text-white rounded-[10px] shadow-lg
-                        transition-transform duration-500
-                        hover:scale-105 hover:rotate-[6deg]"
+              w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36
+              bg-[#780000] text-white rounded-[10px] shadow-lg
+              transition-transform duration-500 hover:scale-105 hover:rotate-[6deg]"
                 >
-                  {/* destello */}
                   <span
                     className="absolute -top-1 -left-1 w-0.5 h-0.5 bg-transparent
-                             shadow-[0_0_8px_4px_rgba(255,255,255,.45)] animate-ping"
+                shadow-[0_0_8px_4px_rgba(255,255,255,.45)] animate-ping"
                   />
-
-                  {/* icono */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-6 h-6 mb-1 drop-shadow-[0_0_4px_rgb(255,255,255)]"
@@ -423,7 +449,6 @@ const Nosotros = () => {
                       d={path}
                     />
                   </svg>
-
                   <p className="text-2xl font-extrabold drop-shadow-[0_0_4px_rgb(255,255,255)]">
                     {n}
                   </p>
@@ -441,12 +466,11 @@ const Nosotros = () => {
         data-aos="fade-up"
         data-aos-delay="300"
       >
-        {/* Fondo patrones y blobs (igual que antes) */}
+        {/* Fondo patrones y blobs */}
         <div className="absolute inset-0 bg-[url('/pattern-diagonal.svg')] bg-center bg-repeat opacity-10 pointer-events-none" />
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#5E7FA1]/10 rounded-full animate-blob-slow opacity-30 pointer-events-none" />
         <div className="absolute bottom-1/6 right-1/3 w-[500px] h-[500px] bg-[#44789B]/10 rounded-full animate-blob-fast opacity-20 pointer-events-none" />
 
-        {/* Keyframes y utilidades extra (idéntico) */}
         <style>{`
     @keyframes spin-slow { to { transform: rotate(360deg); } }
     @keyframes blob-slow { 0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.1)} }
@@ -470,18 +494,13 @@ const Nosotros = () => {
   `}</style>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-          {/* — TÍTULO con las dos líneas separadas — */}
+          {/* TÍTULO */}
           <div className="text-center mb-12 md:mb-20 group">
             <h1 className="inline-block font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white relative overflow-hidden drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
-              {/* Primera línea con shine */}
               <span className="block relative">
                 Nuestra Historia,
-                <span
-                  className="absolute top-0 left-[-75%] w-1/2 h-full bg-white/20 mix-blend-screen skew-x-[-20deg]
-                           transition-transform duration-1000 group-hover:translate-x-[200%] z-0"
-                />
+                <span className="absolute top-0 left-[-75%] w-1/2 h-full bg-white/20 mix-blend-screen skew-x-[-20deg] transition-transform duration-1000 group-hover:translate-x-[200%] z-0" />
               </span>
-              {/* Segunda línea completamente visible */}
               <span className="block relative z-10 text-[#88AECF] drop-shadow-[0_0_6px_rgba(0,0,0,0.5)]">
                 Identidad y Visión
               </span>
@@ -494,73 +513,47 @@ const Nosotros = () => {
           </div>
 
           <div className="relative mx-auto w-full max-w-6xl">
-            {/* Línea central */}
-            <div
-              className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#88AECF] to-[#6698BC] opacity-70
-                      animate-pulse-slow drop-shadow-[0_0_10px_#88AECF]"
-            />
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#88AECF] to-[#6698BC] opacity-70 animate-pulse-slow drop-shadow-[0_0_10px_#88AECF]" />
 
             {valoresV.map((valor, i) => (
               <div
                 key={i}
-                className={`group flex flex-col md:flex-row items-center mb-16 perspective-1000 ${
+                className={`group flex flex-col md:flex-row items-center mb-12 md:mb-16 perspective-1000 ${
                   i % 2 === 0 ? "md:flex-row-reverse" : ""
                 }`}
                 data-aos={i % 2 === 0 ? "fade-left" : "fade-right"}
                 data-aos-delay={i * 200}
               >
-                {/* Tarjeta 3D con ripple, glow y tilt */}
                 <div
-                  className={`w-full md:w-5/12 ${
+                  className={`w-[90%] sm:w-full md:w-5/12 ${
                     i % 2 === 0 ? "md:pl-12" : "md:pr-12"
-                  } mb-8 md:mb-0`}
+                  } mb-6 md:mb-0`}
                 >
-                  <div
-                    className="relative rounded-3xl p-8 bg-gradient-to-br from-[#5E7FA1] to-[#44789B]
-                            shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 ripple-effect
-                            transform transition-all duration-500
-                            group-hover:-translate-y-6 group-hover:rotate-y-8 group-hover:rotate-x-4 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
-                  >
-                    <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#6698BC]/20 rounded-full animate-spin-slow pointer-events-none" />
-                    <div className="flex items-center justify-between mb-6">
-                      <h3
-                        className="relative text-2xl sm:text-3xl font-bold text-white/90
-                               before:absolute before:-bottom-1 before:left-0 before:h-1 before:w-0
-                               before:bg-gradient-to-r from-white to-[#88AECF]
-                               before:transition-all before:duration-500 group-hover:before:w-full"
-                      >
+                  <div className="relative rounded-2xl p-5 sm:p-6 md:p-8 bg-gradient-to-br from-[#5E7FA1] to-[#44789B] shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/10 ripple-effect transform transition-all duration-500 group-hover:-translate-y-4 group-hover:rotate-y-6 group-hover:rotate-x-2 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]">
+                    <div className="absolute -top-4 -left-4 w-20 h-20 bg-[#6698BC]/20 rounded-full animate-spin-slow pointer-events-none" />
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="relative text-lg sm:text-xl md:text-2xl font-bold text-white/90 before:absolute before:-bottom-1 before:left-0 before:h-1 before:w-0 before:bg-gradient-to-r from-white to-[#88AECF] before:transition-all before:duration-500 group-hover:before:w-full">
                         {valor.año}
                       </h3>
-                      <div
-                        className="flex items-center justify-center w-16 h-16 bg-white/20 rounded-full
-                                transition-all duration-500 group-hover:scale-150 group-hover:rotate-12
-                                drop-shadow-[0_0_20px_#fff] group-hover:drop-shadow-[0_0_40px_#fff] animate-icon-bounce"
-                      >
+                      <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-full transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 drop-shadow-[0_0_12px_#fff] group-hover:drop-shadow-[0_0_24px_#fff] animate-icon-bounce">
                         {valor.icono}
                       </div>
                     </div>
-                    <div className="h-px w-full mb-6 bg-white/20" />
-                    <p
-                      className="text-base sm:text-lg text-white/80 leading-relaxed
-                            transition-colors duration-300 group-hover:text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]"
-                    >
+                    <div className="h-px w-full mb-4 bg-white/20" />
+                    <p className="text-sm sm:text-base text-white/80 leading-relaxed transition-colors duration-300 group-hover:text-white drop-shadow-[0_0_4px_rgba(0,0,0,0.3)]">
                       {valor.evento}
                     </p>
                   </div>
                 </div>
 
-                {/* Punto numerado con pulso, glow y pop */}
-                <div className="relative flex items-center justify-center z-20 mb-8 md:mb-0">
-                  <div
-                    className="w-16 h-16 sm:w-20 sm:h-20 bg-[#88AECF] rounded-full flex items-center justify-center
-                            ring-4 ring-white/50 shadow-[0_0_20px_#88AECF] animate-pulse-slow
-                            transition-all duration-500 group-hover:scale-150 group-hover:shadow-[0_0_40px_#88AECF]"
-                  >
-                    <span className="font-extrabold text-white text-lg">
+                <div className="relative flex items-center justify-center z-20 mb-6 md:mb-0">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#88AECF] rounded-full flex items-center justify-center ring-4 ring-white/50 shadow-[0_0_14px_#88AECF] animate-pulse-slow transition-all duration-500 group-hover:scale-125 group-hover:shadow-[0_0_28px_#88AECF]">
+                    <span className="font-extrabold text-white text-sm sm:text-base">
                       {i + 1}
                     </span>
                   </div>
                 </div>
+
                 <div className="w-full md:w-5/12" />
               </div>
             ))}
@@ -576,59 +569,62 @@ const Nosotros = () => {
         data-aos-delay="400"
       >
         <div className="absolute inset-0 bg-[#f0e4d0]/90"></div>
-        <div className="relative z-10 py-10 sm:py-16 md:py-24 min-h-[50vh] flex flex-col justify-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-            <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-[#003049] mb-4 md:mb-6">
+        <div className="relative z-10 py-8 sm:py-12 md:py-16 flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+            {/* Título */}
+            <div className="text-center mb-8 md:mb-14">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-[#003049] mb-3 md:mb-5">
                 Nuestro{" "}
                 <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
                   Equipo Directivo
                 </span>
               </h2>
-              <div className="h-2 w-20 md:w-32 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-6 md:mb-8 rounded-full"></div>
-              <p className="text-[#003049] text-base sm:text-xl max-w-3xl mx-auto leading-relaxed">
-                Conoce a los profesionales dedicados que lideran nuestra
-                institución con pasión, experiencia y compromiso hacia la
-                excelencia educativa
+              <div className="h-1.5 w-16 sm:w-24 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto mb-4 rounded-full" />
+              <p className="text-[#003049] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Conoce a los profesionales que lideran nuestra institución con
+                pasión y compromiso por la excelencia educativa.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {/* Tarjetas de directivos */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
               {directivos.map((item, i) => (
                 <div
                   key={i}
-                  className="group relative bg-[#003049] rounded-xl overflow-hidden shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20"
+                  className="group relative bg-[#003049] rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20"
                   data-aos="flip-up"
                   data-aos-delay={i * 150}
                 >
-                  <div className="relative h-48 sm:h-64 overflow-hidden">
+                  {/* Imagen con proporción fija y menor altura */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
                     <img
                       src={item.imagen}
                       alt={`Foto de ${item.nombre}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute inset-0 flex items-end p-2 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="text-white">
-                        <p className="text-xs sm:text-sm mb-1">
-                          {item.descripcion}
-                        </p>
+                    <div className="absolute inset-0 flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="text-white text-[11px] sm:text-xs">
+                        <p className="mb-1">{item.descripcion}</p>
                         <div className="flex gap-1 items-center">
-                          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                          <span className="text-xs text-gray-300">
+                          <div className="w-2 h-2 bg-green-400 rounded-full" />
+                          <span className="text-[10px] text-gray-300">
                             Disponible
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 sm:p-6 text-center">
-                    <h3 className="text-white text-lg sm:text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+
+                  {/* Contenido textual */}
+                  <div className="px-2 py-3 text-center">
+                    <h3 className="text-white text-sm sm:text-base font-bold mb-1 group-hover:text-yellow-400 transition-colors duration-300">
                       {item.nombre}
                     </h3>
-                    <p className="text-gray-300 text-xs uppercase tracking-wide font-medium">
+                    <p className="text-gray-300 text-[10px] sm:text-xs uppercase tracking-wide">
                       {item.cargo}
                     </p>
-                    <div className="mt-3 w-full h-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div className="mt-2 w-full h-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                   </div>
                 </div>
               ))}
