@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import insignia from "../assets/insignia_prima.png";
+import insignia from "../assets/insignia_prima_sinfondo.png";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -13,6 +13,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Inicio" },
+    { href: "/Registro", label: "Registro" },
     { href: "/Nosotros", label: "Nosotros" },
     { href: "/Blog", label: "Blog" },
     { href: "/Comunicado", label: "Eventos y Comunicados" },
