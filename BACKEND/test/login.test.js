@@ -1,6 +1,25 @@
 import "dotenv/config";
 import request from "supertest";
 import app from "../src/index.js";
+import { PrismaClient } from "@prisma/client";
+
+// test/login.test.js
+beforeAll(async () => {
+  const prisma = new PrismaClient();
+  const existingUser = await prisma.user.findFirst({
+    where: { email: "admin@mail.com" },
+  });
+  if (!existingUser) {
+    await prisma.user.create({
+      data: {
+        username: "admin",
+        email: "admin@mail.com",
+        password_hash: await bcrypt.hash("admin123", 10),
+        is_admin: true,
+      },
+    });
+  }
+});
 
 describe("POST /prisma/login", () => {
   it("debería responder con 200 y un token si las credenciales son válidas", async () => {
