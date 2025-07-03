@@ -2,10 +2,11 @@ import "dotenv/config";
 import request from "supertest";
 import app from "../src/index.js";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt"; // ← ESTE FALTABA
 
-// test/login.test.js
+const prisma = new PrismaClient();
+
 beforeAll(async () => {
-  const prisma = new PrismaClient();
   const existingUser = await prisma.user.findFirst({
     where: { email: "admin@mail.com" },
   });
@@ -27,11 +28,11 @@ describe("POST /prisma/login", () => {
       .post("/prisma/login")
       .set("x-api-key", process.env.API_KEY)
       .send({
-        email: "admin@mail.com", // Reemplaza con un usuario real de tu BD
-        password: "admin123", // Reemplaza con su contraseña real
+        email: "admin@mail.com",
+        password: "admin123",
       });
 
-    console.log(res.body); // Puedes ver el resultado completo
+    console.log(res.body); // DEBUG
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
@@ -49,13 +50,18 @@ describe("POST /prisma/login", () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error");
   });
+
   it("debería responder con 400 si faltan campos en la solicitud", async () => {
     const res = await request(app)
       .post("/prisma/login")
       .set("x-api-key", process.env.API_KEY)
-      .send({ email: "", password: "" }); // ambos vacíos
+      .send({ email: "", password: "" });
 
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error");
   });
+});
+
+afterAll(async () => {
+  await prisma.$disconnect();
 });

@@ -17,6 +17,11 @@ beforeAll(async () => {
       password: "admin123",
     });
 
+  if (res.statusCode !== 200 || !res.body.token) {
+    console.error("❌ No se obtuvo un token válido en form.test.js");
+    throw new Error("Login fallido: tokenAdmin no definido");
+  }
+
   tokenAdmin = res.body.token;
 
   // 🧹 Elimina duplicados anteriores por si corren múltiples veces
@@ -46,6 +51,7 @@ describe("📋 Test de endpoints de formulario", () => {
       .get("/prisma/getform")
       .set("x-api-key", process.env.API_KEY)
       .set("Authorization", `Bearer ${tokenAdmin}`);
+
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
 
@@ -59,6 +65,7 @@ describe("📋 Test de endpoints de formulario", () => {
       .delete(`/prisma/delfrom/${createdFormId}`)
       .set("x-api-key", process.env.API_KEY)
       .set("Authorization", `Bearer ${tokenAdmin}`);
+
     expect(res.statusCode).toBe(200);
     expect(res.body.message).toMatch(/eliminada correctamente/i);
     expect(res.body.deletedSubmission).toHaveProperty("id", createdFormId);
