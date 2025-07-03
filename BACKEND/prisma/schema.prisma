@@ -65,3 +65,9 @@ model FormSubmission {
   
   createdAt DateTime @default(now())
 }
+
+model Video {
+  id      Int    @id @default(autoincrement())
+  enlace  String
+  pagina  String
+}
