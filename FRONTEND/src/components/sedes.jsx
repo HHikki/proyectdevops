@@ -96,7 +96,7 @@ const WelcomeVideo = () => {
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <FaMapMarkerAlt className="text-lg text-[#003049] animate-bounce-slow" />
+          <FaMapMarkerAlt className="text-lg text-[#003049] animate-bounce-slow" />w
           <span className="text-[#003049] md:text-lg leading-relaxed">
             Mira nuestro video institucional y conoce el espíritu Prisma.
           </span>
