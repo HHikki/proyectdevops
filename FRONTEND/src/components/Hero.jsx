@@ -167,8 +167,7 @@ const Hero = () => {
             >
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/bwetv-77C2I?autoplay=1&rel=0&modestbranding=1"
-                title="Tour Virtual Colegio Prisma"
+                src="https://www.youtube.com/embed/K5o7U1WrJXc?autoplay=1&rel=0&modestbranding=1"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
