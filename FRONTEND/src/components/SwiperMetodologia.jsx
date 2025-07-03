@@ -231,7 +231,7 @@ export default function SwiperMetodologia() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .metodologia-coverflow {
           padding: 50px 0 80px;
         }

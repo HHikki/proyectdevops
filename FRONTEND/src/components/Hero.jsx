@@ -123,7 +123,7 @@ const Hero = () => {
         <div className="fixed bottom-6 right-6 z-50">
           <div className="relative group">
             <a
-              href="https://wa.me/51956260671"
+              href="https://wa.me/51922437363"
               target="_blank"
               rel="noopener noreferrer"
               className="relative bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white rounded-full p-4 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 animate-pulse hover:animate-none"
@@ -187,7 +187,7 @@ const Hero = () => {
       )}
 
       {/* Estilos animados */}
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from {
             opacity: 0;
