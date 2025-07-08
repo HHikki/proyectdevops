@@ -243,8 +243,6 @@ export const updatePost = async (req, res) => {
   }
 };
 
-
-
 /**
  * Eliminar un post
  */
